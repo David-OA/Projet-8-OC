@@ -4,9 +4,8 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import butterknife.BindView
 import butterknife.ButterKnife
+import com.openclassrooms.realestatemanager.databinding.ActivityMainBinding
 import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RFACLabelItem
 import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RapidFloatingActionContentLabelList
 import pub.devrel.easypermissions.EasyPermissions
@@ -16,17 +15,20 @@ class MainActivity : AppCompatActivity(), RapidFloatingActionContentLabelList.On
     private var textViewMain: TextView? = null
     private var textViewQuantity: TextView? = null
 
-    @BindView(R.id.main_activity_toolbar) lateinit var toolbar: Toolbar
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        ButterKnife.bind(this)
 
         //textViewMain = findViewById(R.id.activity_main_activity_text_view_main)
         //textViewQuantity = findViewById(R.id.activity_main_activity_text_view_quantity)
         //configureTextViewMain()
         //configureTextViewQuantity()
+
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+
+        setSupportActionBar(binding.toolbar)
+
 
         configureToolbar()
     }
@@ -35,9 +37,8 @@ class MainActivity : AppCompatActivity(), RapidFloatingActionContentLabelList.On
 
     // ------ Toolbar ------
     private fun configureToolbar() {
-        setSupportActionBar(toolbar);
+        //setSupportActionBar(toolbar);
     }
-
 
     private fun configureTextViewMain() {
         textViewMain!!.textSize = 15f

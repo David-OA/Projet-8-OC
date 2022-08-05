@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.openclassrooms.realestatemanager">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
     <uses-permission android:name="android:name=android.permission.WRITE_INTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -17,14 +18,14 @@
         android:supportsRtl="true"
         android:theme="@style/REMTheme">
         <activity android:name="com.openclassrooms.realestatemanager.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="fullUser">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.openclassrooms.realestatemanager.SecondActivity"></activity>
 
         <meta-data
             android:name="preloaded_fonts"

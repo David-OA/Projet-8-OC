@@ -4,12 +4,22 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/baseline_add_20.xml" value="0.2435" />
+        <entry key="app/src/main/res/drawable/home_icon.xml" value="0.2705" />
         <entry key="app/src/main/res/font/roboto.xml" value="0.3854166666666667" />
         <entry key="app/src/main/res/font/roboto_bold.xml" value="0.3854166666666667" />
         <entry key="app/src/main/res/font/roboto_italic.xml" value="0.3854166666666667" />
         <entry key="app/src/main/res/font/roboto_thin.xml" value="0.3854166666666667" />
+        <entry key="app/src/main/res/layout-land/activity_main.xml" value="0.30158730158730157" />
+        <entry key="app/src/main/res/layout-land/activity_main_seconde.xml" value="0.30158730158730157" />
+        <entry key="app/src/main/res/layout-sw600dp/activity_main.xml" value="0.16" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_main_seconde.xml" value="0.333786231884058" />
         <entry key="app/src/main/res/layout/activity_second.xml" value="0.18177083333333333" />
+        <entry key="app/src/main/res/layout/fragment_deux_test.xml" value="0.333786231884058" />
+        <entry key="app/src/main/res/layout/fragment_maisons_infos.xml" value="0.18177083333333333" />
+        <entry key="app/src/main/res/layout/fragment_maisons_list.xml" value="0.18177083333333333" />
+        <entry key="app/src/main/res/layout/fragment_un_test.xml" value="0.333786231884058" />
+        <entry key="app/src/main/res/layout/maisons_list_item.xml" value="0.5" />
         <entry key="app/src/main/res/layout/toolbar.xml" value="0.25" />
       </map>
     </option>
@@ -58,5 +68,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.33" />
+      </ProjectState>
+    </option>
   </component>
 </project>
