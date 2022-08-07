@@ -5,9 +5,9 @@
     <string name="list_fragment_label">Maisons</string>
     <string name="info_fragment_label">Maisons Info</string>
 
-    <string name="baseball">Baseball</string>
-    <string name="badminton">Badminton</string>
-    <string name="basketball">Basketball</string>
+    <string name="architecte">Architecte</string>
+    <string name="rooms">4</string>
+    <string name="bath">4</string>
     <string name="bowling">Bowling</string>
     <string name="cycling">Cycling</string>
     <string name="golf">Golf</string>
