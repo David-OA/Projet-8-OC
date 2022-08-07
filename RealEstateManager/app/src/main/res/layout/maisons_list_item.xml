@@ -2,7 +2,6 @@
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/cardview_small_margin">
@@ -25,15 +24,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
             android:padding="8dp"
-            android:text="title_placeholder"
-            android:textColor="@color/colorAccentLight"
+            android:textSize="@dimen/text_title"
+            android:text="house_type_placeholder"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/houseImage"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="title_placeholder" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/house_neighborhood"
@@ -41,13 +39,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:padding="8dp"
-            android:text="news_title"
+            android:text="house_neighborhood"
+            android:textSize="@dimen/text_subtitle"
             android:textColor="?android:textColorSecondary"
             app:layout_constraintStart_toEndOf="@+id/houseImage"
             app:layout_constraintTop_toBottomOf="@+id/house_type" />
 
         <TextView
-            android:id="@+id/sub_title"
+            android:id="@+id/house_price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -56,6 +55,8 @@
             android:padding="8dp"
             android:singleLine="true"
             android:text="sports_info_placeholder"
+            android:textSize="@dimen/text_price"
+            android:textColor="@color/colorAccent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/houseImage"
