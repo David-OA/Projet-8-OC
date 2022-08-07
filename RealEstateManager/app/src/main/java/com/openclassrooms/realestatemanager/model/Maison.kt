@@ -15,17 +15,18 @@
  */
 package com.openclassrooms.realestatemanager.model
 
-import com.openclassrooms.realestatemanager.R
-
-
 /**
  * Data model for each row of the RecyclerView
  */
 data class Maison(
     val id: Int,
-    val titleResourceId: Int,
-    val subTitleResourceId: Int,
-    val imageResourceId: Int,
-    val sportsImageBanner: Int,
-    val newsDetails: Int = R.string.badminton
-)
+    val detailsViewDescription: String,
+    val detailsViewSurface: String,
+    val detailsViewRooms: String,
+    val detailsViewBath: String,
+    val detailsViewBed: String,
+    val detailViewPrice: String,
+    val detailViewType: String,
+    val detailViewNearTitle: String,
+    val detailsViewSliderPictures: Int,
+    )
