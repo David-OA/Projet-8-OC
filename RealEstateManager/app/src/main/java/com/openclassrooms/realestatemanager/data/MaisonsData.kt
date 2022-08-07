@@ -28,79 +28,154 @@ object MaisonsData {
         return arrayListOf(
             Maison(
                 id = 1,
-                titleResourceId = R.string.baseball,
-                subTitleResourceId = R.string.baseball_subtitle,
-                imageResourceId = R.drawable.icon_baseball,
-                sportsImageBanner = R.drawable.img_baseball
+                detailsViewDescription = "Villa contemporaine de standing de 246m² habitables & 42m2 d'annexes, avec piscine, réalisée en 2021, avec isolation aux normes RT 2020.\n" +
+                        "\n" +
+                        "Située dans la commune de Montanay, à proximité de tous les services et commodités, à seulement 25 minutes de Lyon (accès A46 en 5 minutes), dans un secteur calme avec vue imprenable sur les Monts d’Or.\n" +
+                        "\n" +
+                        "D’une surface totale de 264m2 sur une parcelle de 600m2, vous bénéficierez au rez-de-chaussée d’un bel espace de vie de 55m2 (hauteur sous plafond 2,70m) avec sa cuisine aménagée et équipée haut de gamme (cuisine Aviva avec plan de travail en Granit) bénéficiant d’une triple exposition - baie vitrée à galandage - offrant une vue agréable sur la terrasse, la piscine et le jardin. De larges ouvertures sur l’extérieur lui confèrent une luminosité optimale.\n" +
+                        "\n" +
+                        "Une entrée, une belle suite parentale de 23m2, des WC séparés, une buanderie et un garage de 38,3m² complètent ce niveau.\n" +
+                        "\n" +
+                        "L’étage comprend un espace ouvert pouvant faire office de bureau ou de salle de jeux, ainsi que 4 chambres de 16m2  lumineuses et spacieuses, toutes dotées de dressings/rangements, et d’une salle d’eau. Un WC séparé complète cet étage.\n" +
+                        "\n" +
+                        "Au sous-sol, nous retrouvons une belle pièce de vie de 44m2, lumineuse grâce à deux courettes anglaises, pouvant être adaptée à tous vos projets (actuellement salle de sport), ainsi qu’une salle de cinéma, un cellier et une cave.\n" +
+                        "\n" +
+                        "L’extérieur offre un cadre agréable avec sa terrasse en dalles antidérapantes (exposée Ouest), une belle piscine 4m x 9m et sa pool house. Nous retrouvons également un terrain de pétanque avec vue sur les Monts d’Or.\n" +
+                        "\n" +
+                        "La maison est équipée d'un adoucisseur d'eau et d'une pompe à chaleur de 2021, avec un système de plancher chauffant/rafraichissant sur les 3 niveaux, mais également d'un système d'eau chaude par cumulus thermodynamique. \n" +
+                        "\n" +
+                        "Réalisée en 2021, cette villa contemporaine vous séduira par la qualité de ses prestations.\n" +
+                        "\n" +
+                        "Bénéficiant d'un environnement calme et d'une belle vue sur les Monts d'Or, cette maison enchantera une famille à la recherche d'une demeure spacieuse et confortable aux portes de Lyon.",
+                detailsViewSurface = "264",
+                detailsViewRooms = "10",
+                detailsViewBath = "5",
+                detailsViewBed = "5",
+                detailViewPrice = "1 284 000",
+                detailViewType = "Maisons d'architecte",
+                detailViewNearTitle = "Lyon",
+                detailsViewSliderPictures = R.drawable.photo1,
+
             ),
             Maison(
-                id = 2, titleResourceId = R.string.badminton,
-                subTitleResourceId = R.string.badminton_subtitle,
-                imageResourceId = R.drawable.icon_badminton,
-                sportsImageBanner = R.drawable.img_badminton
+                id = 2,
+                detailsViewDescription = "Appartement",
+                detailsViewSurface = "R.string.baseball_subtitle",
+                detailsViewRooms = "R.string.rooms",
+                detailsViewBath = "R.string.bath",
+                detailsViewBed = "R.string.rooms",
+                detailViewPrice = "R.string.price",
+                detailViewType = "Appartement",
+                detailViewNearTitle = "R.string.nombre_near_title",
+                detailsViewSliderPictures = R.drawable.photo2,
             ),
             Maison(
                 id = 3,
-                titleResourceId = R.string.basketball,
-                subTitleResourceId = R.string.basketball_subtitle,
-                imageResourceId = R.drawable.icon_basketball,
-                sportsImageBanner = R.drawable.img_basketball
+                detailsViewDescription = "Villa",
+                detailsViewSurface = "R.string.baseball_subtitle",
+                detailsViewRooms = "R.string.rooms",
+                detailsViewBath = "R.string.bath",
+                detailsViewBed = "R.string.rooms",
+                detailViewPrice = "R.string.price",
+                detailViewType = "Villa",
+                detailViewNearTitle = "R.string.nombre_near_title",
+                detailsViewSliderPictures = R.drawable.photo3,
             ),
             Maison(
                 id = 4,
-                titleResourceId = R.string.bowling,
-                subTitleResourceId = R.string.bowling_subtitle,
-                imageResourceId = R.drawable.icon_bowling,
-                sportsImageBanner = R.drawable.img_bowling
+                detailsViewDescription = "Immeuble",
+                detailsViewSurface = "R.string.baseball_subtitle",
+                detailsViewRooms = "R.string.rooms",
+                detailsViewBath = "R.string.bath",
+                detailsViewBed = "R.string.rooms",
+                detailViewPrice = "R.string.price",
+                detailViewType = "Immeuble",
+                detailViewNearTitle = "R.string.nombre_near_title",
+                detailsViewSliderPictures = R.drawable.photo4,
             ),
             Maison(
                 id = 5,
-                titleResourceId = R.string.cycling,
-                subTitleResourceId = R.string.cycling_subtitle,
-                imageResourceId = R.drawable.icon_cycling,
-                sportsImageBanner = R.drawable.img_cycling
+                detailsViewDescription = "Chateau",
+                detailsViewSurface = "R.string.baseball_subtitle",
+                detailsViewRooms = "R.string.rooms",
+                detailsViewBath = "R.string.bath",
+                detailsViewBed = "R.string.rooms",
+                detailViewPrice = "R.string.price",
+                detailViewType = "Chateau",
+                detailViewNearTitle = "R.string.nombre_near_title",
+                detailsViewSliderPictures = R.drawable.photo5,
             ),
             Maison(
                 id = 6,
-                titleResourceId = R.string.golf,
-                subTitleResourceId = R.string.golf_subtitle,
-                imageResourceId = R.drawable.icon_golf,
-                sportsImageBanner = R.drawable.img_golf
+                detailsViewDescription = "Domaine",
+                detailsViewSurface = "R.string.baseball_subtitle",
+                detailsViewRooms = "R.string.rooms",
+                detailsViewBath = "R.string.bath",
+                detailsViewBed = "R.string.rooms",
+                detailViewPrice = "R.string.price",
+                detailViewType = "Domaine",
+                detailViewNearTitle = "R.string.nombre_near_title",
+                detailsViewSliderPictures = R.drawable.photo6,
             ),
             Maison(
                 id = 7,
-                titleResourceId = R.string.running,
-                subTitleResourceId = R.string.running_subtitle,
-                imageResourceId = R.drawable.icon_running,
-                sportsImageBanner = R.drawable.img_running
+                detailsViewDescription = "Ranch",
+                detailsViewSurface = "R.string.baseball_subtitle",
+                detailsViewRooms = "R.string.rooms",
+                detailsViewBath = "R.string.bath",
+                detailsViewBed = "R.string.rooms",
+                detailViewPrice = "R.string.price",
+                detailViewType = "Ranch",
+                detailViewNearTitle = "R.string.nombre_near_title",
+                detailsViewSliderPictures = R.drawable.photo7,
             ),
             Maison(
                 id = 8,
-                titleResourceId = R.string.soccer,
-                subTitleResourceId = R.string.soccer_subtitle,
-                imageResourceId = R.drawable.icon_soccer,
-                sportsImageBanner = R.drawable.img_soccer
+                detailsViewDescription = "",
+                detailsViewSurface = "R.string.baseball_subtitle",
+                detailsViewRooms = "R.string.rooms",
+                detailsViewBath = "R.string.bath",
+                detailsViewBed = "R.string.rooms",
+                detailViewPrice = "R.string.price",
+                detailViewType = "R.string.nombre_type",
+                detailViewNearTitle = "R.string.nombre_near_title",
+                detailsViewSliderPictures = R.drawable.photo8,
             ),
             Maison(
                 id = 9,
-                titleResourceId = R.string.swimming,
-                subTitleResourceId = R.string.swimming_subtitle,
-                imageResourceId = R.drawable.icon_swimming,
-                sportsImageBanner = R.drawable.img_swimming
+                detailsViewDescription = "Duplex",
+                detailsViewSurface = "R.string.baseball_subtitle",
+                detailsViewRooms = "R.string.rooms",
+                detailsViewBath = "R.string.bath",
+                detailsViewBed = "R.string.rooms",
+                detailViewPrice = "R.string.price",
+                detailViewType = "Duplex",
+                detailViewNearTitle = "R.string.nombre_near_title",
+                detailsViewSliderPictures = R.drawable.photo9,
             ),
             Maison(
                 id = 10,
-                titleResourceId = R.string.table_tennis,
-                subTitleResourceId = R.string.table_tennis_subtitle,
-                imageResourceId = R.drawable.icon_tabletennis,
-                sportsImageBanner = R.drawable.img_tabletennis
+                detailsViewDescription = "Studio",
+                detailsViewSurface = "R.string.baseball_subtitle",
+                detailsViewRooms = "R.string.rooms",
+                detailsViewBath = "R.string.bath",
+                detailsViewBed = "R.string.rooms",
+                detailViewPrice = "R.string.price",
+                detailViewType = "Studio",
+                detailViewNearTitle = "R.string.nombre_near_title",
+                detailsViewSliderPictures = R.drawable.photo10,
             ),
             Maison(
                 id = 11,
-                titleResourceId = R.string.tennis,
-                subTitleResourceId = R.string.tennis_subtitle,
-                imageResourceId = R.drawable.icon_tennis,
-                sportsImageBanner = R.drawable.img_tennis
+                detailsViewDescription = "Loft",
+                detailsViewSurface = "R.string.baseball_subtitle",
+                detailsViewRooms = "R.string.rooms",
+                detailsViewBath = "R.string.bath",
+                detailsViewBed = "R.string.rooms",
+                detailViewPrice = "R.string.price",
+                detailViewType = "Loft",
+                detailViewNearTitle = "R.string.nombre_near_title",
+                detailsViewSliderPictures = R.drawable.photo11,
             )
         )
     }
