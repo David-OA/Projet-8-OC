@@ -63,10 +63,13 @@ dependencies {
     //EASY PERMISSIONS
     implementation "pub.devrel:easypermissions:$rootProject.easyPermVersion"
 
+    //IMAGE SLIDER
+    implementation "com.github.smarteist:autoimageslider:$rootProject.imageSliderVersion"
+
     implementation "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    // Coil
+    // COIL
     implementation "io.coil-kt:coil:1.1.1"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
@@ -79,12 +82,13 @@ dependencies {
     // Tooling support for Compose
     implementation "androidx.compose.ui:ui-tooling-preview:1.1.1"
     debugImplementation "androidx.compose.ui:ui-tooling:1.1.1"
-
     // Implementation of SlidingPaneLayout
     implementation "androidx.slidingpanelayout:slidingpanelayout:1.2.0"
-
     // Jetpack Window Manager for retrieving window metrics
     implementation "androidx.window:window:1.0.0"
+
+    //Picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
 
 
