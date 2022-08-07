@@ -36,7 +36,7 @@ class MaisonsListFragment : Fragment() {
         )
 
         // Initialize the adapter and set it to the RecyclerView.
-        val adapter = MaisonsAdapter {
+        val adapter = MaisonsListAdapter {
             // Update the user selected sport as the current sport in the shared viewmodel
             maisonsViewModel.updateCurrentMaison(it)
             if (slidingPaneLayout.isSlideable && !slidingPaneLayout.isOpen) {

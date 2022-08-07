@@ -26,8 +26,8 @@ import coil.load
 import com.openclassrooms.realestatemanager.databinding.MaisonsListItemBinding
 import com.openclassrooms.realestatemanager.model.Maison
 
-class MaisonsAdapter(private val onItemClicked: (Maison) -> Unit) :
-    ListAdapter<Maison, MaisonsAdapter.MaisonsViewHolder>(DiffCallback) {
+class MaisonsListAdapter(private val onItemClicked: (Maison) -> Unit) :
+    ListAdapter<Maison, MaisonsListAdapter.MaisonsViewHolder>(DiffCallback) {
 
     private lateinit var context: Context
 
@@ -35,10 +35,10 @@ class MaisonsAdapter(private val onItemClicked: (Maison) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(maison: Maison, context: Context) {
-            binding.houseType.text = context.getString(maison.titleResourceId)
-            binding.houseNeighborhood.text = context.getString(maison.subTitleResourceId)
-            // Load the images into the ImageView using the Coil library.
-            binding.houseImage.load(maison.imageResourceId)
+            binding.houseType.text = maison.detailViewType
+            binding.houseNeighborhood.text = maison.detailViewNearTitle
+            binding.housePrice.text = maison.detailViewPrice
+            binding.houseImage.load(maison.detailsViewSliderPictures)
         }
     }
 
@@ -67,8 +67,8 @@ class MaisonsAdapter(private val onItemClicked: (Maison) -> Unit) :
             override fun areItemsTheSame(oldItem: Maison, newItem: Maison): Boolean {
                 return (
                     oldItem.id == newItem.id ||
-                        oldItem.titleResourceId == newItem.titleResourceId ||
-                        oldItem.subTitleResourceId == newItem.subTitleResourceId
+                        oldItem.detailsViewDescription == newItem.detailsViewDescription ||
+                        oldItem.detailsViewSurface == newItem.detailsViewSurface
                     )
             }
 
