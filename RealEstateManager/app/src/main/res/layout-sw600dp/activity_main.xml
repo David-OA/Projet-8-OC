@@ -7,25 +7,18 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <androidx.appcompat.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:id="@+id/toolbar"
-            app:titleTextColor="@color/colorTextPrimary"
-            android:background="?attr/colorPrimary"
-            android:theme="@style/ToolBarTheme"
-            app:titleTextAppearance="@style/ToolBarTheme.TitleText"
-            android:elevation="10dp"/>
-    </com.google.android.material.appbar.AppBarLayout>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/nav_host_fragment_content_main"

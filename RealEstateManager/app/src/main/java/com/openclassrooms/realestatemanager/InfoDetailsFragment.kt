@@ -15,9 +15,7 @@ class InfoDetailsFragment : Fragment() {
     private val maisonsViewModel : MaisonsViewModel by activityViewModels()
 
     lateinit var imageUrl: Array<Int>
-
     lateinit var sliderView: SliderView
-
     lateinit var sliderAdapter: SliderAdapter
 
     override fun onCreateView(
@@ -33,6 +31,8 @@ class InfoDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentMaisonsInfosBinding.bind(view)
 
+        sliderView = binding.detailsViewSliderPictures
+
         maisonsViewModel.currentMaison.observe(this.viewLifecycleOwner) {
             binding.detailsViewDescription.text = it.detailsViewDescription
             binding.detailViewNearTitle.text = it.detailViewNearTitle
@@ -46,7 +46,10 @@ class InfoDetailsFragment : Fragment() {
             
         }
 
-        sliderView = binding.detailsViewSliderPictures
+        sliderViewForInfoDetailsHome()
+    }
+
+    private fun  sliderViewForInfoDetailsHome() {
 
         imageUrl = arrayOf(R.drawable.photo1,
             R.drawable.photo2,
@@ -61,7 +64,7 @@ class InfoDetailsFragment : Fragment() {
 
         sliderAdapter = SliderAdapter(imageUrl)
         sliderView.autoCycleDirection = SliderView.LAYOUT_DIRECTION_LTR
-        sliderView.setSliderAdapter(sliderAdapter)
+        sliderView.sliderAdapter = sliderAdapter
         sliderView.scrollTimeInSec = 3
         sliderView.isAutoCycle = true
         sliderView.startAutoCycle()

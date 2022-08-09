@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/add_property"
+        android:icon="@drawable/add_icon"
+        app:showAsAction="ifRoom"
+        android:title="Add a property"/>
+
+    <item
+        android:id="@+id/add_agent"
+        android:icon="@drawable/add_icon"
+        app:showAsAction="always"
+        android:title="Add a property"/>
+
+</menu>

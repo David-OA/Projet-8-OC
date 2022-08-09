@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/add_icon.xml" value="0.2845" />
         <entry key="app/src/main/res/drawable/baseline_add_20.xml" value="0.2435" />
         <entry key="app/src/main/res/drawable/bathroom_icon.xml" value="0.2705" />
         <entry key="app/src/main/res/drawable/bed_icon.xml" value="0.2705" />
@@ -22,13 +23,16 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_main_seconde.xml" value="0.333786231884058" />
         <entry key="app/src/main/res/layout/activity_second.xml" value="0.18177083333333333" />
+        <entry key="app/src/main/res/layout/fragment_add_property.xml" value="0.333786231884058" />
         <entry key="app/src/main/res/layout/fragment_deux_test.xml" value="0.333786231884058" />
         <entry key="app/src/main/res/layout/fragment_maisons_infos.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_maisons_list.xml" value="0.18177083333333333" />
         <entry key="app/src/main/res/layout/fragment_un_test.xml" value="0.333786231884058" />
         <entry key="app/src/main/res/layout/maisons_list_item.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/separator.xml" value="0.333786231884058" />
         <entry key="app/src/main/res/layout/slider_itel.xml" value="0.333786231884058" />
         <entry key="app/src/main/res/layout/toolbar.xml" value="0.25" />
+        <entry key="app/src/main/res/menu/menu.xml" value="0.35520833333333335" />
       </map>
     </option>
   </component>

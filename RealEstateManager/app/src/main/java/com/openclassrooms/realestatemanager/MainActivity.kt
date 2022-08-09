@@ -1,10 +1,14 @@
 package com.openclassrooms.realestatemanager
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import butterknife.ButterKnife
+import androidx.appcompat.widget.Toolbar
 import com.openclassrooms.realestatemanager.databinding.ActivityMainBinding
 import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RFACLabelItem
 import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RapidFloatingActionContentLabelList
@@ -26,18 +30,42 @@ class MainActivity : AppCompatActivity(), RapidFloatingActionContentLabelList.On
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val mainActivitytoolbar: Toolbar = binding.toolbar.toolbar
+        setSupportActionBar(mainActivitytoolbar)
 
-        setSupportActionBar(binding.toolbar)
 
 
-        configureToolbar()
     }
 
     // CONFIGURE UI
 
     // ------ Toolbar ------
     private fun configureToolbar() {
-        //setSupportActionBar(toolbar);
+        //setSupportActionBar(mainActivitytoolbar)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.add_property->{
+                openAddPropertyActivity()
+                true
+            }
+            R.id.add_agent->{
+                Toast.makeText(this,"hello", Toast.LENGTH_LONG).show()
+                true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun  openAddPropertyActivity() {
+        val clickForAddPropertyActivityIntent: Intent = Intent(this, AddPropertyActivity::class.java)
+        startActivity(clickForAddPropertyActivityIntent)
     }
 
     private fun configureTextViewMain() {

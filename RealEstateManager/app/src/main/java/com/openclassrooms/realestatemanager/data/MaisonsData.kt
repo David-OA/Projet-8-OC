@@ -59,26 +59,46 @@ object MaisonsData {
             ),
             Maison(
                 id = 2,
-                detailsViewDescription = "Appartement",
-                detailsViewSurface = "R.string.baseball_subtitle",
-                detailsViewRooms = "R.string.rooms",
-                detailsViewBath = "R.string.bath",
-                detailsViewBed = "R.string.rooms",
-                detailViewPrice = "R.string.price",
+                detailsViewDescription = "Appartement Type 3 de 62 m² (avenue du Général de Gaulle - Cadaujac), orienté Sud/Ouest proche des commerces, écoles et transport (gare à 1 mn en voiture et tram C à 6 en voiture).\n" +
+                        "\n" +
+                        "Appartement lumineux dans une petite copropriété, quartier calme !\n" +
+                        "\n" +
+                        "Situé en Rdc/1 d'une résidence, il se compose d'une pièce de vie avec sa cuisine ouverte, aménagée, équipée ouvrant sur la terrasse et jardin0\n" +
+                        "\n" +
+                        "L'espace nuit comprend 2 chambres avec placard, une salle de bains et un wc indépendant.\n" +
+                        "\n" +
+                        "Vous profiterez d'un jardin privatif de 150 m² et d'une terrasse, idéal pour recevoir famille et amis pour des moments conviviaux.\n" +
+                        "\n" +
+                        "Un jardinier prend soin des espaces verts de la résidence.\n" +
+                        "\n" +
+                        "Immeuble sécurisé par digicode et portail automatique.\n" +
+                        "\n" +
+                        "Deux places de parking privatives complètent ce bien.",
+                detailsViewSurface = "62",
+                detailsViewRooms = "4",
+                detailsViewBath = "1",
+                detailsViewBed = "2",
+                detailViewPrice = "256 500",
                 detailViewType = "Appartement",
-                detailViewNearTitle = "R.string.nombre_near_title",
+                detailViewNearTitle = "Cadaujac",
                 detailsViewSliderPictures = R.drawable.photo2,
             ),
             Maison(
                 id = 3,
-                detailsViewDescription = "Villa",
+                detailsViewDescription = "Villa (Avenue de Gaujacq, Soorts-Hossegor) entre lac et océan. A 5min du centre ville, 2 min du canal et 5min de l'océan à pied. \n" +
+                        "\n" +
+                        "La maison de plain pied est composée d'un salon donnant sur cuisine, salle à manger et un WC séparé. Les pièces principales de la maison sont traversantes et donnent sur 2 grandes terrasses (300 m2).\n" +
+                        "\n" +
+                        "La maison comprend une suite parentale avec salle d'eau attenante, une pièce équipée en salle TV et 3 chambres (avec 2 salle d'eau).\n" +
+                        "\n" +
+                        "A l'exterieur, sur un terrain de 1010m² vous trouverez une piscine ( 4mx8m au sel avec système autonome et couverture rigide), une dépendance en bois 19 m2 et un container de 18m² contenant une cuisine d'été (Plancha, friteuses, tireuses à biere...). Un boulodrome et un coin Ping-Pong complètent l'exterieur pour de bons moments en familles/amis. ",
                 detailsViewSurface = "R.string.baseball_subtitle",
-                detailsViewRooms = "R.string.rooms",
-                detailsViewBath = "R.string.bath",
-                detailsViewBed = "R.string.rooms",
-                detailViewPrice = "R.string.price",
+                detailsViewRooms = "10",
+                detailsViewBath = "3",
+                detailsViewBed = "5",
+                detailViewPrice = "2 750 000",
                 detailViewType = "Villa",
-                detailViewNearTitle = "R.string.nombre_near_title",
+                detailViewNearTitle = "CapBreton",
                 detailsViewSliderPictures = R.drawable.photo3,
             ),
             Maison(
@@ -143,14 +163,24 @@ object MaisonsData {
             ),
             Maison(
                 id = 9,
-                detailsViewDescription = "Duplex",
-                detailsViewSurface = "R.string.baseball_subtitle",
-                detailsViewRooms = "R.string.rooms",
-                detailsViewBath = "R.string.bath",
-                detailsViewBed = "R.string.rooms",
-                detailViewPrice = "R.string.price",
+                detailsViewDescription = "Appartement duplex T3 de 155 m² avec penthouse et balcons, orienté Ouest, accès direct Bois de Vincennes (Avenue de la Belle Gabrielle), proche commerces et transports (5 min à pieds du RER A Nogent-sur-Marne, lignes de bus 120 et 113).\n" +
+                        "\n" +
+                        "La grande terrasse sur le toit de 86m² et les deux balcons de 16 et 12m² bénéficient de mutiples expositions qui permettent de profiter du soleil tout au long de la journée! Le bois de Vincennes est directement accessible depuis l'entrée de la copropriété.\n" +
+                        "\n" +
+                        "Copropriété calme et bien entretenue avec gardien.\n" +
+                        "\n" +
+                        "Situé au 3ème et 4ème étages/4 d'un immeuble avec ascenseur, il se compose au Rdc d'une entrée, d'un salon avec cheminée, une salle à manger et une cuisine fermée, aménagée et équipée. Le coin nuit se compose d'une première chambre, d'une salle d'eau, d'un wc séparé avec lave-mains et d'une suite parentale comprenant une salle de bains avec jacuzzi et douche, des grands placards et un wc independant. Deux balcons filants orientés Ouest et Sud viennent compléter cet étage. \n" +
+                        "\n" +
+                        "Au 1er niveau se trouve une salle d'eau avec wc et un bel espace ouvert de 25m² pouvant accueillir une chambre supplémentaire. Un espace coin cuisine d'été avec accès direct à la terrasse est également présent sur ce niveau.\n" +
+                        "\n" +
+                        "Une cave et un box en sous-sol complètent ce bien.",
+                detailsViewSurface = "155",
+                detailsViewRooms = "7",
+                detailsViewBath = "3",
+                detailsViewBed = "2",
+                detailViewPrice = "1 649 000",
                 detailViewType = "Duplex",
-                detailViewNearTitle = "R.string.nombre_near_title",
+                detailViewNearTitle = "Nogent-sur-Marne",
                 detailsViewSliderPictures = R.drawable.photo9,
             ),
             Maison(
@@ -167,14 +197,24 @@ object MaisonsData {
             ),
             Maison(
                 id = 11,
-                detailsViewDescription = "Loft",
-                detailsViewSurface = "R.string.baseball_subtitle",
-                detailsViewRooms = "R.string.rooms",
-                detailsViewBath = "R.string.bath",
-                detailsViewBed = "R.string.rooms",
-                detailViewPrice = "R.string.price",
+                detailsViewDescription = "Loft de 225 m² avec terrasse de 96 m² à Bordeaux sans vis à vis (Chartrons - Rue Delord).\n" +
+                        "\n" +
+                        "Au rez de chaussée se trouvent un espace de vie de 72 m² comprenant une cuisine américaine dinatoire et son salon.\n" +
+                        "\n" +
+                        "Vous y trouverez également une suite parentale, un wc séparé, un cellier ainsi qu'une buanderie. \n" +
+                        "\n" +
+                        "Le premier étage se compose d'un bureau de 10.6 m² et de 4 chambres (12 à 13m²) ainsi qu'une salle de bains.\n" +
+                        "\n" +
+                        "En été, vous pourrez vous prélasser au bord de la piscine (7x3 - Semi-Enterrée) et profiter pleinement de la terrasse en toute tranquilité.\n" +
+                        "\n" +
+                        "Vous disposerez de 2 places de parking securisées. ",
+                detailsViewSurface = "225",
+                detailsViewRooms = "9",
+                detailsViewBath = "2",
+                detailsViewBed = "5",
+                detailViewPrice = "1 299 500",
                 detailViewType = "Loft",
-                detailViewNearTitle = "R.string.nombre_near_title",
+                detailViewNearTitle = "Bordeaux",
                 detailsViewSliderPictures = R.drawable.photo11,
             )
         )
