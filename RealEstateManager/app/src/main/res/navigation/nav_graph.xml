@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/InfoDetailsFragment"
-        android:name="com.openclassrooms.realestatemanager.InfoDetailsFragment"
+        android:name="com.openclassrooms.realestatemanager.maisoninfos.InfoDetailsFragment"
         android:label="@string/info_fragment_label"
         tools:layout="@layout/fragment_maisons_infos">
     </fragment>

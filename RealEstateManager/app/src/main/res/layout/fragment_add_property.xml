@@ -25,7 +25,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="type_dropdown_menu"
+                android:hint="@string/type_dropdown_menu"
                 android:layout_marginBottom="@dimen/margin_small"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -42,7 +42,7 @@
                 android:id="@+id/add_property_view_price_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="price_dollar"
+                android:hint="@string/price_dollar"
                 android:layout_marginEnd="@dimen/margin_small"
                 app:layout_constraintTop_toBottomOf="@id/add_property_view_type_inputlayout"
                 app:layout_constraintStart_toStartOf="parent"
@@ -62,7 +62,7 @@
                 android:id="@+id/add_property_view_surface_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="surface_m2"
+                android:hint="@string/surface_m2"
                 app:layout_constraintTop_toBottomOf="@id/add_property_view_type_inputlayout"
                 app:layout_constraintStart_toEndOf="@id/add_property_view_price_layout"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -99,7 +99,7 @@
                 android:id="@+id/add_property_view_bedroom_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="bedrooms"
+                android:hint="@string/bedrooms"
                 app:layout_constraintTop_toBottomOf="@id/add_property_view_price_layout"
                 app:layout_constraintStart_toEndOf="@id/add_property_view_room_layout"
                 app:layout_constraintEnd_toStartOf="@id/add_property_view_bathroom_layout"
@@ -118,7 +118,7 @@
                 android:id="@+id/add_property_view_bathroom_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="bathrooms"
+                android:hint="@string/bathrooms"
                 app:layout_constraintTop_toBottomOf="@id/add_property_view_price_layout"
                 app:layout_constraintStart_toEndOf="@id/add_property_view_bedroom_layout"
                 app:layout_constraintEnd_toEndOf="parent">
@@ -161,12 +161,12 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:text="near_by"
+                android:text="@string/near_by"
                 android:textStyle="bold"
                 android:layout_marginTop="@dimen/margin_small"/>
 
             <include
-                layout="amenities_checkboxes"
+                layout="@layout/amenities_checkboxes"
                 android:id="@+id/add_property_view_nearby_gridlayout_nearby"
                 app:layout_constraintTop_toBottomOf="@id/add_property_view_nearby_textview"
                 app:layout_constraintStart_toStartOf="parent"
@@ -181,7 +181,7 @@
                 app:layout_constraintTop_toBottomOf="@id/add_property_view_nearby_gridlayout_nearby"
                 android:layout_width="match_parent"
                 android:layout_height="100dip"
-                android:hint="description"
+                android:hint="@string/description"
                 android:layout_marginBottom="@dimen/margin_small"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
@@ -220,7 +220,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="address"
+                android:hint="@string/address"
                 android:layout_marginBottom="@dimen/margin_small">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -234,7 +234,7 @@
                 app:layout_constraintTop_toBottomOf="@id/add_property_view_address_inputlayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="neighbourhood"
+                android:hint="@string/neighbourhood"
                 android:layout_marginBottom="@dimen/margin_small">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -268,7 +268,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="on_market_since"
+                android:hint="@string/on_market_since"
                 android:layout_marginBottom="@dimen/margin_small">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/add_property_view_since"
@@ -285,12 +285,13 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/add_property_view_since_inputlayout"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_margin="@dimen/margin_small"/>
+                android:layout_margin="@dimen/margin_small"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
             <TextView
                 android:id="@+id/add_property_view_sold_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="sold"
+                android:text="@string/sold"
                 app:layout_constraintTop_toTopOf="@id/add_property_view_sold_switch"
                 app:layout_constraintBottom_toBottomOf="@id/add_property_view_sold_switch"
                 app:layout_constraintStart_toEndOf="@id/add_property_view_sold_switch"
@@ -301,7 +302,7 @@
                 app:layout_constraintTop_toBottomOf="@id/add_property_view_since_inputlayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="sold_on"
+                android:hint="@string/sold_on"
                 android:layout_marginStart="@dimen/margin_big"
                 app:layout_constraintStart_toEndOf="@id/add_property_view_sold_text"
                 app:layout_constraintTop_toTopOf="@id/add_property_view_sold_switch"
@@ -331,7 +332,7 @@
             app:layout_constraintTop_toBottomOf="@id/add_property_view_date_separator"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="manage_by"
+            android:hint="@string/manage_by"
             android:layout_marginBottom="@dimen/margin_small"
             android:layout_marginTop="@dimen/margin_small"
             android:focusable="false"
@@ -365,7 +366,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/add_property_view_manage_separator"
             android:layout_marginTop="@dimen/margin_small"
-            android:text="add_pictures"
+            android:text="@string/add_pictures"
             app:icon="@drawable/add_icon"
             style="@style/ButtonOutlineREM" />
 

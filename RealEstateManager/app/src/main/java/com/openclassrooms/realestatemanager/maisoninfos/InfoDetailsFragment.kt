@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager
+package com.openclassrooms.realestatemanager.maisoninfos
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -7,12 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.openclassrooms.realestatemanager.MaisonsViewModel
+import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.FragmentMaisonsInfosBinding
 import com.smarteist.autoimageslider.SliderView
 
 class InfoDetailsFragment : Fragment() {
 
     private val maisonsViewModel : MaisonsViewModel by activityViewModels()
+
+    private lateinit var binding: FragmentMaisonsInfosBinding
 
     lateinit var imageUrl: Array<Int>
     lateinit var sliderView: SliderView
@@ -30,6 +34,7 @@ class InfoDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentMaisonsInfosBinding.bind(view)
+
 
         sliderView = binding.detailsViewSliderPictures
 
@@ -51,7 +56,8 @@ class InfoDetailsFragment : Fragment() {
 
     private fun  sliderViewForInfoDetailsHome() {
 
-        imageUrl = arrayOf(R.drawable.photo1,
+        imageUrl = arrayOf(
+            R.drawable.photo1,
             R.drawable.photo2,
             R.drawable.photo3,
             R.drawable.photo4,
@@ -60,7 +66,8 @@ class InfoDetailsFragment : Fragment() {
             R.drawable.photo7,
             R.drawable.photo8,
             R.drawable.photo9,
-            R.drawable.photo10)
+            R.drawable.photo10
+        )
 
         sliderAdapter = SliderAdapter(imageUrl)
         sliderView.autoCycleDirection = SliderView.LAYOUT_DIRECTION_LTR

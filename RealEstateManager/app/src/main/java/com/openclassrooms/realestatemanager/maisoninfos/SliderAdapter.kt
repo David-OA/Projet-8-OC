@@ -1,11 +1,9 @@
-package com.openclassrooms.realestatemanager
+package com.openclassrooms.realestatemanager.maisoninfos
 
-import android.icu.number.NumberFormatter.with
-import android.icu.number.NumberRangeFormatter.with
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
+import com.openclassrooms.realestatemanager.R
 import com.smarteist.autoimageslider.SliderViewAdapter
 import com.squareup.picasso.Picasso
 

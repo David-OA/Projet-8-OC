@@ -9,6 +9,11 @@ plugins {
 android {
     compileSdkVersion 32
     defaultConfig {
+        configurations.all {
+            resolutionStrategy {
+                force 'androidx.core:core-ktx:1.6.0'
+            }
+        }
         applicationId "com.openclassrooms.realestatemanager"
         minSdkVersion 21
         targetSdkVersion 32
@@ -16,6 +21,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
+
     buildTypes {
         release {
             minifyEnabled false

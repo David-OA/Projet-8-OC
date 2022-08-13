@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.openclassrooms.realestatemanager
+package com.openclassrooms.realestatemanager.maisonlist
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.MaisonsListItemBinding
 import com.openclassrooms.realestatemanager.model.Maison
 
@@ -31,7 +32,8 @@ class MaisonsListAdapter(private val onItemClicked: (Maison) -> Unit) :
 
     private lateinit var context: Context
 
-    class MaisonsViewHolder(private var binding: MaisonsListItemBinding) :
+
+    class MaisonsViewHolder(private var binding: MaisonsListItemBinding, val  onItemClicked: (Maison) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(maison: Maison, context: Context) {
@@ -42,16 +44,12 @@ class MaisonsListAdapter(private val onItemClicked: (Maison) -> Unit) :
         }
     }
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): MaisonsViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MaisonsViewHolder {
         context = parent.context
-        return MaisonsViewHolder(
-            MaisonsListItemBinding.inflate(
-                LayoutInflater.from(parent.context), parent, false
-            )
-        )
+        //return MaisonsViewHolder(MaisonsListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false), onItemClicked
+        //)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.maisons_list_item, parent, false)
+        return MaisonsViewHolder(MaisonsListItemBinding.bind(view), onItemClicked)
     }
 
     override fun onBindViewHolder(holder: MaisonsViewHolder, position: Int) {

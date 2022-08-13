@@ -1,23 +1,26 @@
 package com.openclassrooms.realestatemanager
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.openclassrooms.realestatemanager.databinding.ActivityMainBinding
-import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RFACLabelItem
-import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RapidFloatingActionContentLabelList
-import pub.devrel.easypermissions.EasyPermissions
+import com.openclassrooms.realestatemanager.maisoninfos.InfoDetailsFragment
 
-class MainActivity : AppCompatActivity(), RapidFloatingActionContentLabelList.OnRapidFloatingActionContentLabelListListener<RFACLabelItem<Int>>, EasyPermissions.PermissionCallbacks {
+class MainActivity : AppCompatActivity() {
 
     private var textViewMain: TextView? = null
     private var textViewQuantity: TextView? = null
+
+
+    private var mIsDualPane = false
+
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,14 +30,39 @@ class MainActivity : AppCompatActivity(), RapidFloatingActionContentLabelList.On
         //configureTextViewMain()
         //configureTextViewQuantity()
 
-        val binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
-        val mainActivitytoolbar: Toolbar = binding.toolbar.toolbar
+        val  houseListFragment = MaisonsListFragment()
+
+        val mainActivitytoolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(mainActivitytoolbar)
 
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.recycler_view_list_house, houseListFragment)
+                .commitAllowingStateLoss()
+        }
+
+        val infoDetailsFragment = findViewById<View>(R.id.recycler_view_detail)
+        mIsDualPane = infoDetailsFragment?.visibility == View.VISIBLE
+
+        displayDetails()
+
+    }
+
+    private fun displayDetails() {
+        if (mIsDualPane) {
+            val fragmentInfoHouse = supportFragmentManager.findFragmentById(R.id.recycler_view_detail) as InfoDetailsFragment?
 
 
+        } else {
+            val infoHouseFragment = InfoDetailsFragment()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_info_house, infoHouseFragment)
+                .commitAllowingStateLoss()
+        }
     }
 
     // CONFIGURE UI
@@ -51,21 +79,21 @@ class MainActivity : AppCompatActivity(), RapidFloatingActionContentLabelList.On
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
-            R.id.add_property->{
-                openAddPropertyActivity()
-                true
-            }
-            R.id.add_agent->{
-                Toast.makeText(this,"hello", Toast.LENGTH_LONG).show()
-                true
-            }
+            R.id.add_property->openAddPropertyActivity()
+            R.id.search->openSearchPropertyActivity()
         }
         return super.onOptionsItemSelected(item)
     }
 
     private fun  openAddPropertyActivity() {
-        val clickForAddPropertyActivityIntent: Intent = Intent(this, AddPropertyActivity::class.java)
-        startActivity(clickForAddPropertyActivityIntent)
+        val clickForAddPropertyFragment = AddPropertyFragment.newInstance()
+        supportFragmentManager.beginTransaction().replace(R.id.recycler_view_list_house, clickForAddPropertyFragment, "Add property")
+            .commit()
+    }
+
+    private fun openSearchPropertyActivity() {
+        //val clickForSearchPropertyFragment =
+        Toast.makeText(this,"En construction", Toast.LENGTH_LONG).show()
     }
 
     private fun configureTextViewMain() {
@@ -80,19 +108,4 @@ class MainActivity : AppCompatActivity(), RapidFloatingActionContentLabelList.On
         textViewQuantity!!.text = Integer.toString(quantity)
     }
 
-    override fun onRFACItemLabelClick(position: Int, item: RFACLabelItem<RFACLabelItem<Int>>?) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onRFACItemIconClick(position: Int, item: RFACLabelItem<RFACLabelItem<Int>>?) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
-        TODO("Not yet implemented")
-    }
 }

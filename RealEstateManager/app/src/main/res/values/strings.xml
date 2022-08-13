@@ -31,4 +31,22 @@
     <string name="home">Home</string>
     <string name="favorites">Favorites</string>
     <string name="settings">Settings</string>
+
+    <!-- Add property-->
+    <string name="type_dropdown_menu">type_dropdown_menu</string>
+    <string name="price_dollar">price_dollar</string>
+    <string name="surface_m2">surface_m2</string>
+    <string name="bedrooms">bedrooms</string>
+    <string name="bathrooms">bathrooms</string>
+    <string name="near_by">near_by</string>
+    <string name="description">description</string>
+    <string name="address">address</string>
+    <string name="neighbourhood">neighbourhood</string>
+    <string name="on_market_since">on_market_since</string>
+    <string name="sold">sold</string>
+    <string name="sold_on">sold_on</string>
+    <string name="manage_by">manage_by</string>
+    <string name="add_pictures">add_pictures</string>
+
+
 </resources>
