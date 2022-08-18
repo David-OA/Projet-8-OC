@@ -22,10 +22,9 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/recycler_view_list_house"
-            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:name="com.openclassrooms.realestatemanager.maisonlist.MaisonsListFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:defaultNavHost="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager
+package com.openclassrooms.realestatemanager.maisonlist
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,8 +8,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
+import com.openclassrooms.realestatemanager.MaisonsViewModel
 import com.openclassrooms.realestatemanager.databinding.FragmentMaisonsListBinding
-import com.openclassrooms.realestatemanager.maisonlist.MaisonsListAdapter
 import com.openclassrooms.realestatemanager.model.Maison
 
 class MaisonsListFragment : Fragment() {

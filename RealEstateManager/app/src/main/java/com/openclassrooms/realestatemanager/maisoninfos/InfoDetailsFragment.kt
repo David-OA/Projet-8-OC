@@ -22,11 +22,7 @@ class InfoDetailsFragment : Fragment() {
     lateinit var sliderView: SliderView
     lateinit var sliderAdapter: SliderAdapter
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return FragmentMaisonsInfosBinding.inflate(inflater, container, false).root
     }
 

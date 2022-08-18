@@ -22,18 +22,22 @@
         <entry key="app/src/main/res/font/roboto_thin.xml" value="0.3854166666666667" />
         <entry key="app/src/main/res/layout-land/activity_main.xml" value="0.30158730158730157" />
         <entry key="app/src/main/res/layout-land/activity_main_seconde.xml" value="0.30158730158730157" />
-        <entry key="app/src/main/res/layout-sw600dp/activity_main.xml" value="0.16" />
+        <entry key="app/src/main/res/layout-sw600dp/activity_main.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_add_property.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_detail.xml" value="0.18072916666666666" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_main_seconde.xml" value="0.333786231884058" />
         <entry key="app/src/main/res/layout/activity_second.xml" value="0.18177083333333333" />
         <entry key="app/src/main/res/layout/amenities_checkboxes.xml" value="0.2078125" />
+        <entry key="app/src/main/res/layout/fragment_a.xml" value="0.18072916666666666" />
         <entry key="app/src/main/res/layout/fragment_add_property.xml" value="0.333786231884058" />
+        <entry key="app/src/main/res/layout/fragment_b.xml" value="0.18072916666666666" />
         <entry key="app/src/main/res/layout/fragment_deux_test.xml" value="0.333786231884058" />
         <entry key="app/src/main/res/layout/fragment_maisons_infos.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_maisons_list.xml" value="0.18177083333333333" />
         <entry key="app/src/main/res/layout/fragment_un_test.xml" value="0.333786231884058" />
         <entry key="app/src/main/res/layout/list_agent_search_view_item.xml" value="0.2078125" />
+        <entry key="app/src/main/res/layout/list_item.xml" value="0.135546875" />
         <entry key="app/src/main/res/layout/maisons_list_item.xml" value="0.5" />
         <entry key="app/src/main/res/layout/search_icon.xml" value="0.2078125" />
         <entry key="app/src/main/res/layout/search_property_view.xml" value="0.2078125" />

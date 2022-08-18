@@ -1,12 +1,11 @@
-package com.openclassrooms.realestatemanager
+package com.openclassrooms.realestatemanager.addproperty
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.openclassrooms.realestatemanager.databinding.FragmentAddPropertyBinding
+import com.openclassrooms.realestatemanager.R
 
 class AddPropertyFragment : Fragment() {
 

@@ -4,13 +4,12 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import com.openclassrooms.realestatemanager.databinding.ActivityMainBinding
-import com.openclassrooms.realestatemanager.maisoninfos.InfoDetailsFragment
+import com.openclassrooms.realestatemanager.addproperty.AddPropertyFragment
+import com.openclassrooms.realestatemanager.maisonlist.MaisonsListFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,52 +17,36 @@ class MainActivity : AppCompatActivity() {
     private var textViewQuantity: TextView? = null
 
 
-    private var mIsDualPane = false
-
-    private lateinit var binding: ActivityMainBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        //binding = ActivityMainBinding.inflate(layoutInflater)
+        //val view = binding.root
+        //setContentView(view)
+
+        // Toolbar
+        val mainActivitytoolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(mainActivitytoolbar)
 
         //textViewMain = findViewById(R.id.activity_main_activity_text_view_main)
         //textViewQuantity = findViewById(R.id.activity_main_activity_text_view_quantity)
         //configureTextViewMain()
         //configureTextViewQuantity()
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        val houseListFragment = MaisonsListFragment()
 
-        val  houseListFragment = MaisonsListFragment()
-
-        val mainActivitytoolbar: Toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(mainActivitytoolbar)
 
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.recycler_view_list_house, houseListFragment)
-                .commitAllowingStateLoss()
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.sliding_pane_layout, houseListFragment)
+                    .commitAllowingStateLoss()
         }
-
-        val infoDetailsFragment = findViewById<View>(R.id.recycler_view_detail)
-        mIsDualPane = infoDetailsFragment?.visibility == View.VISIBLE
-
-        displayDetails()
 
     }
 
-    private fun displayDetails() {
-        if (mIsDualPane) {
-            val fragmentInfoHouse = supportFragmentManager.findFragmentById(R.id.recycler_view_detail) as InfoDetailsFragment?
 
 
-        } else {
-            val infoHouseFragment = InfoDetailsFragment()
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_info_house, infoHouseFragment)
-                .commitAllowingStateLoss()
-        }
-    }
 
     // CONFIGURE UI
 
@@ -87,7 +70,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun  openAddPropertyActivity() {
         val clickForAddPropertyFragment = AddPropertyFragment.newInstance()
-        supportFragmentManager.beginTransaction().replace(R.id.recycler_view_list_house, clickForAddPropertyFragment, "Add property")
+        supportFragmentManager.beginTransaction().replace(R.id.recycler_view, clickForAddPropertyFragment, "Add property")
             .commit()
     }
 

@@ -26,8 +26,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddPropertyFragment" />
+        <activity android:name=".addproperty.AddPropertyFragment" />
         <activity android:name=".SearchPropertyActivity" />
+        <activity android:name=".test.DetailActivity" />
 
         <meta-data
             android:name="preloaded_fonts"
