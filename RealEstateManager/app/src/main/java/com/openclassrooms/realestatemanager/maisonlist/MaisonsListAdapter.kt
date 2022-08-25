@@ -40,7 +40,7 @@ class MaisonsListAdapter(private val onItemClicked: (Maison) -> Unit) :
             binding.houseType.text = maison.detailViewType
             binding.houseNeighborhood.text = maison.detailViewNearTitle
             binding.housePrice.text = maison.detailViewPrice
-            binding.houseImage.load(maison.detailsViewSliderPictures)
+            binding.houseImage.load(maison.detailsViewListPictures)
         }
     }
 
