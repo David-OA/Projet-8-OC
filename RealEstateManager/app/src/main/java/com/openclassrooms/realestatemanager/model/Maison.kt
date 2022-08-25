@@ -15,6 +15,8 @@
  */
 package com.openclassrooms.realestatemanager.model
 
+import java.io.Serializable
+
 /**
  * Data model for each row of the RecyclerView
  */
@@ -28,5 +30,6 @@ data class Maison(
     val detailViewPrice: String,
     val detailViewType: String,
     val detailViewNearTitle: String,
-    val detailsViewSliderPictures: Int,
-    )
+    val detailsViewListPictures: Int,
+    val detailsViewSliderPicture: Array<Int>,
+    ):Serializable

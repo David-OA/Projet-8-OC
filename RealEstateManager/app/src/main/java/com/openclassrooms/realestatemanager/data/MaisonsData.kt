@@ -24,7 +24,7 @@ import com.openclassrooms.realestatemanager.model.Maison
  * Sports data
  */
 object MaisonsData {
-    fun getSportsData(): ArrayList<Maison> {
+    fun getHouseData(): ArrayList<Maison> {
         return arrayListOf(
             Maison(
                 id = 1,
@@ -54,7 +54,17 @@ object MaisonsData {
                 detailViewPrice = "1 284 000",
                 detailViewType = "Maisons d'architecte",
                 detailViewNearTitle = "Lyon",
-                detailsViewSliderPictures = R.drawable.photo1,
+                detailsViewListPictures = R.drawable.photo1,
+                detailsViewSliderPicture = arrayOf(R.drawable.photo1,
+                    R.drawable.photo2,
+                    R.drawable.photo3,
+                    R.drawable.photo4,
+                    R.drawable.photo5,
+                    R.drawable.photo6,
+                    R.drawable.photo7,
+                    R.drawable.photo8,
+                    R.drawable.photo9,
+                    R.drawable.photo10)
 
             ),
             Maison(
@@ -81,7 +91,17 @@ object MaisonsData {
                 detailViewPrice = "256 500",
                 detailViewType = "Appartement",
                 detailViewNearTitle = "Cadaujac",
-                detailsViewSliderPictures = R.drawable.photo2,
+                detailsViewListPictures = R.drawable.photo2,
+                detailsViewSliderPicture = arrayOf(R.drawable.photo1,
+                    R.drawable.photo2,
+                    R.drawable.photo3,
+                    R.drawable.photo4,
+                    R.drawable.photo5,
+                    R.drawable.photo6,
+                    R.drawable.photo7,
+                    R.drawable.photo8,
+                    R.drawable.photo9,
+                    R.drawable.photo10)
             ),
             Maison(
                 id = 3,
@@ -99,7 +119,17 @@ object MaisonsData {
                 detailViewPrice = "2 750 000",
                 detailViewType = "Villa",
                 detailViewNearTitle = "CapBreton",
-                detailsViewSliderPictures = R.drawable.photo3,
+                detailsViewListPictures = R.drawable.photo3,
+                detailsViewSliderPicture = arrayOf(R.drawable.photo1,
+                    R.drawable.photo2,
+                    R.drawable.photo3,
+                    R.drawable.photo4,
+                    R.drawable.photo5,
+                    R.drawable.photo6,
+                    R.drawable.photo7,
+                    R.drawable.photo8,
+                    R.drawable.photo9,
+                    R.drawable.photo10)
             ),
             Maison(
                 id = 4,
@@ -111,7 +141,17 @@ object MaisonsData {
                 detailViewPrice = "R.string.price",
                 detailViewType = "Immeuble",
                 detailViewNearTitle = "R.string.nombre_near_title",
-                detailsViewSliderPictures = R.drawable.photo4,
+                detailsViewListPictures = R.drawable.photo4,
+                detailsViewSliderPicture = arrayOf(R.drawable.photo1,
+                    R.drawable.photo2,
+                    R.drawable.photo3,
+                    R.drawable.photo4,
+                    R.drawable.photo5,
+                    R.drawable.photo6,
+                    R.drawable.photo7,
+                    R.drawable.photo8,
+                    R.drawable.photo9,
+                    R.drawable.photo10)
             ),
             Maison(
                 id = 5,
@@ -123,7 +163,17 @@ object MaisonsData {
                 detailViewPrice = "R.string.price",
                 detailViewType = "Chateau",
                 detailViewNearTitle = "R.string.nombre_near_title",
-                detailsViewSliderPictures = R.drawable.photo5,
+                detailsViewListPictures = R.drawable.photo5,
+                detailsViewSliderPicture = arrayOf(R.drawable.photo1,
+                    R.drawable.photo2,
+                    R.drawable.photo3,
+                    R.drawable.photo4,
+                    R.drawable.photo5,
+                    R.drawable.photo6,
+                    R.drawable.photo7,
+                    R.drawable.photo8,
+                    R.drawable.photo9,
+                    R.drawable.photo10)
             ),
             Maison(
                 id = 6,
@@ -135,7 +185,17 @@ object MaisonsData {
                 detailViewPrice = "R.string.price",
                 detailViewType = "Domaine",
                 detailViewNearTitle = "R.string.nombre_near_title",
-                detailsViewSliderPictures = R.drawable.photo6,
+                detailsViewListPictures = R.drawable.photo6,
+                detailsViewSliderPicture = arrayOf(R.drawable.photo1,
+                    R.drawable.photo2,
+                    R.drawable.photo3,
+                    R.drawable.photo4,
+                    R.drawable.photo5,
+                    R.drawable.photo6,
+                    R.drawable.photo7,
+                    R.drawable.photo8,
+                    R.drawable.photo9,
+                    R.drawable.photo10)
             ),
             Maison(
                 id = 7,
@@ -147,7 +207,17 @@ object MaisonsData {
                 detailViewPrice = "R.string.price",
                 detailViewType = "Ranch",
                 detailViewNearTitle = "R.string.nombre_near_title",
-                detailsViewSliderPictures = R.drawable.photo7,
+                detailsViewListPictures = R.drawable.photo7,
+                detailsViewSliderPicture = arrayOf(R.drawable.photo1,
+                    R.drawable.photo2,
+                    R.drawable.photo3,
+                    R.drawable.photo4,
+                    R.drawable.photo5,
+                    R.drawable.photo6,
+                    R.drawable.photo7,
+                    R.drawable.photo8,
+                    R.drawable.photo9,
+                    R.drawable.photo10)
             ),
             Maison(
                 id = 8,
@@ -159,7 +229,17 @@ object MaisonsData {
                 detailViewPrice = "R.string.price",
                 detailViewType = "R.string.nombre_type",
                 detailViewNearTitle = "R.string.nombre_near_title",
-                detailsViewSliderPictures = R.drawable.photo8,
+                detailsViewListPictures = R.drawable.photo8,
+                detailsViewSliderPicture = arrayOf(R.drawable.photo1,
+                    R.drawable.photo2,
+                    R.drawable.photo3,
+                    R.drawable.photo4,
+                    R.drawable.photo5,
+                    R.drawable.photo6,
+                    R.drawable.photo7,
+                    R.drawable.photo8,
+                    R.drawable.photo9,
+                    R.drawable.photo10)
             ),
             Maison(
                 id = 9,
@@ -181,7 +261,17 @@ object MaisonsData {
                 detailViewPrice = "1 649 000",
                 detailViewType = "Duplex",
                 detailViewNearTitle = "Nogent-sur-Marne",
-                detailsViewSliderPictures = R.drawable.photo9,
+                detailsViewListPictures = R.drawable.photo9,
+                detailsViewSliderPicture = arrayOf(R.drawable.photo1,
+                    R.drawable.photo2,
+                    R.drawable.photo3,
+                    R.drawable.photo4,
+                    R.drawable.photo5,
+                    R.drawable.photo6,
+                    R.drawable.photo7,
+                    R.drawable.photo8,
+                    R.drawable.photo9,
+                    R.drawable.photo10)
             ),
             Maison(
                 id = 10,
@@ -193,7 +283,17 @@ object MaisonsData {
                 detailViewPrice = "R.string.price",
                 detailViewType = "Studio",
                 detailViewNearTitle = "R.string.nombre_near_title",
-                detailsViewSliderPictures = R.drawable.photo10,
+                detailsViewListPictures = R.drawable.photo10,
+                detailsViewSliderPicture = arrayOf(R.drawable.photo1,
+                    R.drawable.photo2,
+                    R.drawable.photo3,
+                    R.drawable.photo4,
+                    R.drawable.photo5,
+                    R.drawable.photo6,
+                    R.drawable.photo7,
+                    R.drawable.photo8,
+                    R.drawable.photo9,
+                    R.drawable.photo10)
             ),
             Maison(
                 id = 11,
@@ -215,7 +315,17 @@ object MaisonsData {
                 detailViewPrice = "1 299 500",
                 detailViewType = "Loft",
                 detailViewNearTitle = "Bordeaux",
-                detailsViewSliderPictures = R.drawable.photo11,
+                detailsViewListPictures = R.drawable.photo11,
+                detailsViewSliderPicture = arrayOf(R.drawable.photo1,
+                    R.drawable.photo2,
+                    R.drawable.photo3,
+                    R.drawable.photo4,
+                    R.drawable.photo5,
+                    R.drawable.photo6,
+                    R.drawable.photo7,
+                    R.drawable.photo8,
+                    R.drawable.photo9,
+                    R.drawable.photo10)
             )
         )
     }
