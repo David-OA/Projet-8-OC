@@ -1,17 +1,15 @@
 package com.openclassrooms.realestatemanager
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import com.openclassrooms.realestatemanager.databinding.SearchPropertyViewBinding
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 
-class SearchPropertyActivity : AppCompatActivity(){
+class SearchPropertyActivity : Fragment(){
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        val binding = SearchPropertyViewBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.search_property_view, container, false)
     }
 
 }
