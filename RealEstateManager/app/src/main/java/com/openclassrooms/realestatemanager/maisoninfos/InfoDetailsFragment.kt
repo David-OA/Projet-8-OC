@@ -17,8 +17,6 @@ class InfoDetailsFragment : Fragment() {
 
     private val maisonsViewModel : MaisonsViewModel by activityViewModels()
 
-    private lateinit var binding: FragmentMaisonsInfosBinding
-
     lateinit var imageUrl: Array<Int>
     lateinit var sliderView: SliderView
     lateinit var sliderAdapter: SliderAdapter
@@ -59,10 +57,8 @@ class InfoDetailsFragment : Fragment() {
                 binding.detailViewPrice.text = it.detailViewPrice
                 binding.detailViewType.text = it.detailViewType
                 sliderViewForInfoDetailsHome(it.detailsViewSliderPicture)
-
             }
         }
-
     }
 
     private fun  sliderViewForInfoDetailsHome(imageUrl: Array<Int>) {
