@@ -37,16 +37,8 @@ class MainActivity : AppCompatActivity() {
         val houseListFragment = MaisonsListFragment()
 
 
-        if (savedInstanceState == null) {
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.sliding_pane_layout, houseListFragment)
-                    .commitAllowingStateLoss()
-        }
 
     }
-
-
-
 
     // CONFIGURE UI
 
@@ -69,13 +61,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun  openAddPropertyActivity() {
-        val clickForAddPropertyFragment = AddPropertyFragment.newInstance()
-        supportFragmentManager.beginTransaction().replace(R.id.recycler_view, clickForAddPropertyFragment, "Add property")
-            .commit()
+        val clickForAddPropertyFragment = AddPropertyFragment()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.recycler_view_list_house, clickForAddPropertyFragment)
+            .commitAllowingStateLoss()
     }
 
     private fun openSearchPropertyActivity() {
-        //val clickForSearchPropertyFragment =
+        val clickForSearchPropertyActivity = SearchPropertyActivity()
+        supportFragmentManager.beginTransaction().replace(R.id.recycler_view_list_house, clickForSearchPropertyActivity).commitAllowingStateLoss()
         Toast.makeText(this,"En construction", Toast.LENGTH_LONG).show()
     }
 
