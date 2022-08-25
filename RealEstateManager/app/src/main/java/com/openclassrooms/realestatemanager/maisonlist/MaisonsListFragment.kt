@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
+import com.openclassrooms.realestatemanager.ItemClickSupport
 import com.openclassrooms.realestatemanager.MaisonsViewModel
+import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.FragmentMaisonsListBinding
+import com.openclassrooms.realestatemanager.maisoninfos.InfoDetailsFragment
 import com.openclassrooms.realestatemanager.model.Maison
 
 class MaisonsListFragment : Fragment() {
@@ -40,11 +42,34 @@ class MaisonsListFragment : Fragment() {
             }
         }
 
+        ItemClickSupport.addTo(recyclerView, R.layout.maisons_list_item).setOnItemClickListener(object : ItemClickSupport.OnItemClickListener {
+            override fun onItemClicked(recyclerView: RecyclerView?, position: Int, v: View?) {
+
+                //Toast.makeText(context,"test",Toast.LENGTH_LONG).show()
+                val maisonId = maisonsViewModel.maisonsData.get(position)
+
+                val bundle = Bundle()
+                bundle.putSerializable("test", maisonId)
+
+                val fragment = InfoDetailsFragment()
+                fragment.arguments = bundle
+
+                fragmentManager?.beginTransaction()?.replace(R.id.detail_view, fragment)?.commitAllowingStateLoss()
+
+                //clickOnHouseOfTheList(maisonId)
+
+            }
+        })
+    }
+
+    fun clickOnHouseOfTheList(maison: Maison) {
+
+        //Toast.makeText(context,maison.id,Toast.LENGTH_LONG).show()
     }
 
     private fun adapterOnClick(maison: Maison) {
-        Toast.makeText(context,"test",Toast.LENGTH_LONG).show()
+
+
     }
-
-
+    
 }
