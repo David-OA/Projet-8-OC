@@ -19,7 +19,7 @@ package com.openclassrooms.realestatemanager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.openclassrooms.realestatemanager.data.MaisonsData
+import com.openclassrooms.realestatemanager.data.HouseData
 import com.openclassrooms.realestatemanager.model.Maison
 
 class MaisonsViewModel : ViewModel() {
@@ -34,7 +34,7 @@ class MaisonsViewModel : ViewModel() {
 
     init {
         // Initialize the house data.
-        _maisonsData = MaisonsData.getHouseData()
+        _maisonsData = HouseData.getHouseData()
         _currentMaison.value = _maisonsData[0]
     }
 

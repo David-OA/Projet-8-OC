@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.openclassrooms.realestatemanager.addproperty.AddPropertyFragment
+import com.openclassrooms.realestatemanager.utils.Utils
 
 class MainActivity : AppCompatActivity() {
 

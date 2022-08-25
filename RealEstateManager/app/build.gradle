@@ -96,6 +96,13 @@ dependencies {
     //Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
 
+    // Room components
+    //noinspection GradleDependency
+    implementation "androidx.room:room-ktx:$rootProject.roomVersion"
+    kapt "androidx.room:room-compiler:$rootProject.roomVersion"
+    //noinspection GradleDependency
+    androidTestImplementation "androidx.room:room-testing:$rootProject.roomVersion"
+
 
 
 }

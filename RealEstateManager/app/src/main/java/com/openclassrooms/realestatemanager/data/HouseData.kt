@@ -23,7 +23,7 @@ import com.openclassrooms.realestatemanager.model.Maison
 /**
  * Sports data
  */
-object MaisonsData {
+object HouseData {
     fun getHouseData(): ArrayList<Maison> {
         return arrayListOf(
             Maison(
