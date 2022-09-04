@@ -20,25 +20,25 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.openclassrooms.realestatemanager.data.HouseData
-import com.openclassrooms.realestatemanager.model.Maison
+import com.openclassrooms.realestatemanager.model.House
 
-class MaisonsViewModel : ViewModel() {
+class HouseViewModel : ViewModel() {
 
-    private var _currentMaison: MutableLiveData<Maison> = MutableLiveData<Maison>()
-    val currentMaison: LiveData<Maison>
-        get() = _currentMaison
+    private var _currentHouse: MutableLiveData<House> = MutableLiveData<House>()
+    val currentHouse: LiveData<House>
+        get() = _currentHouse
 
-    private var _maisonsData: ArrayList<Maison> = ArrayList()
-    val maisonsData: ArrayList<Maison>
+    private var _maisonsData: ArrayList<House> = ArrayList()
+    val maisonsData: ArrayList<House>
         get() = _maisonsData
 
     init {
         // Initialize the house data.
         _maisonsData = HouseData.getHouseData()
-        _currentMaison.value = _maisonsData[0]
+        _currentHouse.value = _maisonsData[0]
     }
 
-    fun updateCurrentMaison(maison: Maison) {
-        _currentMaison.value = maison
+    fun updateCurrentMaison(house: House) {
+        _currentHouse.value = house
     }
 }
