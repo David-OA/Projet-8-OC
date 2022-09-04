@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.openclassrooms.realestatemanager.maisonlist
+package com.openclassrooms.realestatemanager.houselist
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -25,29 +25,27 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.MaisonsListItemBinding
-import com.openclassrooms.realestatemanager.model.Maison
+import com.openclassrooms.realestatemanager.model.House
 
-class MaisonsListAdapter(private val onItemClicked: (Maison) -> Unit) :
-    ListAdapter<Maison, MaisonsListAdapter.MaisonsViewHolder>(DiffCallback) {
+class MaisonsListAdapter(private val onItemClicked: (House) -> Unit) :
+    ListAdapter<House, MaisonsListAdapter.MaisonsViewHolder>(DiffCallback) {
 
     private lateinit var context: Context
 
 
-    class MaisonsViewHolder(private var binding: MaisonsListItemBinding, val  onItemClicked: (Maison) -> Unit) :
+    class MaisonsViewHolder(private var binding: MaisonsListItemBinding, val  onItemClicked: (House) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(maison: Maison, context: Context) {
-            binding.houseType.text = maison.detailViewType
-            binding.houseNeighborhood.text = maison.detailViewNearTitle
-            binding.housePrice.text = maison.detailViewPrice
-            binding.houseImage.load(maison.detailsViewListPictures)
+        fun bind(house: House, context: Context) {
+            binding.houseType.text = house.detailViewType
+            binding.houseNeighborhood.text = house.detailViewNearTitle
+            binding.housePrice.text = house.detailViewPrice
+            //binding.houseImage.load(house.detailsViewListPictures)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MaisonsViewHolder {
         context = parent.context
-        //return MaisonsViewHolder(MaisonsListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false), onItemClicked
-        //)
         val view = LayoutInflater.from(parent.context).inflate(R.layout.maisons_list_item, parent, false)
         return MaisonsViewHolder(MaisonsListItemBinding.bind(view), onItemClicked)
     }
@@ -61,16 +59,16 @@ class MaisonsListAdapter(private val onItemClicked: (Maison) -> Unit) :
     }
 
     companion object {
-        private val DiffCallback = object : DiffUtil.ItemCallback<Maison>() {
-            override fun areItemsTheSame(oldItem: Maison, newItem: Maison): Boolean {
+        private val DiffCallback = object : DiffUtil.ItemCallback<House>() {
+            override fun areItemsTheSame(oldItem: House, newItem: House): Boolean {
                 return (
-                    oldItem.id == newItem.id ||
+                    oldItem.houseId == newItem.houseId ||
                         oldItem.detailsViewDescription == newItem.detailsViewDescription ||
                         oldItem.detailsViewSurface == newItem.detailsViewSurface
                     )
             }
 
-            override fun areContentsTheSame(oldItem: Maison, newItem: Maison): Boolean {
+            override fun areContentsTheSame(oldItem: House, newItem: House): Boolean {
                 return oldItem == newItem
             }
         }
