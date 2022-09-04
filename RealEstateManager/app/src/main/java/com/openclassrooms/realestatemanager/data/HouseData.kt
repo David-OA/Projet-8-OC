@@ -17,17 +17,17 @@
 package com.openclassrooms.realestatemanager.data
 
 import com.openclassrooms.realestatemanager.R
-import com.openclassrooms.realestatemanager.model.Maison
+import com.openclassrooms.realestatemanager.model.House
 
 
 /**
  * Sports data
  */
 object HouseData {
-    fun getHouseData(): ArrayList<Maison> {
+    fun getHouseData(): ArrayList<House> {
         return arrayListOf(
-            Maison(
-                id = 1,
+            House(
+                houseId = 1,
                 detailsViewDescription = "Villa contemporaine de standing de 246m² habitables & 42m2 d'annexes, avec piscine, réalisée en 2021, avec isolation aux normes RT 2020.\n" +
                         "\n" +
                         "Située dans la commune de Montanay, à proximité de tous les services et commodités, à seulement 25 minutes de Lyon (accès A46 en 5 minutes), dans un secteur calme avec vue imprenable sur les Monts d’Or.\n" +
@@ -54,7 +54,7 @@ object HouseData {
                 detailViewPrice = "1 284 000",
                 detailViewType = "Maisons d'architecte",
                 detailViewNearTitle = "Lyon",
-                detailsViewListPictures = R.drawable.photo1,
+                /*detailsViewListPictures = R.drawable.photo1,
                 detailsViewSliderPicture = arrayOf(R.drawable.photo1,
                     R.drawable.photo2,
                     R.drawable.photo3,
@@ -64,11 +64,11 @@ object HouseData {
                     R.drawable.photo7,
                     R.drawable.photo8,
                     R.drawable.photo9,
-                    R.drawable.photo10)
+                    R.drawable.photo10)*/
 
             ),
-            Maison(
-                id = 2,
+            House(
+                houseId = 2,
                 detailsViewDescription = "Appartement Type 3 de 62 m² (avenue du Général de Gaulle - Cadaujac), orienté Sud/Ouest proche des commerces, écoles et transport (gare à 1 mn en voiture et tram C à 6 en voiture).\n" +
                         "\n" +
                         "Appartement lumineux dans une petite copropriété, quartier calme !\n" +
@@ -91,7 +91,7 @@ object HouseData {
                 detailViewPrice = "256 500",
                 detailViewType = "Appartement",
                 detailViewNearTitle = "Cadaujac",
-                detailsViewListPictures = R.drawable.photo2,
+                /*detailsViewListPictures = R.drawable.photo2,
                 detailsViewSliderPicture = arrayOf(R.drawable.photo1,
                     R.drawable.photo2,
                     R.drawable.photo3,
@@ -101,10 +101,10 @@ object HouseData {
                     R.drawable.photo7,
                     R.drawable.photo8,
                     R.drawable.photo9,
-                    R.drawable.photo10)
+                    R.drawable.photo10)*/
             ),
-            Maison(
-                id = 3,
+            House(
+                houseId = 3,
                 detailsViewDescription = "Villa (Avenue de Gaujacq, Soorts-Hossegor) entre lac et océan. A 5min du centre ville, 2 min du canal et 5min de l'océan à pied. \n" +
                         "\n" +
                         "La maison de plain pied est composée d'un salon donnant sur cuisine, salle à manger et un WC séparé. Les pièces principales de la maison sont traversantes et donnent sur 2 grandes terrasses (300 m2).\n" +
@@ -119,7 +119,7 @@ object HouseData {
                 detailViewPrice = "2 750 000",
                 detailViewType = "Villa",
                 detailViewNearTitle = "CapBreton",
-                detailsViewListPictures = R.drawable.photo3,
+                /*detailsViewListPictures = R.drawable.photo3,
                 detailsViewSliderPicture = arrayOf(R.drawable.photo1,
                     R.drawable.photo2,
                     R.drawable.photo3,
@@ -129,10 +129,10 @@ object HouseData {
                     R.drawable.photo7,
                     R.drawable.photo8,
                     R.drawable.photo9,
-                    R.drawable.photo10)
+                    R.drawable.photo10)*/
             ),
-            Maison(
-                id = 4,
+            House(
+                houseId = 4,
                 detailsViewDescription = "Immeuble",
                 detailsViewSurface = "R.string.baseball_subtitle",
                 detailsViewRooms = "R.string.rooms",
@@ -141,7 +141,7 @@ object HouseData {
                 detailViewPrice = "R.string.price",
                 detailViewType = "Immeuble",
                 detailViewNearTitle = "R.string.nombre_near_title",
-                detailsViewListPictures = R.drawable.photo4,
+                /*detailsViewListPictures = R.drawable.photo4,
                 detailsViewSliderPicture = arrayOf(R.drawable.photo1,
                     R.drawable.photo2,
                     R.drawable.photo3,
@@ -151,10 +151,10 @@ object HouseData {
                     R.drawable.photo7,
                     R.drawable.photo8,
                     R.drawable.photo9,
-                    R.drawable.photo10)
+                    R.drawable.photo10)*/
             ),
-            Maison(
-                id = 5,
+            House(
+                houseId = 5,
                 detailsViewDescription = "Chateau",
                 detailsViewSurface = "R.string.baseball_subtitle",
                 detailsViewRooms = "R.string.rooms",
@@ -163,7 +163,7 @@ object HouseData {
                 detailViewPrice = "R.string.price",
                 detailViewType = "Chateau",
                 detailViewNearTitle = "R.string.nombre_near_title",
-                detailsViewListPictures = R.drawable.photo5,
+                /*detailsViewListPictures = R.drawable.photo5,
                 detailsViewSliderPicture = arrayOf(R.drawable.photo1,
                     R.drawable.photo2,
                     R.drawable.photo3,
@@ -173,10 +173,10 @@ object HouseData {
                     R.drawable.photo7,
                     R.drawable.photo8,
                     R.drawable.photo9,
-                    R.drawable.photo10)
+                    R.drawable.photo10)*/
             ),
-            Maison(
-                id = 6,
+            House(
+                houseId = 6,
                 detailsViewDescription = "Domaine",
                 detailsViewSurface = "R.string.baseball_subtitle",
                 detailsViewRooms = "R.string.rooms",
@@ -185,7 +185,7 @@ object HouseData {
                 detailViewPrice = "R.string.price",
                 detailViewType = "Domaine",
                 detailViewNearTitle = "R.string.nombre_near_title",
-                detailsViewListPictures = R.drawable.photo6,
+                /*detailsViewListPictures = R.drawable.photo6,
                 detailsViewSliderPicture = arrayOf(R.drawable.photo1,
                     R.drawable.photo2,
                     R.drawable.photo3,
@@ -195,10 +195,10 @@ object HouseData {
                     R.drawable.photo7,
                     R.drawable.photo8,
                     R.drawable.photo9,
-                    R.drawable.photo10)
+                    R.drawable.photo10)*/
             ),
-            Maison(
-                id = 7,
+            House(
+                houseId = 7,
                 detailsViewDescription = "Ranch",
                 detailsViewSurface = "R.string.baseball_subtitle",
                 detailsViewRooms = "R.string.rooms",
@@ -207,7 +207,7 @@ object HouseData {
                 detailViewPrice = "R.string.price",
                 detailViewType = "Ranch",
                 detailViewNearTitle = "R.string.nombre_near_title",
-                detailsViewListPictures = R.drawable.photo7,
+                /*detailsViewListPictures = R.drawable.photo7,
                 detailsViewSliderPicture = arrayOf(R.drawable.photo1,
                     R.drawable.photo2,
                     R.drawable.photo3,
@@ -217,10 +217,10 @@ object HouseData {
                     R.drawable.photo7,
                     R.drawable.photo8,
                     R.drawable.photo9,
-                    R.drawable.photo10)
+                    R.drawable.photo10)*/
             ),
-            Maison(
-                id = 8,
+            House(
+                houseId = 8,
                 detailsViewDescription = "",
                 detailsViewSurface = "R.string.baseball_subtitle",
                 detailsViewRooms = "R.string.rooms",
@@ -229,7 +229,7 @@ object HouseData {
                 detailViewPrice = "R.string.price",
                 detailViewType = "R.string.nombre_type",
                 detailViewNearTitle = "R.string.nombre_near_title",
-                detailsViewListPictures = R.drawable.photo8,
+                /*detailsViewListPictures = R.drawable.photo8,
                 detailsViewSliderPicture = arrayOf(R.drawable.photo1,
                     R.drawable.photo2,
                     R.drawable.photo3,
@@ -239,10 +239,10 @@ object HouseData {
                     R.drawable.photo7,
                     R.drawable.photo8,
                     R.drawable.photo9,
-                    R.drawable.photo10)
+                    R.drawable.photo10)*/
             ),
-            Maison(
-                id = 9,
+            House(
+                houseId = 9,
                 detailsViewDescription = "Appartement duplex T3 de 155 m² avec penthouse et balcons, orienté Ouest, accès direct Bois de Vincennes (Avenue de la Belle Gabrielle), proche commerces et transports (5 min à pieds du RER A Nogent-sur-Marne, lignes de bus 120 et 113).\n" +
                         "\n" +
                         "La grande terrasse sur le toit de 86m² et les deux balcons de 16 et 12m² bénéficient de mutiples expositions qui permettent de profiter du soleil tout au long de la journée! Le bois de Vincennes est directement accessible depuis l'entrée de la copropriété.\n" +
@@ -261,7 +261,7 @@ object HouseData {
                 detailViewPrice = "1 649 000",
                 detailViewType = "Duplex",
                 detailViewNearTitle = "Nogent-sur-Marne",
-                detailsViewListPictures = R.drawable.photo9,
+                /*detailsViewListPictures = R.drawable.photo9,
                 detailsViewSliderPicture = arrayOf(R.drawable.photo1,
                     R.drawable.photo2,
                     R.drawable.photo3,
@@ -271,10 +271,10 @@ object HouseData {
                     R.drawable.photo7,
                     R.drawable.photo8,
                     R.drawable.photo9,
-                    R.drawable.photo10)
+                    R.drawable.photo10)*/
             ),
-            Maison(
-                id = 10,
+            House(
+                houseId = 10,
                 detailsViewDescription = "Studio",
                 detailsViewSurface = "R.string.baseball_subtitle",
                 detailsViewRooms = "R.string.rooms",
@@ -283,7 +283,7 @@ object HouseData {
                 detailViewPrice = "R.string.price",
                 detailViewType = "Studio",
                 detailViewNearTitle = "R.string.nombre_near_title",
-                detailsViewListPictures = R.drawable.photo10,
+                /*detailsViewListPictures = R.drawable.photo10,
                 detailsViewSliderPicture = arrayOf(R.drawable.photo1,
                     R.drawable.photo2,
                     R.drawable.photo3,
@@ -293,10 +293,10 @@ object HouseData {
                     R.drawable.photo7,
                     R.drawable.photo8,
                     R.drawable.photo9,
-                    R.drawable.photo10)
+                    R.drawable.photo10)*/
             ),
-            Maison(
-                id = 11,
+            House(
+                houseId = 11,
                 detailsViewDescription = "Loft de 225 m² avec terrasse de 96 m² à Bordeaux sans vis à vis (Chartrons - Rue Delord).\n" +
                         "\n" +
                         "Au rez de chaussée se trouvent un espace de vie de 72 m² comprenant une cuisine américaine dinatoire et son salon.\n" +
@@ -315,7 +315,7 @@ object HouseData {
                 detailViewPrice = "1 299 500",
                 detailViewType = "Loft",
                 detailViewNearTitle = "Bordeaux",
-                detailsViewListPictures = R.drawable.photo11,
+                /*detailsViewListPictures = R.drawable.photo11,
                 detailsViewSliderPicture = arrayOf(R.drawable.photo1,
                     R.drawable.photo2,
                     R.drawable.photo3,
@@ -325,7 +325,7 @@ object HouseData {
                     R.drawable.photo7,
                     R.drawable.photo8,
                     R.drawable.photo9,
-                    R.drawable.photo10)
+                    R.drawable.photo10)*/
             )
         )
     }
