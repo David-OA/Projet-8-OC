@@ -4,22 +4,50 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.openclassrooms.realestatemanager.model.Maison
+import androidx.sqlite.db.SupportSQLiteDatabase
+import com.openclassrooms.realestatemanager.model.House
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-// Annotates class to be a Room Database with a table (entity) of the house class
-@Database(entities = arrayOf(Maison::class),
+//Annotates class to be a Room Database with a table (entity) of the house class
+@Database(entities = arrayOf(House::class),
     version = 1,
     exportSchema = false)
 public abstract class HouseRoomDatabase: RoomDatabase() {
 
-    abstract fun houseDao(): MaisonDao
+    abstract fun houseDao(): HouseDao
+
+    private class HouseDatabaseCallback(
+        private val scope: CoroutineScope
+    ) : RoomDatabase.Callback() {
+        override fun onCreate(db: SupportSQLiteDatabase) {
+            super.onCreate(db)
+            INSTANCE?.let { database ->
+                scope.launch(Dispatchers.IO) {
+                    var houseDao = database.houseDao()
+
+                    var  addNewHouse = House(12,
+                        "test",
+                        "ca marche",
+                        "12",
+                        "2",
+                        "6",
+                        "1250000",
+                        "house",
+                        "J'ai reussi")
+                    houseDao.addHouse(addNewHouse)
+
+                }
+            }
+        }
+    }
 
     companion object {
         @Volatile
         private var INSTANCE: HouseRoomDatabase? = null
 
-        fun getDatabase(context: Context, scope: CoroutineScope): HouseRoomDatabase {
+        fun getDatabase(context: Context): HouseRoomDatabase {
             return INSTANCE?: synchronized(this) {
                 val  instance = Room.databaseBuilder(
                     context.applicationContext,
