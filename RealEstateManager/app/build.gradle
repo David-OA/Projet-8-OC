@@ -5,7 +5,6 @@ plugins {
     id 'androidx.navigation.safeargs.kotlin'
 }
 
-
 android {
     compileSdkVersion 32
     defaultConfig {
@@ -36,8 +35,20 @@ android {
 
     composeOptions {
         kotlinCompilerExtensionVersion "1.1.1"
-
     }
+
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+repositories {
+    mavenCentral()
 }
 
 dependencies {
@@ -79,20 +90,6 @@ dependencies {
     implementation "io.coil-kt:coil:1.1.1"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
-    // Fundamental components for compose-based UI
-    implementation "androidx.compose.ui:ui:1.1.1"
-    // Material3 components for compose-based UI
-    implementation "androidx.compose.material3:material3:1.0.0-alpha09"
-    // Compose integration with activities.
-    implementation 'androidx.activity:activity-compose:1.4.0'
-    // Tooling support for Compose
-    implementation "androidx.compose.ui:ui-tooling-preview:1.1.1"
-    debugImplementation "androidx.compose.ui:ui-tooling:1.1.1"
-    // Implementation of SlidingPaneLayout
-    implementation "androidx.slidingpanelayout:slidingpanelayout:1.2.0"
-    // Jetpack Window Manager for retrieving window metrics
-    implementation "androidx.window:window:1.0.0"
-
     //Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
 
@@ -103,9 +100,17 @@ dependencies {
     //noinspection GradleDependency
     androidTestImplementation "androidx.room:room-testing:$rootProject.roomVersion"
 
+    // Lifecycle components
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$rootProject.lifecycleVersion"
 
+    // Kotlin components
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutines"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutines"
+
+    def compose_version = "1.0.0"
+    implementation("androidx.compose.runtime:runtime:$compose_version")
 
 }
-repositories {
-    mavenCentral()
-}
+
