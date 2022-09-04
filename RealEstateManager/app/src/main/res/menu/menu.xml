@@ -7,7 +7,6 @@
         app:showAsAction="always"
         android:title="Add a property"/>
 
-
     <item
         android:id="@+id/edit"
         android:icon="@drawable/edit_icon"

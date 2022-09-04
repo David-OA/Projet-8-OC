@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager.maisoninfos
+package com.openclassrooms.realestatemanager.houseinfos
 
 import android.view.View
 import android.widget.ImageView

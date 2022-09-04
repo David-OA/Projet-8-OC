@@ -8,8 +8,10 @@
         <entry key="app/src/main/res/drawable/baseline_add_20.xml" value="0.2435" />
         <entry key="app/src/main/res/drawable/bathroom_icon.xml" value="0.2705" />
         <entry key="app/src/main/res/drawable/bed_icon.xml" value="0.2705" />
+        <entry key="app/src/main/res/drawable/check_icon.xml" value="0.319" />
         <entry key="app/src/main/res/drawable/dollar_icon.xml" value="0.2705" />
         <entry key="app/src/main/res/drawable/edit_icon.xml" value="0.2845" />
+        <entry key="app/src/main/res/drawable/euro_icon.xml" value="0.319" />
         <entry key="app/src/main/res/drawable/home_icon.xml" value="0.2705" />
         <entry key="app/src/main/res/drawable/icon_location_sold.xml" value="0.2705" />
         <entry key="app/src/main/res/drawable/near_icon.xml" value="0.2705" />
@@ -48,6 +50,8 @@
         <entry key="app/src/main/res/layout/slider_item.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/toolbar.xml" value="0.25" />
         <entry key="app/src/main/res/menu/menu.xml" value="0.35520833333333335" />
+        <entry key="app/src/main/res/menu/menu_toolbar_validate_button.xml" value="0.35520833333333335" />
+        <entry key="app/src/main/res/xml/file_path.xml" value="0.5" />
       </map>
     </option>
   </component>
