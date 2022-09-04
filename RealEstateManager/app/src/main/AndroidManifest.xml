@@ -26,11 +26,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".addproperty.AddPropertyFragment" />
-        <activity android:name=".SearchPropertyActivity" />
-        <activity android:name=".test.DetailActivity" />
 
-        <meta-data
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"></meta-data>
+        </provider>
+
+        <!--provider
+            android:authorities="com.openclassrooms.realestatemanager.provider"
+            android:name=".provider.PropertyProvider"
+            android:exported="true"/-->
+
+
+    <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
