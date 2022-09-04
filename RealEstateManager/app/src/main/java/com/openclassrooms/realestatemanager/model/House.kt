@@ -15,13 +15,33 @@
  */
 package com.openclassrooms.realestatemanager.model
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.io.Serializable
+
+
+
+
+
+
+
 
 /**
  * Data model for each row of the RecyclerView
  */
-data class Maison(
-    val id: Int,
+@Entity(tableName = "house_database")
+data class House(
+    @ColumnInfo(name = "house_id") @PrimaryKey var houseId: Int,
+    @ColumnInfo(name = "details_description") var detailsViewDescription: String,
+    @ColumnInfo(name = "details_surface") var detailsViewSurface: String,
+    @ColumnInfo(name = "details_room") var detailsViewRooms: String,
+    @ColumnInfo(name = "details_bath") var detailsViewBath: String,
+    @ColumnInfo(name = "details_bed") var detailsViewBed: String,
+    @ColumnInfo(name = "details_price") var detailViewPrice: String,
+    @ColumnInfo(name = "details_type") var detailViewType: String,
+    @ColumnInfo(name = "details_neartitle") var detailViewNearTitle: String,
+    /*val houseId: Int,
     val detailsViewDescription: String,
     val detailsViewSurface: String,
     val detailsViewRooms: String,
@@ -32,4 +52,5 @@ data class Maison(
     val detailViewNearTitle: String,
     val detailsViewListPictures: Int,
     val detailsViewSliderPicture: Array<Int>,
-    ):Serializable
+    ):Serializable*/
+):Serializable
