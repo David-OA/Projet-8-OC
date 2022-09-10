@@ -1,7 +1,7 @@
 package com.openclassrooms.realestatemanager.data.repository
 
 import androidx.annotation.WorkerThread
-import com.openclassrooms.realestatemanager.data.HouseDao
+import com.openclassrooms.realestatemanager.data.dao.HouseDao
 import com.openclassrooms.realestatemanager.model.House
 import kotlinx.coroutines.flow.Flow
 import kotlin.Suppress

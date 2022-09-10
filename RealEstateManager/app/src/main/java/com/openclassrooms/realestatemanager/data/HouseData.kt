@@ -24,7 +24,7 @@ import com.openclassrooms.realestatemanager.model.House
  * Sports data
  */
 object HouseData {
-    fun getHouseData(): ArrayList<House> {
+    /*fun getHouseData(): ArrayList<House> {
         return arrayListOf(
             House(
                 houseId = 1,
@@ -54,6 +54,7 @@ object HouseData {
                 detailViewPrice = "1 284 000",
                 detailViewType = "Maisons d'architecte",
                 detailViewNearTitle = "Lyon",
+                amenityBuses = true
                 /*detailsViewListPictures = R.drawable.photo1,
                 detailsViewSliderPicture = arrayOf(R.drawable.photo1,
                     R.drawable.photo2,
@@ -91,6 +92,7 @@ object HouseData {
                 detailViewPrice = "256 500",
                 detailViewType = "Appartement",
                 detailViewNearTitle = "Cadaujac",
+                amenityBuses = true
                 /*detailsViewListPictures = R.drawable.photo2,
                 detailsViewSliderPicture = arrayOf(R.drawable.photo1,
                     R.drawable.photo2,
@@ -119,6 +121,7 @@ object HouseData {
                 detailViewPrice = "2 750 000",
                 detailViewType = "Villa",
                 detailViewNearTitle = "CapBreton",
+                amenityBuses = true
                 /*detailsViewListPictures = R.drawable.photo3,
                 detailsViewSliderPicture = arrayOf(R.drawable.photo1,
                     R.drawable.photo2,
@@ -141,6 +144,7 @@ object HouseData {
                 detailViewPrice = "R.string.price",
                 detailViewType = "Immeuble",
                 detailViewNearTitle = "R.string.nombre_near_title",
+                amenityBuses = true
                 /*detailsViewListPictures = R.drawable.photo4,
                 detailsViewSliderPicture = arrayOf(R.drawable.photo1,
                     R.drawable.photo2,
@@ -163,6 +167,7 @@ object HouseData {
                 detailViewPrice = "R.string.price",
                 detailViewType = "Chateau",
                 detailViewNearTitle = "R.string.nombre_near_title",
+                amenityBuses = true
                 /*detailsViewListPictures = R.drawable.photo5,
                 detailsViewSliderPicture = arrayOf(R.drawable.photo1,
                     R.drawable.photo2,
@@ -185,6 +190,7 @@ object HouseData {
                 detailViewPrice = "R.string.price",
                 detailViewType = "Domaine",
                 detailViewNearTitle = "R.string.nombre_near_title",
+                amenityBuses = true
                 /*detailsViewListPictures = R.drawable.photo6,
                 detailsViewSliderPicture = arrayOf(R.drawable.photo1,
                     R.drawable.photo2,
@@ -207,6 +213,7 @@ object HouseData {
                 detailViewPrice = "R.string.price",
                 detailViewType = "Ranch",
                 detailViewNearTitle = "R.string.nombre_near_title",
+                amenityBuses = true
                 /*detailsViewListPictures = R.drawable.photo7,
                 detailsViewSliderPicture = arrayOf(R.drawable.photo1,
                     R.drawable.photo2,
@@ -229,6 +236,7 @@ object HouseData {
                 detailViewPrice = "R.string.price",
                 detailViewType = "R.string.nombre_type",
                 detailViewNearTitle = "R.string.nombre_near_title",
+                amenityBuses = true
                 /*detailsViewListPictures = R.drawable.photo8,
                 detailsViewSliderPicture = arrayOf(R.drawable.photo1,
                     R.drawable.photo2,
@@ -261,6 +269,7 @@ object HouseData {
                 detailViewPrice = "1 649 000",
                 detailViewType = "Duplex",
                 detailViewNearTitle = "Nogent-sur-Marne",
+                amenityBuses = true
                 /*detailsViewListPictures = R.drawable.photo9,
                 detailsViewSliderPicture = arrayOf(R.drawable.photo1,
                     R.drawable.photo2,
@@ -283,6 +292,7 @@ object HouseData {
                 detailViewPrice = "R.string.price",
                 detailViewType = "Studio",
                 detailViewNearTitle = "R.string.nombre_near_title",
+                amenityBuses = true
                 /*detailsViewListPictures = R.drawable.photo10,
                 detailsViewSliderPicture = arrayOf(R.drawable.photo1,
                     R.drawable.photo2,
@@ -315,6 +325,8 @@ object HouseData {
                 detailViewPrice = "1 299 500",
                 detailViewType = "Loft",
                 detailViewNearTitle = "Bordeaux",
+                amenityBuses = true
+
                 /*detailsViewListPictures = R.drawable.photo11,
                 detailsViewSliderPicture = arrayOf(R.drawable.photo1,
                     R.drawable.photo2,
@@ -328,5 +340,5 @@ object HouseData {
                     R.drawable.photo10)*/
             )
         )
-    }
+    }*/
 }

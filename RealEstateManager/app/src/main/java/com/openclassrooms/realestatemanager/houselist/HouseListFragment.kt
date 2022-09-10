@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.realestatemanager.utils.ItemClickSupport
-import com.openclassrooms.realestatemanager.HouseViewModel
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.data.AddHouseViewModel
 import com.openclassrooms.realestatemanager.databinding.FragmentMaisonsListBinding
@@ -16,7 +15,7 @@ import com.openclassrooms.realestatemanager.houseinfos.InfoDetailsFragment
 import com.openclassrooms.realestatemanager.injection.Injection
 import com.openclassrooms.realestatemanager.injection.ViewModelFactory
 
-class MaisonsListFragment : Fragment() {
+class HouseListFragment : Fragment() {
 
     //private val houseViewModel: HouseViewModel by activityViewModels()
 
@@ -48,7 +47,7 @@ class MaisonsListFragment : Fragment() {
 
     private fun recyclerViewListHouse() {
         // Initialize the adapter and set it to the RecyclerView.
-        val adapter = MaisonsListAdapter {}
+        val adapter = HouseListAdapter {}
 
         val recyclerView: RecyclerView = binding.recyclerView
         recyclerView.adapter = adapter

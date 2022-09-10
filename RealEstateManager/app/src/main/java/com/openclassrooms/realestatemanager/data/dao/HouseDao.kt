@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager.data
+package com.openclassrooms.realestatemanager.data.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -13,7 +13,7 @@ interface HouseDao {
     @Insert(onConflict= OnConflictStrategy.IGNORE)
     suspend fun addHouse(house: House)
 
-    @Query("SELECT * FROM house_database ")
+    @Query("SELECT * FROM house ")
     fun getAllHouse(): Flow<List<House>>
 
 }

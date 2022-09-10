@@ -30,27 +30,26 @@ import java.io.Serializable
 /**
  * Data model for each row of the RecyclerView
  */
-@Entity(tableName = "house_database")
+@Entity(tableName = "house")
 data class House(
     @ColumnInfo(name = "house_id") @PrimaryKey var houseId: Int,
-    @ColumnInfo(name = "details_description") var detailsViewDescription: String,
+    @ColumnInfo(name = "details_type") var detailViewType: String,
+    @ColumnInfo(name = "details_price") var detailViewPrice: String,
     @ColumnInfo(name = "details_surface") var detailsViewSurface: String,
     @ColumnInfo(name = "details_room") var detailsViewRooms: String,
-    @ColumnInfo(name = "details_bath") var detailsViewBath: String,
     @ColumnInfo(name = "details_bed") var detailsViewBed: String,
-    @ColumnInfo(name = "details_price") var detailViewPrice: String,
-    @ColumnInfo(name = "details_type") var detailViewType: String,
+    @ColumnInfo(name = "details_bath") var detailsViewBath: String,
+    @ColumnInfo(name = "details_nearby_buses") var amenityBuses: Boolean,
+    @ColumnInfo(name = "details_nearby_school") var amenitySchool: Boolean,
+    @ColumnInfo(name = "details_nearby_playground") var amenityPlayground: Boolean,
+    @ColumnInfo(name = "details_nearby_shop") var amenityShop: Boolean,
+    @ColumnInfo(name = "details_nearby_subway") var amenitySubway: Boolean,
+    @ColumnInfo(name = "details_nearby_park") var amenityPark: Boolean,
+    @ColumnInfo(name = "details_description") var detailsViewDescription: String,
+    @ColumnInfo(name = "details_address") var detailsAddress: String,
     @ColumnInfo(name = "details_neartitle") var detailViewNearTitle: String,
-    /*val houseId: Int,
-    val detailsViewDescription: String,
-    val detailsViewSurface: String,
-    val detailsViewRooms: String,
-    val detailsViewBath: String,
-    val detailsViewBed: String,
-    val detailViewPrice: String,
-    val detailViewType: String,
-    val detailViewNearTitle: String,
-    val detailsViewListPictures: Int,
-    val detailsViewSliderPicture: Array<Int>,
-    ):Serializable*/
+    @ColumnInfo(name = "details_market_since") var detailMarketSince: String,
+    @ColumnInfo(name = "details_sold") var detailSold: Boolean,
+    @ColumnInfo(name = "details_sold_on") var detailSoldOn: String,
+    @ColumnInfo(name = "details_manage_by") var detailManageBy: String
 ):Serializable

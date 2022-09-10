@@ -34,7 +34,7 @@ class HouseViewModel : ViewModel() {
 
     init {
         // Initialize the house data.
-        _maisonsData = HouseData.getHouseData()
+        //_maisonsData = HouseData.getHouseData()
         _currentHouse.value = _maisonsData[0]
     }
 

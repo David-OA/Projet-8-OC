@@ -22,13 +22,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.MaisonsListItemBinding
 import com.openclassrooms.realestatemanager.model.House
 
-class MaisonsListAdapter(private val onItemClicked: (House) -> Unit) :
-    ListAdapter<House, MaisonsListAdapter.MaisonsViewHolder>(DiffCallback) {
+class HouseListAdapter(private val onItemClicked: (House) -> Unit) :
+    ListAdapter<House, HouseListAdapter.MaisonsViewHolder>(DiffCallback) {
 
     private lateinit var context: Context
 
