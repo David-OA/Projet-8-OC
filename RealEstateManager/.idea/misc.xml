@@ -3,11 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/add_agent.xml" value="0.319" />
         <entry key="app/src/main/res/drawable/add_icon.xml" value="0.2845" />
         <entry key="app/src/main/res/drawable/agent_picture_default.xml" value="0.215" />
         <entry key="app/src/main/res/drawable/baseline_add_20.xml" value="0.2435" />
         <entry key="app/src/main/res/drawable/bathroom_icon.xml" value="0.2705" />
         <entry key="app/src/main/res/drawable/bed_icon.xml" value="0.2705" />
+        <entry key="app/src/main/res/drawable/bus_icon.xml" value="0.319" />
         <entry key="app/src/main/res/drawable/check_icon.xml" value="0.319" />
         <entry key="app/src/main/res/drawable/dollar_icon.xml" value="0.2705" />
         <entry key="app/src/main/res/drawable/edit_icon.xml" value="0.2845" />
@@ -15,7 +17,12 @@
         <entry key="app/src/main/res/drawable/home_icon.xml" value="0.2705" />
         <entry key="app/src/main/res/drawable/icon_location_sold.xml" value="0.2705" />
         <entry key="app/src/main/res/drawable/near_icon.xml" value="0.2705" />
+        <entry key="app/src/main/res/drawable/park_icon.xml" value="0.319" />
+        <entry key="app/src/main/res/drawable/playground_icon.xml" value="0.319" />
+        <entry key="app/src/main/res/drawable/school_icon.xml" value="0.319" />
         <entry key="app/src/main/res/drawable/search_icon.xml" value="0.2845" />
+        <entry key="app/src/main/res/drawable/shopping_icon.xml" value="0.319" />
+        <entry key="app/src/main/res/drawable/subway_icon.xml" value="0.319" />
         <entry key="app/src/main/res/drawable/surface_icon.xml" value="0.2705" />
         <entry key="app/src/main/res/drawable/type_icon.xml" value="0.2705" />
         <entry key="app/src/main/res/font/roboto.xml" value="0.3854166666666667" />
@@ -26,18 +33,19 @@
         <entry key="app/src/main/res/layout-land/activity_main_seconde.xml" value="0.30158730158730157" />
         <entry key="app/src/main/res/layout-sw600dp/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout-sw600dp/activity_main_deux.xml" value="0.2671875" />
-        <entry key="app/src/main/res/layout/activity_add_property.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_add_property.xml" value="0.5" />
         <entry key="app/src/main/res/layout/activity_detail.xml" value="0.18072916666666666" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_main_deux.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/activity_main_seconde.xml" value="0.333786231884058" />
         <entry key="app/src/main/res/layout/activity_second.xml" value="0.18177083333333333" />
         <entry key="app/src/main/res/layout/amenities_checkboxes.xml" value="0.2078125" />
+        <entry key="app/src/main/res/layout/dropdown_menu_popup_item.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/layout/fragment_a.xml" value="0.18072916666666666" />
         <entry key="app/src/main/res/layout/fragment_add_property.xml" value="0.333786231884058" />
         <entry key="app/src/main/res/layout/fragment_b.xml" value="0.18072916666666666" />
         <entry key="app/src/main/res/layout/fragment_deux_test.xml" value="0.333786231884058" />
-        <entry key="app/src/main/res/layout/fragment_maisons_infos.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/fragment_maisons_infos.xml" value="0.402073732718894" />
         <entry key="app/src/main/res/layout/fragment_maisons_list.xml" value="0.18177083333333333" />
         <entry key="app/src/main/res/layout/fragment_un_test.xml" value="0.333786231884058" />
         <entry key="app/src/main/res/layout/list_agent_search_view_item.xml" value="0.2078125" />

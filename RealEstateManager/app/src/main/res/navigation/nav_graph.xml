@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/MaisonsListFragment"
-        android:name="com.openclassrooms.realestatemanager.houselist.MaisonsListFragment"
+        android:name="com.openclassrooms.realestatemanager.houselist.HouseListFragment"
         android:label="@string/list_fragment_label"
         tools:layout="@layout/fragment_maisons_list">
 
