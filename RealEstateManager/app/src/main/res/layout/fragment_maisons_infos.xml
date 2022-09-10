@@ -255,7 +255,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 style="@style/SmallTitleREM"
-                android:text="near_by"
+                android:text="@string/near_by"
                 app:layout_constraintTop_toTopOf="@id/detail_view_near_icon"
                 app:layout_constraintBottom_toBottomOf="@id/detail_view_near_icon"
                 app:layout_constraintStart_toEndOf="@id/detail_view_near_icon"
