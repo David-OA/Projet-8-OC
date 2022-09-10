@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.openclassrooms.realestatemanager.HouseViewModel
+import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.data.AddHouseViewModel
 import com.openclassrooms.realestatemanager.databinding.FragmentMaisonsInfosBinding
 import com.openclassrooms.realestatemanager.injection.Injection
@@ -48,16 +49,31 @@ class InfoDetailsFragment : Fragment() {
             val houseId = args.getSerializable("test") as House
 
 
-                    binding.detailsViewDescription.text = houseId.detailsViewDescription
-                    binding.detailViewNearTitle.text = houseId.detailViewNearTitle
-                    binding.detailsViewSurface.text = houseId.detailsViewSurface
-                    binding.detailsViewRooms.text = houseId.detailsViewRooms
-                    binding.detailsViewBath.text = houseId.detailsViewBath
-                    binding.detailsViewBed.text = houseId.detailsViewBed
-                    binding.detailViewPrice.text = houseId.detailViewPrice
-                    binding.detailViewType.text = houseId.detailViewType
-                    binding.detailViewNearTitle.text = houseId.detailViewNearTitle
-
+            binding.detailsViewDescription.text = houseId.detailsViewDescription
+            binding.detailsViewSurface.text = houseId.detailsViewSurface
+            binding.detailsViewRooms.text = houseId.detailsViewRooms
+            binding.detailsViewBath.text = houseId.detailsViewBath
+            binding.detailsViewBed.text = houseId.detailsViewBed
+            binding.detailViewPrice.text = houseId.detailViewPrice
+            binding.detailViewType.text = houseId.detailViewType
+            if (houseId.amenityBuses == true) {
+                binding.detailViewAmenityOne.setImageResource(R.drawable.bus_icon)
+            }
+            if (houseId.amenityPark == true) {
+                binding.detailViewAmenityTwo.setImageResource(R.drawable.park_icon)
+            }
+            if (houseId.amenityPlayground == true) {
+                binding.detailViewAmenityThree.setImageResource(R.drawable.playground_icon)
+            }
+            if (houseId.amenityShop == true) {
+                binding.detailViewAmenityFour.setImageResource(R.drawable.shopping_icon)
+            }
+            if (houseId.amenitySchool == true) {
+                binding.detailViewAmenityFive.setImageResource(R.drawable.school_icon)
+            }
+            if (houseId.amenitySubway == true) {
+                binding.detailViewAmenitySix.setImageResource(R.drawable.subway_icon)
+            }
         }
     }
 
