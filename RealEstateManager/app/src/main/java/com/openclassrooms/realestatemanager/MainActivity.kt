@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.menu.MenuBuilder
 import androidx.appcompat.widget.Toolbar
 import com.openclassrooms.realestatemanager.addproperty.AddPropertyActivity
 import com.openclassrooms.realestatemanager.utils.Utils
@@ -40,7 +41,9 @@ class MainActivity : AppCompatActivity() {
         //setSupportActionBar(mainActivitytoolbar)
     }
 
+    @SuppressLint("RestrictedApi")
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        if (menu is MenuBuilder) menu.setOptionalIconsVisible(true)
         menuInflater.inflate(R.menu.menu,menu)
         return true
     }
