@@ -1,6 +1,7 @@
 package com.openclassrooms.realestatemanager
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -8,7 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import com.openclassrooms.realestatemanager.addproperty.AddPropertyFragment
+import com.openclassrooms.realestatemanager.addproperty.AddPropertyActivity
 import com.openclassrooms.realestatemanager.utils.Utils
 
 class MainActivity : AppCompatActivity() {
@@ -53,10 +54,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun  openAddPropertyActivity() {
-        val clickForAddPropertyFragment = AddPropertyFragment()
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.recycler_view_list_house, clickForAddPropertyFragment)
-            .commitAllowingStateLoss()
+        val clickForAddPropertyActivity = Intent(this, AddPropertyActivity::class.java)
+        startActivity(clickForAddPropertyActivity)
     }
 
     private fun openSearchPropertyActivity() {
