@@ -2,10 +2,25 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/add_property"
+        android:id="@+id/adding"
         android:icon="@drawable/add_icon"
         app:showAsAction="always"
-        android:title="Add a property"/>
+        android:title="Add a property or agent">
+
+        <menu>
+            <item
+                android:id="@+id/add_property"
+                android:icon="@drawable/home_icon"
+                android:title="Add a property"/>
+
+            <item
+                android:id="@+id/add_agent"
+                android:icon="@drawable/add_agent"
+                android:title="Add a agent"/>
+
+        </menu>
+
+    </item>
 
     <item
         android:id="@+id/edit"
