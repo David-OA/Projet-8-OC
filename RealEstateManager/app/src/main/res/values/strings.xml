@@ -33,20 +33,20 @@
     <string name="settings">Settings</string>
 
     <!-- Add property-->
-    <string name="type_dropdown_menu">type_dropdown_menu</string>
-    <string name="price_dollar">price_dollar</string>
-    <string name="surface_m2">surface_m2</string>
-    <string name="bedrooms">bedrooms</string>
-    <string name="bathrooms">bathrooms</string>
-    <string name="near_by">near_by</string>
-    <string name="description">description</string>
-    <string name="address">address</string>
-    <string name="neighbourhood">neighbourhood</string>
-    <string name="on_market_since">on_market_since</string>
-    <string name="sold">sold</string>
-    <string name="sold_on">sold_on</string>
-    <string name="manage_by">manage_by</string>
-    <string name="add_pictures">add_pictures</string>
+    <string name="type_dropdown_menu">Type dropdown menu</string>
+    <string name="price_dollar">Price dollar</string>
+    <string name="surface_m2">Surface m2</string>
+    <string name="bedrooms">Bedrooms</string>
+    <string name="bathrooms">Bathrooms</string>
+    <string name="near_by">Near by</string>
+    <string name="description">Description</string>
+    <string name="address">Address</string>
+    <string name="neighbourhood">Neighbourhood</string>
+    <string name="on_market_since">On market since</string>
+    <string name="sold">Sold</string>
+    <string name="sold_on">Sold on</string>
+    <string name="manage_by">Manage by</string>
+    <string name="add_pictures">Add pictures</string>
 
 
 </resources>
