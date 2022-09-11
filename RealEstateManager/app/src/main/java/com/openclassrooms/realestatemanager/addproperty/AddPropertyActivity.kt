@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.widget.ArrayAdapter
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.openclassrooms.realestatemanager.data.AddHouseViewModel
 import com.openclassrooms.realestatemanager.databinding.ActivityAddPropertyBinding
 import com.openclassrooms.realestatemanager.injection.Injection
 import com.openclassrooms.realestatemanager.injection.ViewModelFactory
@@ -28,7 +27,7 @@ class AddPropertyActivity: AppCompatActivity() {
     private var switchSoldCheck: Boolean = false
 
     private val addHouseViewModel: AddHouseViewModel by viewModels {
-        ViewModelFactory(Injection.providesHouseRepository(this))
+        ViewModelFactory(Injection.providesHouseRepository(this), Injection.providesAgentRepository(this))
     }
 
     private val dropdownTypeHouse by lazy { binding.addPropertyViewDropdownType }
@@ -43,9 +42,6 @@ class AddPropertyActivity: AppCompatActivity() {
         addHouseInRoomDatabase()
 
         getHouseType()
-
-
-
 
     }
 
