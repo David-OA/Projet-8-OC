@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager
+package com.openclassrooms.realestatemanager.addagent
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
