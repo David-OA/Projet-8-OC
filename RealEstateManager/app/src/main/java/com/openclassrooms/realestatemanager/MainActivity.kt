@@ -50,8 +50,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
-            R.id.add_property->openAddPropertyActivity()
-            R.id.search->openSearchPropertyActivity()
+            R.id.add_property -> openAddPropertyActivity()
+            R.id.add_agent -> openAddAgentActivity()
+            R.id.search -> openSearchPropertyActivity()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -59,6 +60,11 @@ class MainActivity : AppCompatActivity() {
     private fun  openAddPropertyActivity() {
         val clickForAddPropertyActivity = Intent(this, AddPropertyActivity::class.java)
         startActivity(clickForAddPropertyActivity)
+    }
+
+    private fun  openAddAgentActivity() {
+        val clickForAddAgentActivity = Intent(this, AddAgentActivity::class.java)
+        startActivity(clickForAddAgentActivity)
     }
 
     private fun openSearchPropertyActivity() {

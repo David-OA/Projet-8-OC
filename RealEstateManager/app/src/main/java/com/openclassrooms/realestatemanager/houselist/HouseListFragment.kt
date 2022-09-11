@@ -9,7 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.realestatemanager.utils.ItemClickSupport
 import com.openclassrooms.realestatemanager.R
-import com.openclassrooms.realestatemanager.data.AddHouseViewModel
+import com.openclassrooms.realestatemanager.addproperty.AddHouseViewModel
 import com.openclassrooms.realestatemanager.databinding.FragmentMaisonsListBinding
 import com.openclassrooms.realestatemanager.houseinfos.InfoDetailsFragment
 import com.openclassrooms.realestatemanager.injection.Injection
@@ -17,10 +17,8 @@ import com.openclassrooms.realestatemanager.injection.ViewModelFactory
 
 class HouseListFragment : Fragment() {
 
-    //private val houseViewModel: HouseViewModel by activityViewModels()
-
     private val addHouseViewModel: AddHouseViewModel by activityViewModels{
-        ViewModelFactory(Injection.providesHouseRepository(requireContext()))
+        ViewModelFactory(Injection.providesHouseRepository(requireContext()), Injection.providesAgentRepository(requireContext()))
     }
 
     private var _binding: FragmentMaisonsListBinding? = null

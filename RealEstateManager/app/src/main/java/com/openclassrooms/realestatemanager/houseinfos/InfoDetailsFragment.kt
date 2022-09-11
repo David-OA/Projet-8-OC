@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.openclassrooms.realestatemanager.HouseViewModel
 import com.openclassrooms.realestatemanager.R
-import com.openclassrooms.realestatemanager.data.AddHouseViewModel
+import com.openclassrooms.realestatemanager.addproperty.AddHouseViewModel
 import com.openclassrooms.realestatemanager.databinding.FragmentMaisonsInfosBinding
 import com.openclassrooms.realestatemanager.injection.Injection
 import com.openclassrooms.realestatemanager.injection.ViewModelFactory
@@ -21,7 +21,7 @@ class InfoDetailsFragment : Fragment() {
     private val houseViewModel : HouseViewModel by activityViewModels()
 
     private val addHouseViewModel: AddHouseViewModel by activityViewModels{
-        ViewModelFactory(Injection.providesHouseRepository(requireContext()))
+        ViewModelFactory(Injection.providesHouseRepository(requireContext()), Injection.providesAgentRepository(requireContext()))
     }
 
     lateinit var imageUrl: Array<Int>
