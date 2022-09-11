@@ -27,6 +27,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".addproperty.AddPropertyActivity" />
+        <activity android:name=".AddAgentActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
