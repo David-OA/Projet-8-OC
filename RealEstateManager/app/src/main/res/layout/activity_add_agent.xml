@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".addAgent.AddAgentView">
+
+        <ImageView
+            android:id="@+id/add_agent_view_picture_agent"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_width="@dimen/picture_agent"
+            android:layout_height="@dimen/picture_agent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/agent_picture_default"/>
+
+        <ImageView
+            android:id="@+id/add_agent_view_add_photo"
+            android:layout_width="@dimen/add_picture_agent"
+            android:layout_height="@dimen/add_picture_agent"
+            android:layout_marginTop="80dp"
+            android:background="@drawable/bg_color_pink"
+            android:padding="2dp"
+            android:src="@drawable/icon_photo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.528"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/add_agent_view_firstname_layout"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_small"
+            app:layout_constraintTop_toBottomOf="@id/add_agent_view_picture_agent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="first_name">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/add_agent_view_firstname"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textCapWords"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/add_agent_view_lastname_layout"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_small"
+            app:layout_constraintTop_toBottomOf="@id/add_agent_view_firstname_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="last_name">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/add_agent_view_lastname"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textCapWords"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/add_agent_view_email_layout"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_small"
+            app:layout_constraintTop_toBottomOf="@id/add_agent_view_lastname_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="email">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/add_agent_view_email"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textEmailAddress"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/add_agent_view_phonenb_layout"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_small"
+            app:layout_constraintTop_toBottomOf="@id/add_agent_view_email_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="phone_number">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/add_agent_view_phonenb"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="phone"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:contentDescription="add_house"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
