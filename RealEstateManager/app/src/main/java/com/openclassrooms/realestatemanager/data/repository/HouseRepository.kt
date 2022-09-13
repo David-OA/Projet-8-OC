@@ -18,6 +18,12 @@ class HouseRepository (
             houseDao.addHouse(house)
         }
 
+        @Suppress("RedundantSuspendModifier")
+        @WorkerThread
+        suspend fun update(house: House) {
+                houseDao.updateHouse(house)
+        }
+
         companion object {
                 @Volatile
                 private var INSTANCE: HouseRepository? = null
