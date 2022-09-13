@@ -3,10 +3,13 @@ package com.openclassrooms.realestatemanager.data.repository
 import androidx.annotation.WorkerThread
 import com.openclassrooms.realestatemanager.data.dao.AgentDao
 import com.openclassrooms.realestatemanager.model.Agent
+import kotlinx.coroutines.flow.Flow
 
 class AgentRepository(
         private val agentDao: AgentDao
 ) {
+
+    val allAgent: Flow<List<Agent>> = agentDao.getAllAgent()
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
