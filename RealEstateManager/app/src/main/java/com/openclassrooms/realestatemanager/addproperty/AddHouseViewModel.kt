@@ -1,10 +1,8 @@
 package com.openclassrooms.realestatemanager.addproperty
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.openclassrooms.realestatemanager.data.repository.HouseRepository
+import com.openclassrooms.realestatemanager.model.Agent
 import com.openclassrooms.realestatemanager.model.House
 import kotlinx.coroutines.launch
 
@@ -17,4 +15,11 @@ class AddHouseViewModel (private val repository: HouseRepository) : ViewModel() 
     fun insert(house: House) = viewModelScope.launch {
         repository.insert(house)
     }
+
+    fun update(house: House) = viewModelScope.launch {
+        repository.update(house)
+    }
+
+
+
 }

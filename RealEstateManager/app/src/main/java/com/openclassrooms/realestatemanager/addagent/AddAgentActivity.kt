@@ -49,7 +49,7 @@ class AddAgentActivity: AppCompatActivity() {
             // Creation date
             val editCreationDateTextView = binding
 
-            val agent = Agent("TheBest",
+            val agent = Agent("TheBester",
                 textFirstNameTextView,
                 textLastNameTextView,
                 textEmailTextView,
