@@ -4,8 +4,10 @@ package com.openclassrooms.realestatemanager.addproperty
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.openclassrooms.realestatemanager.addagent.AddAgentViewModel
 import com.openclassrooms.realestatemanager.databinding.ActivityAddPropertyBinding
 import com.openclassrooms.realestatemanager.injection.Injection
 import com.openclassrooms.realestatemanager.injection.ViewModelFactory
@@ -26,11 +28,18 @@ class AddPropertyActivity: AppCompatActivity() {
 
     private var switchSoldCheck: Boolean = false
 
+    private var textAgentAddHouse:String = ""
+
     private val addHouseViewModel: AddHouseViewModel by viewModels {
         ViewModelFactory(Injection.providesHouseRepository(this), Injection.providesAgentRepository(this))
     }
 
+    private val addAgentViewModel: AddAgentViewModel by viewModels {
+        ViewModelFactory(Injection.providesHouseRepository(this), Injection.providesAgentRepository(this))
+    }
+
     private val dropdownTypeHouse by lazy { binding.addPropertyViewDropdownType }
+    private val dropdownAgentAddHouse by lazy { binding.addPropertyViewDropdownAgent }
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
@@ -38,10 +47,9 @@ class AddPropertyActivity: AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-
         addHouseInRoomDatabase()
-
         getHouseType()
+        getAgentInTheList()
 
     }
 
@@ -55,6 +63,17 @@ class AddPropertyActivity: AppCompatActivity() {
         ArrayAdapter(this, android.R.layout.simple_spinner_item, houseType).also {
                 adapter -> adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             dropdownTypeHouse.setAdapter(adapter)
+        }
+    }
+
+    private fun getAgentInTheList() {
+        val clickForChoiceAgentInList = binding.addPropertyViewDropdownAgent
+        addAgentViewModel.getAllAgent.observe(this) {
+            clickForChoiceAgentInList.setOnClickListener{
+                val listAgent = addAgentViewModel.getAllAgent.value
+                val dialog = ListAgentsDialogView(listAgent!!)
+                dialog.show(supportFragmentManager, "tag test")
+            }
         }
     }
 
@@ -140,7 +159,10 @@ class AddPropertyActivity: AppCompatActivity() {
             val soldOn = binding.addPropertyViewSoldOn
             val textSoldOn = soldOn.text.toString()
 
-            val house = House(4,
+            // Agent add house
+            val textAgentAddHouse = addAgentViewModel.getAgentClick.value.toString()
+
+            val house = House(2,
                 typeHouseChoice,
                 textPriceTextView,
                 textSurfaceTextView,
@@ -159,7 +181,7 @@ class AddPropertyActivity: AppCompatActivity() {
                 textOnMarketSince,
                 switchSoldCheck,
                 textSoldOn,
-                "")
+                textAgentAddHouse)
 
             addHouseViewModel.insert(house)
         }
