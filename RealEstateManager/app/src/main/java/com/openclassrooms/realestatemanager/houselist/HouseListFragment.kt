@@ -14,6 +14,7 @@ import com.openclassrooms.realestatemanager.databinding.FragmentMaisonsListBindi
 import com.openclassrooms.realestatemanager.houseinfos.InfoDetailsFragment
 import com.openclassrooms.realestatemanager.injection.Injection
 import com.openclassrooms.realestatemanager.injection.ViewModelFactory
+import com.openclassrooms.realestatemanager.model.House
 
 class HouseListFragment : Fragment() {
 
@@ -55,10 +56,14 @@ class HouseListFragment : Fragment() {
         }
     }
 
+
     private fun clickOnHouseOfTheList() {
-        ItemClickSupport.addTo(binding.recyclerView, R.layout.maisons_list_item).setOnItemClickListener(object : ItemClickSupport.OnItemClickListener {
-            override fun onItemClicked(recyclerView: RecyclerView?, position: Int, v: View?) {
+        addHouseViewModel.allHouses.observe(viewLifecycleOwner) {
+        ItemClickSupport.addTo(binding.recyclerView, R.layout.maisons_list_item).setOnItemClickListener { recyclerView, position, v -> setPropertySelected(addHouseViewModel.allHouses.value?.get(position))
+
+                // Get id property click in recyclerview
                 val maisonId = addHouseViewModel.allHouses.value?.get(position)
+
 
                 val bundle = Bundle()
                 if (maisonId != null) {
@@ -68,9 +73,16 @@ class HouseListFragment : Fragment() {
                 val fragment = InfoDetailsFragment()
                 fragment.arguments = bundle
 
-                fragmentManager?.beginTransaction()?.replace(R.id.detail_view, fragment)?.commitAllowingStateLoss()
+                fragmentManager?.beginTransaction()?.replace(R.id.detail_view, fragment)
+                    ?.commitAllowingStateLoss()
             }
-        })
+        }
+    }
+
+    private fun setPropertySelected(house: House?) {
+        if (house != null) {
+            addHouseViewModel.getHouseSelected(house)
+        }
     }
     
 }

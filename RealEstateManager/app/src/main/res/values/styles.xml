@@ -21,11 +21,12 @@
         <item name="materialButtonStyle">@style/ButtonREM</item>
         <item name="textInputStyle">@style/TextInputLayoutRem</item>
 
+
     </style>
 
     <!-- TOOLBAR THEME -->
     <style name="ToolBarTheme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-        <item name="android:textColorPrimary">@color/colorTextPrimary</item>
+        <item name="android:textColorPrimary">@color/colorToolbarText</item>
     </style>
     <!-- TOOLBAR TITLE THEME -->
     <style name="ToolBarTheme.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">

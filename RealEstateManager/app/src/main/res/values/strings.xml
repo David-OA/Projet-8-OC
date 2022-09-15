@@ -48,5 +48,12 @@
     <string name="manage_by">Manage by</string>
     <string name="add_pictures">Add pictures</string>
 
+    <!-- For menu -->
+    <string name="add_property">Add Property</string>
+    <string name="add_agent">Add Agent</string>
+    <string name="add_a_property_or_agent">Add a property or agent</string>
+    <string name="edit">Edit</string>
+    <string name="search">Search</string>
+
 
 </resources>

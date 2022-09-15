@@ -12,9 +12,11 @@ import androidx.appcompat.view.menu.MenuBuilder
 import androidx.appcompat.widget.Toolbar
 import com.openclassrooms.realestatemanager.addagent.AddAgentActivity
 import com.openclassrooms.realestatemanager.addproperty.AddPropertyActivity
+import com.openclassrooms.realestatemanager.editproperty.EditPropertyActivity
 import com.openclassrooms.realestatemanager.utils.Utils
 
-class MainActivity : AppCompatActivity() {
+
+class MainActivity : AppCompatActivity(){
 
     private var textViewMain: TextView? = null
     private var textViewQuantity: TextView? = null
@@ -25,8 +27,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // Toolbar
-        val mainActivitytoolbar: Toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(mainActivitytoolbar)
+        configureToolbar()
+
 
         //textViewMain = findViewById(R.id.activity_main_activity_text_view_main)
         //textViewQuantity = findViewById(R.id.activity_main_activity_text_view_quantity)
@@ -39,9 +41,11 @@ class MainActivity : AppCompatActivity() {
 
     // ------ Toolbar ------
     private fun configureToolbar() {
-        //setSupportActionBar(mainActivitytoolbar)
+        val mainActivitytoolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(mainActivitytoolbar)
     }
 
+    // Menu Toolbar
     @SuppressLint("RestrictedApi")
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         if (menu is MenuBuilder) menu.setOptionalIconsVisible(true)
@@ -53,11 +57,13 @@ class MainActivity : AppCompatActivity() {
         when(item.itemId) {
             R.id.add_property -> openAddPropertyActivity()
             R.id.add_agent -> openAddAgentActivity()
+            R.id.edit -> openEditPropertyActivity()
             R.id.search -> openSearchPropertyActivity()
         }
         return super.onOptionsItemSelected(item)
     }
 
+    // For add options
     private fun  openAddPropertyActivity() {
         val clickForAddPropertyActivity = Intent(this, AddPropertyActivity::class.java)
         startActivity(clickForAddPropertyActivity)
@@ -68,6 +74,13 @@ class MainActivity : AppCompatActivity() {
         startActivity(clickForAddAgentActivity)
     }
 
+    // For Edit option
+    private fun openEditPropertyActivity() {
+        val clickForEditPropertyActivity = Intent(this, EditPropertyActivity::class.java)
+        startActivity(clickForEditPropertyActivity)
+    }
+
+    // For Search option
     private fun openSearchPropertyActivity() {
         val clickForSearchPropertyActivity = SearchPropertyActivity()
         supportFragmentManager.beginTransaction().replace(R.id.recycler_view_list_house, clickForSearchPropertyActivity).commitAllowingStateLoss()

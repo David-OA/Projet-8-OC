@@ -4,21 +4,20 @@
     <item
         android:id="@+id/adding"
         android:icon="@drawable/add_icon"
-        app:showAsAction="always"
-        android:title="Add a property or agent">
+        app:showAsAction="ifRoom"
+        android:title="@string/add_a_property_or_agent">
 
         <menu>
             <item
                 android:id="@+id/add_property"
                 android:icon="@drawable/home_icon"
-                android:title="Add a property"
+                android:title="@string/add_property"
                 app:showAsAction="withText"/>
 
             <item
                 android:id="@+id/add_agent"
                 android:icon="@drawable/add_agent"
-                android:title="Add a agent"
-                app:showAsAction="withText"/>
+                android:title="@string/add_agent"/>
 
         </menu>
 
@@ -28,12 +27,12 @@
         android:id="@+id/edit"
         android:icon="@drawable/edit_icon"
         app:showAsAction="always"
-        android:title="Edit"/>
+        android:title="@string/edit"/>
 
     <item
         android:id="@+id/search"
         android:icon="@drawable/search_icon"
         app:showAsAction="always"
-        android:title="Search"/>
+        android:title="@string/search"/>
 
 </menu>

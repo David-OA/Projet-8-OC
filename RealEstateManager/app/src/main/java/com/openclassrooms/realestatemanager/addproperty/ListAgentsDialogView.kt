@@ -51,9 +51,7 @@ class ListAgentsDialogView(private val agents: List<Agent>): DialogFragment() {
     }
 
     private fun setAgentSelected(agent: Agent){
-        //callback.onAgentSelected(agent)
         viewModel.getNameClicked(agent)
-
         dismiss()
     }
 

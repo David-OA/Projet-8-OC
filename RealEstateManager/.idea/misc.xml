@@ -44,6 +44,8 @@
         <entry key="app/src/main/res/layout/activity_main_seconde.xml" value="0.333786231884058" />
         <entry key="app/src/main/res/layout/activity_second.xml" value="0.18177083333333333" />
         <entry key="app/src/main/res/layout/amenities_checkboxes.xml" value="0.2078125" />
+        <entry key="app/src/main/res/layout/custom_sub_menu.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/custom_sub_menu_2.xml" value="0.5" />
         <entry key="app/src/main/res/layout/dropdown_menu_popup_item.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/layout/fragment_a.xml" value="0.18072916666666666" />
         <entry key="app/src/main/res/layout/fragment_add_property.xml" value="0.333786231884058" />
