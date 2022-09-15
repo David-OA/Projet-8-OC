@@ -39,7 +39,6 @@ class AddPropertyActivity: AppCompatActivity() {
     }
 
     private val dropdownTypeHouse by lazy { binding.addPropertyViewDropdownType }
-    private val dropdownAgentAddHouse by lazy { binding.addPropertyViewDropdownAgent }
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
@@ -47,8 +46,11 @@ class AddPropertyActivity: AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+
         addHouseInRoomDatabase()
+
         getHouseType()
+
         getAgentInTheList()
 
     }
@@ -74,7 +76,15 @@ class AddPropertyActivity: AppCompatActivity() {
                 val dialog = ListAgentsDialogView(listAgent!!)
                 dialog.show(supportFragmentManager, "tag test")
             }
+
         }
+
+    }
+
+    private fun showAgentListSelected() {
+        val dropdownAgentAddHouse = binding.addPropertyViewDropdownAgent
+            dropdownAgentAddHouse.setText(textAgentAddHouse)
+
     }
 
 
