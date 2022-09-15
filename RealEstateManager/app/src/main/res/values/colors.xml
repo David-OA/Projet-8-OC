@@ -18,4 +18,5 @@
     <color name="colorTextRed">#ff3d00</color>
 
     <color name="colorWhite">#fafafa</color>
+    <color name="colorToolbarText">#000000</color>
 </resources>
