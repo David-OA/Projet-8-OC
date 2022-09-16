@@ -19,11 +19,11 @@ class AddHouseViewModel (private val repository: HouseRepository) : ViewModel() 
         repository.update(house)
     }
 
-    val getHouseClicked = MutableLiveData<House>() // getHouseClicked est null, why ?
+    // getHouseClicked est null, why ?
 
     fun getHouseSelected(house: House) {
         getHouseClicked.value = house
     }
 
-
+    val getHouseClicked = MutableLiveData<House>()
 }
