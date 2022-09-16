@@ -59,7 +59,7 @@ class HouseListFragment : Fragment() {
 
     private fun clickOnHouseOfTheList() {
         addHouseViewModel.allHouses.observe(viewLifecycleOwner) {
-        ItemClickSupport.addTo(binding.recyclerView, R.layout.maisons_list_item).setOnItemClickListener { recyclerView, position, v -> setPropertySelected(addHouseViewModel.allHouses.value?.get(position))
+        ItemClickSupport.addTo(binding.recyclerView, R.layout.maisons_list_item).setOnItemClickListener { recyclerView, position, v ->
 
                 // Get id property click in recyclerview
                 val maisonId = addHouseViewModel.allHouses.value?.get(position)

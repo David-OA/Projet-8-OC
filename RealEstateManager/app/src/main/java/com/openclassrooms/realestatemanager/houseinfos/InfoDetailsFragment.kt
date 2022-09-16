@@ -1,20 +1,22 @@
 package com.openclassrooms.realestatemanager.houseinfos
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.realestatemanager.HouseViewModel
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.addproperty.AddHouseViewModel
-import com.openclassrooms.realestatemanager.databinding.FragmentMaisonsInfosBinding
+import com.openclassrooms.realestatemanager.databinding.FragmentPropertyInfosBinding
+import com.openclassrooms.realestatemanager.editproperty.EditPropertyActivity
 import com.openclassrooms.realestatemanager.injection.Injection
 import com.openclassrooms.realestatemanager.injection.ViewModelFactory
 import com.openclassrooms.realestatemanager.model.House
-import com.smarteist.autoimageslider.SliderView
+import java.io.Serializable
 
 class InfoDetailsFragment : Fragment() {
 
@@ -24,9 +26,9 @@ class InfoDetailsFragment : Fragment() {
         ViewModelFactory(Injection.providesHouseRepository(requireContext()), Injection.providesAgentRepository(requireContext()))
     }
 
-    lateinit var imageUrl: Array<Int>
-    lateinit var sliderView: SliderView
-    lateinit var sliderAdapter: SliderAdapter
+    lateinit var pictureRecyclerView: RecyclerView
+
+    private lateinit var houseIdEdit: House
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,19 +36,29 @@ class InfoDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        return FragmentMaisonsInfosBinding.inflate(inflater, container, false).root
+        return FragmentPropertyInfosBinding.inflate(inflater, container, false).root
     }
 
     @SuppressLint("ResourceType")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val binding = FragmentMaisonsInfosBinding.bind(view)
+        val binding = FragmentPropertyInfosBinding.bind(view)
 
-        sliderView = binding.detailsViewSliderPictures
+        setHasOptionsMenu(true)
+
+
+        // For recyclerview
+        val picture = ListPicture()
+
+        pictureRecyclerView = binding.detailViewCardPictures
+        pictureRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        pictureRecyclerView.adapter = PictureAdapter(picture)
+
 
         val args = this.arguments
         if (args != null) {
             val houseId = args.getSerializable("test") as House
+            houseIdEdit = houseId
 
 
             binding.detailsViewDescription.text = houseId.detailsViewDescription
@@ -77,13 +89,41 @@ class InfoDetailsFragment : Fragment() {
         }
     }
 
-    fun  sliderViewForInfoDetailsHome(imageUrl: Array<Int>) {
-
-        sliderAdapter = SliderAdapter(imageUrl)
-        sliderView.autoCycleDirection = SliderView.LAYOUT_DIRECTION_LTR
-        sliderView.sliderAdapter = sliderAdapter
-        sliderView.scrollTimeInSec = 3
-        sliderView.isAutoCycle = true
-        sliderView.startAutoCycle()
+    // Menu Toolbar
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater!!.inflate(R.menu.menu_toolbar_detail_view_edit, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.edit -> openEditPropertyActivity()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    // For Edit option
+    private fun openEditPropertyActivity() {
+        val clickForEditPropertyActivity = Intent(requireContext(), EditPropertyActivity::class.java)
+        clickForEditPropertyActivity.putExtra("PropertyInFragment", houseIdEdit as Serializable)
+        startActivity(clickForEditPropertyActivity)
+    }
+
+
+
+    fun ListPicture(): Array<Int> {
+        val picture = arrayOf(
+        R.drawable.photo1,
+        R.drawable.photo2,
+        R.drawable.photo3,
+        R.drawable.photo4,
+        R.drawable.photo5,
+        R.drawable.photo6,
+        R.drawable.photo7,
+        R.drawable.photo8,
+        R.drawable.photo9,
+        R.drawable.photo10)
+        return picture
+    }
+
 }
