@@ -54,12 +54,14 @@
         <entry key="app/src/main/res/layout/fragment_list_agents_dialog_view.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/layout/fragment_maisons_infos.xml" value="0.402073732718894" />
         <entry key="app/src/main/res/layout/fragment_maisons_list.xml" value="0.18177083333333333" />
+        <entry key="app/src/main/res/layout/fragment_property_infos.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/fragment_un_test.xml" value="0.333786231884058" />
         <entry key="app/src/main/res/layout/list_agent_dialog_itel.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/layout/list_agent_item.xml" value="0.18072916666666666" />
         <entry key="app/src/main/res/layout/list_agent_search_view_item.xml" value="0.2078125" />
         <entry key="app/src/main/res/layout/list_item.xml" value="0.135546875" />
         <entry key="app/src/main/res/layout/maisons_list_item.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/picture_recyclerview_item.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/search_icon.xml" value="0.2078125" />
         <entry key="app/src/main/res/layout/search_property_view.xml" value="0.2078125" />
         <entry key="app/src/main/res/layout/separator.xml" value="0.333786231884058" />
@@ -67,6 +69,7 @@
         <entry key="app/src/main/res/layout/slider_item.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/toolbar.xml" value="0.25" />
         <entry key="app/src/main/res/menu/menu.xml" value="0.35520833333333335" />
+        <entry key="app/src/main/res/menu/menu_toolbar_detail_view_edit.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/menu/menu_toolbar_validate_button.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/xml/file_path.xml" value="0.5" />
       </map>
