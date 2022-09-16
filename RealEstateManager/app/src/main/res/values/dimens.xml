@@ -31,6 +31,6 @@
     <dimen name="margin_card_big">5dp</dimen>
     <dimen name="cardview_small_margin">2dp</dimen>
     <dimen name="text_size_slider_pic">18sp</dimen>
-    <dimen name="size_pic_slider">300dp</dimen>
+    <dimen name="size_pic_slider">120dp</dimen>
 
 </resources>
