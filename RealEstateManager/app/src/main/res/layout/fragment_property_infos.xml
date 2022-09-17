@@ -13,30 +13,28 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_small">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/detail_view_card_pictures"
-            app:cardCornerRadius="8dp"
+        <TextView
+            android:id="@+id/details_view_media_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:text="Media"
+            style="@style/TitleREM"
             android:layout_margin="@dimen/margin_small"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <com.smarteist.autoimageslider.SliderView
-                android:id="@+id/details_view_slider_pictures"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/size_pic_slider"
-                app:sliderIndicatorGravity="center_horizontal|bottom"
-                app:sliderIndicatorMargin="@dimen/margin_small"
-                app:sliderIndicatorOrientation="horizontal"
-                app:sliderIndicatorPadding="3dp"
-                app:sliderIndicatorRadius="2dp"
-                app:sliderIndicatorSelectedColor="?attr/colorSecondary"
-                app:sliderIndicatorUnselectedColor="?attr/colorPrimary"
-                app:sliderCircularHandlerEnabled="false"/>
-
-        </androidx.cardview.widget.CardView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/detail_view_card_pictures"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/size_pic_slider"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/details_view_media_title"/>
 
         <TextView
             android:id="@+id/details_view_description_title"
