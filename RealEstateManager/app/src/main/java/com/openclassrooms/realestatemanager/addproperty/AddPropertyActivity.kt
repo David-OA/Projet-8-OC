@@ -28,8 +28,6 @@ class AddPropertyActivity: AppCompatActivity() {
 
     private var switchSoldCheck: Boolean = false
 
-    private var textAgentAddHouse:String = ""
-
     private val addHouseViewModel: AddHouseViewModel by viewModels {
         ViewModelFactory(Injection.providesHouseRepository(this), Injection.providesAgentRepository(this))
     }
@@ -46,12 +44,13 @@ class AddPropertyActivity: AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-
         addHouseInRoomDatabase()
 
         getHouseType()
 
         getAgentInTheList()
+
+        showAgentListSelected()
 
     }
 
@@ -76,15 +75,14 @@ class AddPropertyActivity: AppCompatActivity() {
                 val dialog = ListAgentsDialogView(listAgent!!)
                 dialog.show(supportFragmentManager, "tag test")
             }
-
         }
 
     }
 
     private fun showAgentListSelected() {
         val dropdownAgentAddHouse = binding.addPropertyViewDropdownAgent
-            dropdownAgentAddHouse.setText(textAgentAddHouse)
-
+        val agentSelected = addAgentViewModel.getAgentClick.value.toString()
+        dropdownAgentAddHouse.setText(agentSelected)
     }
 
 
