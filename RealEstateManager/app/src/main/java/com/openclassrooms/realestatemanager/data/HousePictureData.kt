@@ -23,7 +23,7 @@ import com.openclassrooms.realestatemanager.model.House
 /**
  * Sports data
  */
-object HouseData {
+object HousePictureData {
     /*fun getHouseData(): ArrayList<House> {
         return arrayListOf(
             House(
