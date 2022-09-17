@@ -16,7 +16,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/REMTheme">
+        android:theme="@style/REMTheme"
+        android:hardwareAccelerated="true">
         <activity android:name="com.openclassrooms.realestatemanager.MainActivity"
             android:exported="true"
             android:screenOrientation="fullUser">
