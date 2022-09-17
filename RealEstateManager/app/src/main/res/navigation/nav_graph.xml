@@ -21,7 +21,7 @@
         android:id="@+id/InfoDetailsFragment"
         android:name="com.openclassrooms.realestatemanager.houseinfos.InfoDetailsFragment"
         android:label="@string/info_fragment_label"
-        tools:layout="@layout/fragment_maisons_infos">
+        tools:layout="@layout/fragment_property_infos">
     </fragment>
 
 </navigation>

@@ -64,7 +64,6 @@ class HouseListFragment : Fragment() {
                 // Get id property click in recyclerview
                 val maisonId = addHouseViewModel.allHouses.value?.get(position)
 
-
                 val bundle = Bundle()
                 if (maisonId != null) {
                     bundle.putSerializable("test", maisonId)
@@ -78,11 +77,4 @@ class HouseListFragment : Fragment() {
             }
         }
     }
-
-    private fun setPropertySelected(house: House?) {
-        if (house != null) {
-            addHouseViewModel.getHouseSelected(house)
-        }
-    }
-    
 }

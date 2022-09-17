@@ -19,7 +19,6 @@ package com.openclassrooms.realestatemanager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.openclassrooms.realestatemanager.data.HouseData
 import com.openclassrooms.realestatemanager.model.House
 
 class HouseViewModel : ViewModel() {
