@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity(){
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         if (menu is MenuBuilder) menu.setOptionalIconsVisible(true)
         menuInflater.inflate(R.menu.menu,menu)
+        menu!!.findItem(R.id.edit).isVisible = false
         return true
     }
 
