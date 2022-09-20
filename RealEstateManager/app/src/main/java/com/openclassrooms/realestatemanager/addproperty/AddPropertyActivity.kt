@@ -2,17 +2,20 @@ package com.openclassrooms.realestatemanager.addproperty
 
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.openclassrooms.realestatemanager.MainActivity
 import com.openclassrooms.realestatemanager.addagent.AddAgentViewModel
 import com.openclassrooms.realestatemanager.databinding.ActivityAddPropertyBinding
 import com.openclassrooms.realestatemanager.injection.Injection
 import com.openclassrooms.realestatemanager.injection.ViewModelFactory
 import com.openclassrooms.realestatemanager.model.House
 import com.openclassrooms.realestatemanager.utils.TypeProperty
+import com.openclassrooms.realestatemanager.utils.idGenerated
 
 
 class AddPropertyActivity: AppCompatActivity() {
@@ -27,6 +30,8 @@ class AddPropertyActivity: AppCompatActivity() {
     private var busesCheck: Boolean = false
 
     private var switchSoldCheck: Boolean = false
+
+    private var propertyId: String = idGenerated
 
     private val addHouseViewModel: AddHouseViewModel by viewModels {
         ViewModelFactory(Injection.providesHouseRepository(this), Injection.providesAgentRepository(this))
@@ -44,13 +49,12 @@ class AddPropertyActivity: AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        addHouseInRoomDatabase()
-
         getHouseType()
 
         getAgentInTheList()
 
-        showAgentListSelected()
+        addHouseInRoomDatabase()
+
 
     }
 
@@ -76,13 +80,11 @@ class AddPropertyActivity: AppCompatActivity() {
                 dialog.show(supportFragmentManager, "tag test")
             }
         }
-
     }
 
     private fun showAgentListSelected() {
-        val dropdownAgentAddHouse = binding.addPropertyViewDropdownAgent
         val agentSelected = addAgentViewModel.getAgentClick.value.toString()
-        dropdownAgentAddHouse.setText(agentSelected)
+        binding.addPropertyViewDropdownAgent.setText(agentSelected)
     }
 
 
@@ -150,6 +152,7 @@ class AddPropertyActivity: AppCompatActivity() {
                 parkCheck = true
             }
 
+            // type Property
             val  typeHouseChoice = dropdownTypeHouse.text.toString()
 
             //On market since
@@ -170,7 +173,7 @@ class AddPropertyActivity: AppCompatActivity() {
             // Agent add house
             val textAgentAddHouse = addAgentViewModel.getAgentClick.value.toString()
 
-            val house = House(2,
+            val house = House(propertyId,
                 typeHouseChoice,
                 textPriceTextView,
                 textSurfaceTextView,
@@ -192,6 +195,18 @@ class AddPropertyActivity: AppCompatActivity() {
                 textAgentAddHouse)
 
             addHouseViewModel.insert(house)
+
+            returnToMainActivity()
+            showToastForAddHouse()
         }
+    }
+
+    private fun  returnToMainActivity() {
+        val mainActivity = Intent(this, MainActivity::class.java)
+        startActivity(mainActivity)
+    }
+
+    private fun showToastForAddHouse() {
+        Toast.makeText(this, "La propiété à bien été ajouté", Toast.LENGTH_LONG).show()
     }
 }
