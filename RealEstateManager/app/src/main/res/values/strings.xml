@@ -8,29 +8,7 @@
     <string name="architecte">Architecte</string>
     <string name="rooms">4</string>
     <string name="bath">4</string>
-    <string name="bowling">Bowling</string>
-    <string name="cycling">Cycling</string>
-    <string name="golf">Golf</string>
-    <string name="running">Running</string>
-    <string name="soccer">Soccer</string>
-    <string name="swimming">Swimming</string>
-    <string name="table_tennis">Table Tennis</string>
-    <string name="tennis">Tennis</string>
 
-    <string name="baseball_subtitle">Here is some Baseball news!</string>
-    <string name="badminton_subtitle">Here is some Badminton news!</string>
-    <string name="basketball_subtitle">Here is some Basketball news!</string>
-    <string name="bowling_subtitle">Here is some Bowling news!</string>
-    <string name="cycling_subtitle">Here is some Cycling news!</string>
-    <string name="golf_subtitle">Here is some Golf news!</string>
-    <string name="running_subtitle">Here is some Running news!</string>
-    <string name="soccer_subtitle">Here is some Soccer news!</string>
-    <string name="swimming_subtitle">Here is some Swimming news!</string>
-    <string name="table_tennis_subtitle">Here is some Table Tennis news!</string>
-    <string name="tennis_subtitle">Here is some Tennis news!</string>
-    <string name="home">Home</string>
-    <string name="favorites">Favorites</string>
-    <string name="settings">Settings</string>
 
     <!-- Add property-->
     <string name="type_dropdown_menu">Type dropdown menu</string>
