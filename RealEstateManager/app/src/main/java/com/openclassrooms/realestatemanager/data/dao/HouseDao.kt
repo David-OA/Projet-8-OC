@@ -10,7 +10,7 @@ interface HouseDao {
     @Insert(onConflict= OnConflictStrategy.IGNORE)
     suspend fun addHouse(house: House)
 
-    @Update(onConflict = OnConflictStrategy.REPLACE)
+    @Update
     suspend fun updateHouse(house: House)
 
     @Query("SELECT * FROM house ")
