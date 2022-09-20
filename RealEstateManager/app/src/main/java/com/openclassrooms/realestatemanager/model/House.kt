@@ -32,7 +32,7 @@ import java.io.Serializable
  */
 @Entity(tableName = "house")
 data class House(
-    @ColumnInfo(name = "house_id") @PrimaryKey var houseId: Int,
+    @ColumnInfo(name = "house_id") @PrimaryKey var houseId: String,
     @ColumnInfo(name = "details_type") var detailViewType: String,
     @ColumnInfo(name = "details_price") var detailViewPrice: String,
     @ColumnInfo(name = "details_surface") var detailsViewSurface: String,
