@@ -3,6 +3,7 @@ package com.openclassrooms.realestatemanager.addproperty
 import androidx.lifecycle.*
 import com.openclassrooms.realestatemanager.data.repository.HouseRepository
 import com.openclassrooms.realestatemanager.model.House
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
@@ -15,15 +16,7 @@ class AddHouseViewModel (private val repository: HouseRepository) : ViewModel() 
         repository.insert(house)
     }
 
-    fun update(house: House) = viewModelScope.launch {
+    fun update(house: House) = viewModelScope.launch(Dispatchers.IO) {
         repository.update(house)
     }
-
-    // getHouseClicked est null, why ?
-
-    fun getHouseSelected(house: House) {
-        getHouseClicked.value = house
-    }
-
-    val getHouseClicked = MutableLiveData<House>()
 }

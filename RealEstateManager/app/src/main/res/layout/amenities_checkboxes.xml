@@ -19,7 +19,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_columnWeight="1"
-        android:text="playgroud"
+        android:text="playground"
         app:layout_row="0"
         app:layout_column="1"/>
 
