@@ -17,14 +17,6 @@
             android:scaleType="centerCrop"
             tools:ignore="MissingConstraints" />
 
-
-        <ImageView
-            android:layout_width="120dp"
-            android:layout_height="40dp"
-            android:background="#80000000"
-            card_view:layout_constraintBottom_toBottomOf="@+id/myimage"
-            tools:ignore="MissingConstraints" />
-
         <TextView
             android:id="@+id/description_picture"
             android:layout_width="120dp"
@@ -32,6 +24,7 @@
             android:textColor="#FFFFFF"
             android:text="Description"
             android:gravity="center"
+            android:background="#80000000"
             card_view:layout_constraintBottom_toBottomOf="@+id/myimage"
             tools:ignore="MissingConstraints" />
 
