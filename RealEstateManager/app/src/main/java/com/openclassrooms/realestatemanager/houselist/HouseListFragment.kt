@@ -14,7 +14,6 @@ import com.openclassrooms.realestatemanager.databinding.FragmentMaisonsListBindi
 import com.openclassrooms.realestatemanager.houseinfos.InfoDetailsFragment
 import com.openclassrooms.realestatemanager.injection.Injection
 import com.openclassrooms.realestatemanager.injection.ViewModelFactory
-import com.openclassrooms.realestatemanager.model.House
 
 class HouseListFragment : Fragment() {
 
@@ -25,6 +24,8 @@ class HouseListFragment : Fragment() {
     private var _binding: FragmentMaisonsListBinding? = null
 
     private val binding get() = _binding!!
+
+    private var adapter: HouseListAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,7 +60,9 @@ class HouseListFragment : Fragment() {
 
     private fun clickOnHouseOfTheList() {
         addHouseViewModel.allHouses.observe(viewLifecycleOwner) {
-        ItemClickSupport.addTo(binding.recyclerView, R.layout.maisons_list_item).setOnItemClickListener { recyclerView, position, v ->
+        ItemClickSupport.addTo(binding.recyclerView, R.layout.property_list_item).setOnItemClickListener { recyclerView, position, v ->
+
+                //adapter!!.updateSelection(position)
 
                 // Get id property click in recyclerview
                 val maisonId = addHouseViewModel.allHouses.value?.get(position)
