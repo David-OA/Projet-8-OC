@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.openclassrooms.realestatemanager.HouseViewModel
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.addproperty.AddHouseViewModel
 import com.openclassrooms.realestatemanager.databinding.FragmentPropertyInfosBinding
@@ -19,8 +18,6 @@ import com.openclassrooms.realestatemanager.model.House
 import java.io.Serializable
 
 class InfoDetailsFragment : Fragment() {
-
-    private val houseViewModel : HouseViewModel by activityViewModels()
 
     private val addHouseViewModel: AddHouseViewModel by activityViewModels{
         ViewModelFactory(Injection.providesHouseRepository(requireContext()), Injection.providesAgentRepository(requireContext()))

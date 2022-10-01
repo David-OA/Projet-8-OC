@@ -24,6 +24,7 @@
         <entry key="app/src/main/res/drawable/school_icon.xml" value="0.319" />
         <entry key="app/src/main/res/drawable/search_icon.xml" value="0.2845" />
         <entry key="app/src/main/res/drawable/shopping_icon.xml" value="0.319" />
+        <entry key="app/src/main/res/drawable/state_item_click.xml" value="0.319" />
         <entry key="app/src/main/res/drawable/subway_icon.xml" value="0.319" />
         <entry key="app/src/main/res/drawable/surface_icon.xml" value="0.2705" />
         <entry key="app/src/main/res/drawable/test.xml" value="0.1535" />
@@ -60,6 +61,7 @@
         <entry key="app/src/main/res/layout/list_agent_item.xml" value="0.18072916666666666" />
         <entry key="app/src/main/res/layout/list_agent_search_view_item.xml" value="0.2078125" />
         <entry key="app/src/main/res/layout/list_item.xml" value="0.135546875" />
+        <entry key="app/src/main/res/layout/list_pictures_added_item.xml" value="0.7257072570725708" />
         <entry key="app/src/main/res/layout/maisons_list_item.xml" value="0.5" />
         <entry key="app/src/main/res/layout/picture_recyclerview_item.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/search_icon.xml" value="0.2078125" />
