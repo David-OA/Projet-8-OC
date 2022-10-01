@@ -2,12 +2,25 @@ package com.openclassrooms.realestatemanager.addproperty
 
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.os.Build
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.launch
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.openclassrooms.realestatemanager.MainActivity
 import com.openclassrooms.realestatemanager.addagent.AddAgentViewModel
 import com.openclassrooms.realestatemanager.databinding.ActivityAddPropertyBinding
@@ -16,6 +29,11 @@ import com.openclassrooms.realestatemanager.injection.ViewModelFactory
 import com.openclassrooms.realestatemanager.model.House
 import com.openclassrooms.realestatemanager.utils.TypeProperty
 import com.openclassrooms.realestatemanager.utils.idGenerated
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.io.IOException
+import java.util.*
 
 
 class AddPropertyActivity: AppCompatActivity() {
@@ -33,6 +51,14 @@ class AddPropertyActivity: AppCompatActivity() {
 
     private var propertyId: String = idGenerated
 
+    private var isReadPermissionGranted = false
+    private var isWritePermissionGranted = false
+    private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
+
+    private lateinit var context: Context
+
+    private lateinit var internalStoragePhotoAdapter: InternalStoragePhotoAdapter
+
     private val addHouseViewModel: AddHouseViewModel by viewModels {
         ViewModelFactory(Injection.providesHouseRepository(this), Injection.providesAgentRepository(this))
     }
@@ -49,12 +75,49 @@ class AddPropertyActivity: AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        this.internalStoragePhotoAdapter = InternalStoragePhotoAdapter { }
+
+        this.context = this@AddPropertyActivity
+
+        permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+
+            isReadPermissionGranted = permissions[android.Manifest.permission.READ_EXTERNAL_STORAGE] ?: isReadPermissionGranted
+            isWritePermissionGranted = permissions[android.Manifest.permission.WRITE_EXTERNAL_STORAGE] ?: isWritePermissionGranted
+
+        }
+
+        requestPermission()
+
         getHouseType()
 
         getAgentInTheList()
 
         addHouseInRoomDatabase()
 
+        val takephoto = registerForActivityResult(ActivityResultContracts.TakePicturePreview()) {
+            lifecycleScope.launch {
+                if (isWritePermissionGranted) {
+
+                    if (savePhotoToInternalStorage(propertyId + "." + UUID.randomUUID().toString(), it!!)) {
+                        Toast.makeText(this@AddPropertyActivity, "Photo Saved Successfully", Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(this@AddPropertyActivity, "Failed to Save photo", Toast.LENGTH_LONG).show()
+                    }
+                } else {
+                    Toast.makeText(this@AddPropertyActivity,"Permission not granted", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+
+        binding.addPropertyViewAddPictureButton.setOnClickListener {
+            takephoto.launch()
+
+        }
+
+        binding.addPictureInRecyclerview.setOnClickListener {
+            setupInternalStorageRecyclerView()
+            loadPhotosFromInternalStorageIntoRecyclerView()
+        }
 
     }
 
@@ -208,5 +271,94 @@ class AddPropertyActivity: AppCompatActivity() {
 
     private fun showToastForAddHouse() {
         Toast.makeText(this, "La propiété à bien été ajouté", Toast.LENGTH_LONG).show()
+    }
+
+    // For managed request permissions
+    private fun requestPermission() {
+        val isReadPermission = ContextCompat.checkSelfPermission(
+            this,
+            android.Manifest.permission.READ_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED
+
+        val isWritePermission = ContextCompat.checkSelfPermission(
+            this,
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED
+
+
+        val minSdkLevel = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
+
+        isReadPermissionGranted = isReadPermission
+        isWritePermissionGranted = isWritePermission || minSdkLevel
+
+
+        val permissionRequest = mutableListOf<String>()
+
+        if (!isWritePermissionGranted) {
+            permissionRequest.add(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        }
+        if (!isReadPermissionGranted) {
+            permissionRequest.add(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+        }
+
+        if (permissionRequest.isNotEmpty()) {
+            permissionLauncher.launch(permissionRequest.toTypedArray())
+        }
+
+    }
+
+    private fun takePhoto() {
+        val takephoto = registerForActivityResult(ActivityResultContracts.TakePicturePreview()) {
+            lifecycleScope.launch {
+                if (isWritePermissionGranted) {
+
+                    if (savePhotoToInternalStorage(propertyId + "." + UUID.randomUUID().toString(), it!!)) {
+                        Toast.makeText(this@AddPropertyActivity, "Photo Saved Successfully", Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(this@AddPropertyActivity, "Failed to Save photo", Toast.LENGTH_LONG).show()
+                    }
+                } else {
+                    Toast.makeText(this@AddPropertyActivity,"Permission not granted", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+        takephoto.launch()
+    }
+
+    private fun savePhotoToInternalStorage(filename: String, bmp: Bitmap) : Boolean {
+        return try {
+            context.openFileOutput("$filename.jpg", Context.MODE_PRIVATE).use { stream ->
+                if (!bmp.compress(Bitmap.CompressFormat.JPEG, 95, stream)) {
+                    throw  IOException("Couldn't save bitamp")
+                }
+            }
+            true
+        } catch (e: IOException) {
+            e.printStackTrace()
+            false
+        }
+    }
+
+    private fun setupInternalStorageRecyclerView() = binding.addPropertyViewPictureRv.apply {
+        adapter = internalStoragePhotoAdapter
+        layoutManager = LinearLayoutManager(this@AddPropertyActivity, LinearLayoutManager.HORIZONTAL, false)
+    }
+
+    private fun loadPhotosFromInternalStorageIntoRecyclerView() {
+        lifecycleScope.launch {
+            val photos = loadPhotosFromInternalStorage()
+            internalStoragePhotoAdapter.submitList(photos)
+        }
+    }
+
+    private suspend fun loadPhotosFromInternalStorage(): List<InternalStoragePhoto> {
+        return withContext(Dispatchers.IO) {
+            val files = filesDir.listFiles()
+            files?.filter { it.canRead() && it.isFile && it.name.endsWith(".jpg") && it.name.startsWith(propertyId) }?.map {
+                val bytes = it.readBytes()
+                val bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                InternalStoragePhoto(it.name, bmp)
+            } ?: listOf()
+        }
     }
 }
