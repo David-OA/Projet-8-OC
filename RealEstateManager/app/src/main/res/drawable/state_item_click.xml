@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- selected. This style will be applied when the view is selected -->
+    <item android:state_selected="true">
+
+        <shape>
+            <solid android:color="@color/colorAccent"/>
+        </shape>
+
+    </item>
+
+    <!-- default -->
+    <item>
+
+        <shape>
+            <solid android:color="@color/colorTextPrimary"/>
+        </shape>
+
+    </item>
+
+</selector>
