@@ -69,7 +69,7 @@ class HouseListFragment : Fragment() {
 
                 val bundle = Bundle()
                 if (maisonId != null) {
-                    bundle.putSerializable("test", maisonId)
+                    bundle.putSerializable("houseClicked", maisonId)
                 }
 
                 val fragment = InfoDetailsFragment()
