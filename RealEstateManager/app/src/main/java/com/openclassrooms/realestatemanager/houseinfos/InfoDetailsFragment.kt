@@ -2,19 +2,30 @@ package com.openclassrooms.realestatemanager.houseinfos
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
+import android.os.Build
 import android.os.Bundle
 import android.view.*
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.addproperty.AddHouseViewModel
+import com.openclassrooms.realestatemanager.addproperty.InternalStoragePhoto
 import com.openclassrooms.realestatemanager.databinding.FragmentPropertyInfosBinding
 import com.openclassrooms.realestatemanager.editproperty.EditPropertyActivity
 import com.openclassrooms.realestatemanager.injection.Injection
 import com.openclassrooms.realestatemanager.injection.ViewModelFactory
 import com.openclassrooms.realestatemanager.model.House
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.Serializable
 
 class InfoDetailsFragment : Fragment() {
@@ -23,17 +34,25 @@ class InfoDetailsFragment : Fragment() {
         ViewModelFactory(Injection.providesHouseRepository(requireContext()), Injection.providesAgentRepository(requireContext()))
     }
 
-    lateinit var pictureRecyclerView: RecyclerView
+    private lateinit var internalStoragePictureAdapter: PictureAdapter
 
-    private lateinit var houseIdEdit: House
+    private var houseIdEdit: House? = null
+
+    private var isReadPermissionGranted = false
+    private var isWritePermissionGranted = false
+    private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
+
+
+    private var _binding: FragmentPropertyInfosBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-
-        return FragmentPropertyInfosBinding.inflate(inflater, container, false).root
+    ): View {
+        _binding = FragmentPropertyInfosBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     @SuppressLint("ResourceType")
@@ -44,19 +63,25 @@ class InfoDetailsFragment : Fragment() {
         setHasOptionsMenu(true)
 
 
-        // For recyclerview
-        val picture = ListPicture()
+        internalStoragePictureAdapter = PictureAdapter {
+            loadPhotosFromInternalStorageIntoRecyclerView()
+        }
 
-        pictureRecyclerView = binding.detailViewCardPictures
-        pictureRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        pictureRecyclerView.adapter = PictureAdapter(picture)
+        permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+
+            isReadPermissionGranted = permissions[android.Manifest.permission.READ_EXTERNAL_STORAGE] ?: isReadPermissionGranted
+            isWritePermissionGranted = permissions[android.Manifest.permission.WRITE_EXTERNAL_STORAGE] ?: isWritePermissionGranted
+
+        }
+
+        requestPermission()
+
 
 
         val args = this.arguments
         if (args != null) {
-            val houseId = args.getSerializable("test") as House
+            val houseId = args.getSerializable("houseClicked") as House
             houseIdEdit = houseId
-
 
             binding.detailsViewDescription.text = houseId.detailsViewDescription
             binding.detailsViewSurface.text = houseId.detailsViewSurface
@@ -84,6 +109,12 @@ class InfoDetailsFragment : Fragment() {
                 binding.detailViewAmenitySix.setImageResource(R.drawable.subway_icon)
             }
         }
+
+        if (houseIdEdit != null) {
+            loadPhotosFromInternalStorageIntoRecyclerView()
+            setupInternalStoragePicturesRecyclerView()
+        }
+
     }
 
     // Menu Toolbar
@@ -106,21 +137,65 @@ class InfoDetailsFragment : Fragment() {
         startActivity(clickForEditPropertyActivity)
     }
 
+    // For pictures
+
+    // For managed request permissions
+    private fun requestPermission() {
+        val isReadPermission = ContextCompat.checkSelfPermission(
+            requireContext(),
+            android.Manifest.permission.READ_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED
+
+        val isWritePermission = ContextCompat.checkSelfPermission(
+            requireContext(),
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED
 
 
-    fun ListPicture(): Array<Int> {
-        val picture = arrayOf(
-        R.drawable.photo1,
-        R.drawable.photo2,
-        R.drawable.photo3,
-        R.drawable.photo4,
-        R.drawable.photo5,
-        R.drawable.photo6,
-        R.drawable.photo7,
-        R.drawable.photo8,
-        R.drawable.photo9,
-        R.drawable.photo10)
-        return picture
+        val minSdkLevel = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
+
+        isReadPermissionGranted = isReadPermission
+        isWritePermissionGranted = isWritePermission || minSdkLevel
+
+
+        val permissionRequest = mutableListOf<String>()
+
+        if (!isWritePermissionGranted) {
+            permissionRequest.add(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        }
+        if (!isReadPermissionGranted) {
+            permissionRequest.add(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+        }
+
+        if (permissionRequest.isNotEmpty()) {
+            permissionLauncher.launch(permissionRequest.toTypedArray())
+        }
+
+    }
+
+    private fun setupInternalStoragePicturesRecyclerView() = binding.detailViewCardPictures.apply {
+        adapter = internalStoragePictureAdapter
+        layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+    }
+
+    private fun loadPhotosFromInternalStorageIntoRecyclerView() {
+        lifecycleScope.launch {
+            // For recyclerview
+            val photos = loadPhotosFromInternalStorage()
+            internalStoragePictureAdapter.submitList(photos)
+        }
+    }
+
+    private suspend fun loadPhotosFromInternalStorage(): List<InternalStoragePhoto> {
+        return withContext(Dispatchers.IO) {
+            val files = requireContext().filesDir?.listFiles()
+
+            files?.filter { it.canRead() && it.isFile && it.name.endsWith(".jpg") && it.name.startsWith(houseIdEdit!!.houseId) }?.map {
+                val bytes = it.readBytes()
+                val bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                InternalStoragePhoto(it.name, bmp)
+            } ?: listOf()
+        }
     }
 
 }
