@@ -35,4 +35,10 @@
         app:showAsAction="always"
         android:title="@string/search"/>
 
+    <item
+        android:id="@+id/menu_add_property"
+        android:icon="@drawable/check_icon"
+        app:showAsAction="always"
+        android:title="Add property"/>
+
 </menu>

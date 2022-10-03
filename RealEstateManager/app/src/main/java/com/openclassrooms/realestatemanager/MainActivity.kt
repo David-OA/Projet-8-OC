@@ -51,6 +51,7 @@ class MainActivity : AppCompatActivity(){
         if (menu is MenuBuilder) menu.setOptionalIconsVisible(true)
         menuInflater.inflate(R.menu.menu,menu)
         menu!!.findItem(R.id.edit).isVisible = false
+        menu!!.findItem(R.id.menu_add_property).isVisible = false
         return true
     }
 
