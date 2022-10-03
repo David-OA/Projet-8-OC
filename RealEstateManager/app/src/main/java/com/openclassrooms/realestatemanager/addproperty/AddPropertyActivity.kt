@@ -9,6 +9,8 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -16,12 +18,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.launch
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.menu.MenuBuilder
+import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.openclassrooms.realestatemanager.MainActivity
+import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.addagent.AddAgentViewModel
 import com.openclassrooms.realestatemanager.databinding.ActivityAddPropertyBinding
 import com.openclassrooms.realestatemanager.injection.Injection
@@ -76,7 +79,6 @@ class AddPropertyActivity: AppCompatActivity() {
         setContentView(view)
 
         this.internalStoragePhotoAdapter = InternalStoragePhotoAdapter { }
-
         this.context = this@AddPropertyActivity
 
         permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
@@ -91,8 +93,6 @@ class AddPropertyActivity: AppCompatActivity() {
         getHouseType()
 
         getAgentInTheList()
-
-        addHouseInRoomDatabase()
 
         val takephoto = registerForActivityResult(ActivityResultContracts.TakePicturePreview()) {
             lifecycleScope.launch {
@@ -119,7 +119,33 @@ class AddPropertyActivity: AppCompatActivity() {
             loadPhotosFromInternalStorageIntoRecyclerView()
         }
 
+        configureToolbar()
+
     }
+
+    // ------ Toolbar ------
+    private fun configureToolbar() {
+        val addPropertyActivitytoolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(addPropertyActivitytoolbar)
+        title = "Add a Property"
+
+    }
+
+    // Menu Toolbar
+    @SuppressLint("RestrictedApi")
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        if (menu is MenuBuilder) menu.setOptionalIconsVisible(true)
+        menuInflater.inflate(R.menu.menu_toolbar_add_property,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+           R.id.menu_add_property -> addHouseInRoomDatabase()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 
     private fun getHouseType() {
         //Type House
@@ -153,8 +179,6 @@ class AddPropertyActivity: AppCompatActivity() {
 
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private fun addHouseInRoomDatabase() {
-        val fab = binding.fab
-        fab.setOnClickListener{
 
             //Price
             val editPriceTextView = binding.addPropertyViewPrice
@@ -261,7 +285,6 @@ class AddPropertyActivity: AppCompatActivity() {
 
             returnToMainActivity()
             showToastForAddHouse()
-        }
     }
 
     private fun  returnToMainActivity() {
@@ -307,24 +330,6 @@ class AddPropertyActivity: AppCompatActivity() {
 
     }
 
-    private fun takePhoto() {
-        val takephoto = registerForActivityResult(ActivityResultContracts.TakePicturePreview()) {
-            lifecycleScope.launch {
-                if (isWritePermissionGranted) {
-
-                    if (savePhotoToInternalStorage(propertyId + "." + UUID.randomUUID().toString(), it!!)) {
-                        Toast.makeText(this@AddPropertyActivity, "Photo Saved Successfully", Toast.LENGTH_LONG).show()
-                    } else {
-                        Toast.makeText(this@AddPropertyActivity, "Failed to Save photo", Toast.LENGTH_LONG).show()
-                    }
-                } else {
-                    Toast.makeText(this@AddPropertyActivity,"Permission not granted", Toast.LENGTH_LONG).show()
-                }
-            }
-        }
-        takephoto.launch()
-    }
-
     private fun savePhotoToInternalStorage(filename: String, bmp: Bitmap) : Boolean {
         return try {
             context.openFileOutput("$filename.jpg", Context.MODE_PRIVATE).use { stream ->
@@ -341,7 +346,7 @@ class AddPropertyActivity: AppCompatActivity() {
 
     private fun setupInternalStorageRecyclerView() = binding.addPropertyViewPictureRv.apply {
         adapter = internalStoragePhotoAdapter
-        layoutManager = LinearLayoutManager(this@AddPropertyActivity, LinearLayoutManager.HORIZONTAL, false)
+        layoutManager = LinearLayoutManager(this@AddPropertyActivity, LinearLayoutManager.VERTICAL, false)
     }
 
     private fun loadPhotosFromInternalStorageIntoRecyclerView() {
