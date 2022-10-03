@@ -1,16 +1,33 @@
 package com.openclassrooms.realestatemanager.editproperty
 
-import android.R
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.os.Build
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.launch
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.menu.MenuBuilder
+import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.openclassrooms.realestatemanager.MainActivity
+import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.addagent.AddAgentViewModel
 import com.openclassrooms.realestatemanager.addproperty.AddHouseViewModel
+import com.openclassrooms.realestatemanager.addproperty.InternalStoragePhoto
+import com.openclassrooms.realestatemanager.addproperty.InternalStoragePhotoAdapter
 import com.openclassrooms.realestatemanager.addproperty.ListAgentsDialogView
 import com.openclassrooms.realestatemanager.databinding.ActivityAddPropertyBinding
 import com.openclassrooms.realestatemanager.injection.Injection
@@ -18,6 +35,11 @@ import com.openclassrooms.realestatemanager.injection.ViewModelFactory
 import com.openclassrooms.realestatemanager.model.House
 import com.openclassrooms.realestatemanager.utils.TypeProperty
 import com.openclassrooms.realestatemanager.utils.idGenerated
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.io.IOException
+import java.util.*
 
 class EditPropertyActivity: AppCompatActivity() {
 
@@ -34,6 +56,14 @@ class EditPropertyActivity: AppCompatActivity() {
 
     private lateinit var houseIdUpdate: String
 
+    private var isReadPermissionGranted = false
+    private var isWritePermissionGranted = false
+    private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
+
+    private lateinit var context: Context
+
+    private lateinit var internalStoragePhotoAdapter: InternalStoragePhotoAdapter
+
     private val addHouseViewModel: AddHouseViewModel by viewModels {
         ViewModelFactory(Injection.providesHouseRepository(this), Injection.providesAgentRepository(this))
     }
@@ -49,6 +79,18 @@ class EditPropertyActivity: AppCompatActivity() {
         binding = ActivityAddPropertyBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        configureToolbar()
+
+        this.internalStoragePhotoAdapter = InternalStoragePhotoAdapter { }
+        this.context = this@EditPropertyActivity
+
+        permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+
+            isReadPermissionGranted = permissions[android.Manifest.permission.READ_EXTERNAL_STORAGE] ?: isReadPermissionGranted
+            isWritePermissionGranted = permissions[android.Manifest.permission.WRITE_EXTERNAL_STORAGE] ?: isWritePermissionGranted
+
+        }
         
         // For get data
         getDataPropertySelectedToEdit()
@@ -56,8 +98,56 @@ class EditPropertyActivity: AppCompatActivity() {
         // For edit change
         getHouseType()
         getAgentInTheList()
-        addHouseInRoomDatabaseAfterChange()
 
+        val takephoto = registerForActivityResult(ActivityResultContracts.TakePicturePreview()) {
+            lifecycleScope.launch {
+                if (isWritePermissionGranted) {
+
+                    if (savePhotoToInternalStorage(houseIdUpdate + "." + UUID.randomUUID().toString(), it!!)) {
+                        Toast.makeText(this@EditPropertyActivity, "Photo Saved Successfully", Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(this@EditPropertyActivity, "Failed to Save photo", Toast.LENGTH_LONG).show()
+                    }
+                } else {
+                    Toast.makeText(this@EditPropertyActivity,"Permission not granted", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+
+        binding.addPropertyViewAddPictureButton.setOnClickListener {
+            takephoto.launch()
+
+        }
+
+        binding.addPictureInRecyclerview.setOnClickListener {
+            //setupInternalStorageRecyclerView()
+            //loadPhotosFromInternalStorageIntoRecyclerView()
+        }
+
+
+    }
+
+    // ------ Toolbar ------
+    private fun configureToolbar() {
+        val addPropertyActivitytoolbar: Toolbar = findViewById(com.openclassrooms.realestatemanager.R.id.toolbar)
+        setSupportActionBar(addPropertyActivitytoolbar)
+        title = "Add a Property"
+
+    }
+
+    // Menu Toolbar
+    @SuppressLint("RestrictedApi")
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        if (menu is MenuBuilder) menu.setOptionalIconsVisible(true)
+        menuInflater.inflate(com.openclassrooms.realestatemanager.R.menu.menu_toolbar_add_property,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+             R.id.menu_add_property -> addHouseInRoomDatabaseAfterChange()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun getDataPropertySelectedToEdit() {
@@ -126,6 +216,10 @@ class EditPropertyActivity: AppCompatActivity() {
 
         // Agent add property
         binding.addPropertyViewDropdownAgent.setText(houseIdEdit.detailManageBy)
+
+        // Add Pictures
+        setupInternalStorageRecyclerView()
+        loadPhotosFromInternalStorageIntoRecyclerView()
     }
 
     // For Save the data after change
@@ -136,7 +230,7 @@ class EditPropertyActivity: AppCompatActivity() {
             houseType.add(it.typeName)
         }
 
-        ArrayAdapter(this, R.layout.simple_spinner_item, houseType).also {
+        ArrayAdapter(this, android.R.layout.simple_spinner_item, houseType).also {
                 adapter -> adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             dropdownTypeHouse.setAdapter(adapter)
         }
@@ -163,8 +257,6 @@ class EditPropertyActivity: AppCompatActivity() {
 
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private fun addHouseInRoomDatabaseAfterChange() {
-        val fab = binding.fab
-        fab.setOnClickListener{
 
             //Price
             val editPriceTextView = binding.addPropertyViewPrice
@@ -245,7 +337,6 @@ class EditPropertyActivity: AppCompatActivity() {
             // Agent add house
             val textAgentAddHouse = addAgentViewModel.getAgentClick.value.toString()
 
-
             val house = House(houseIdUpdate,
                 typeHouseChoice,
                 textPriceTextView,
@@ -271,8 +362,6 @@ class EditPropertyActivity: AppCompatActivity() {
 
             returnToMainActivity()
             showToastForUpdateHouse()
-        }
-
     }
 
     private fun  returnToMainActivity() {
@@ -282,5 +371,76 @@ class EditPropertyActivity: AppCompatActivity() {
 
     private fun showToastForUpdateHouse() {
         Toast.makeText(this, "Les modifications ont bien été enregistrée", Toast.LENGTH_LONG).show()
+    }
+
+    // For managed request permissions
+    private fun requestPermission() {
+        val isReadPermission = ContextCompat.checkSelfPermission(
+            this,
+            android.Manifest.permission.READ_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED
+
+        val isWritePermission = ContextCompat.checkSelfPermission(
+            this,
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED
+
+
+        val minSdkLevel = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
+
+        isReadPermissionGranted = isReadPermission
+        isWritePermissionGranted = isWritePermission || minSdkLevel
+
+
+        val permissionRequest = mutableListOf<String>()
+
+        if (!isWritePermissionGranted) {
+            permissionRequest.add(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        }
+        if (!isReadPermissionGranted) {
+            permissionRequest.add(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+        }
+
+        if (permissionRequest.isNotEmpty()) {
+            permissionLauncher.launch(permissionRequest.toTypedArray())
+        }
+
+    }
+
+    private fun savePhotoToInternalStorage(filename: String, bmp: Bitmap) : Boolean {
+        return try {
+            context.openFileOutput("$filename.jpg", Context.MODE_PRIVATE).use { stream ->
+                if (!bmp.compress(Bitmap.CompressFormat.JPEG, 95, stream)) {
+                    throw  IOException("Couldn't save bitamp")
+                }
+            }
+            true
+        } catch (e: IOException) {
+            e.printStackTrace()
+            false
+        }
+    }
+
+    private fun setupInternalStorageRecyclerView() = binding.addPropertyViewPictureRv.apply {
+        adapter = internalStoragePhotoAdapter
+        layoutManager = LinearLayoutManager(this@EditPropertyActivity, LinearLayoutManager.VERTICAL, false)
+    }
+
+    private fun loadPhotosFromInternalStorageIntoRecyclerView() {
+        lifecycleScope.launch {
+            val photos = loadPhotosFromInternalStorage()
+            internalStoragePhotoAdapter.submitList(photos)
+        }
+    }
+
+    private suspend fun loadPhotosFromInternalStorage(): List<InternalStoragePhoto> {
+        return withContext(Dispatchers.IO) {
+            val files = filesDir.listFiles()
+            files?.filter { it.canRead() && it.isFile && it.name.endsWith(".jpg") && it.name.startsWith(houseIdUpdate) }?.map {
+                val bytes = it.readBytes()
+                val bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                InternalStoragePhoto(it.name, bmp)
+            } ?: listOf()
+        }
     }
 }
