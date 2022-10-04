@@ -6,11 +6,15 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -91,6 +95,8 @@ class EditPropertyActivity: AppCompatActivity() {
             isWritePermissionGranted = permissions[android.Manifest.permission.WRITE_EXTERNAL_STORAGE] ?: isWritePermissionGranted
 
         }
+
+        requestPermission()
         
         // For get data
         getDataPropertySelectedToEdit()
@@ -99,39 +105,85 @@ class EditPropertyActivity: AppCompatActivity() {
         getHouseType()
         getAgentInTheList()
 
-        val takephoto = registerForActivityResult(ActivityResultContracts.TakePicturePreview()) {
-            lifecycleScope.launch {
-                if (isWritePermissionGranted) {
-
-                    if (savePhotoToInternalStorage(houseIdUpdate + "." + UUID.randomUUID().toString(), it!!)) {
-                        Toast.makeText(this@EditPropertyActivity, "Photo Saved Successfully", Toast.LENGTH_LONG).show()
-                    } else {
-                        Toast.makeText(this@EditPropertyActivity, "Failed to Save photo", Toast.LENGTH_LONG).show()
-                    }
-                } else {
-                    Toast.makeText(this@EditPropertyActivity,"Permission not granted", Toast.LENGTH_LONG).show()
-                }
-            }
-        }
-
-        binding.addPropertyViewAddPictureButton.setOnClickListener {
-            takephoto.launch()
-
-        }
-
         binding.addPictureInRecyclerview.setOnClickListener {
-            //setupInternalStorageRecyclerView()
-            //loadPhotosFromInternalStorageIntoRecyclerView()
+            setupInternalStorageRecyclerView()
+            loadPhotosFromInternalStorageIntoRecyclerView()
         }
+
+        choiceHowTakeAPicture()
 
 
     }
 
+    private fun choiceHowTakeAPicture() {
+        binding.addPropertyViewAddPictureButton.setOnClickListener {
+            showPopup(binding.addPropertyViewAddPictureButton)
+        }
+    }
+
+    // For start camera and take a photo
+    private val takephoto = registerForActivityResult(ActivityResultContracts.TakePicturePreview()) {
+        lifecycleScope.launch {
+            if (isWritePermissionGranted) {
+                if (savePhotoToInternalStorage(houseIdUpdate + "." + UUID.randomUUID().toString(), it!!)) {
+                    Toast.makeText(this@EditPropertyActivity, "Photo Saved Successfully", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(this@EditPropertyActivity, "Failed to Save photo", Toast.LENGTH_LONG).show()
+                }
+            } else {
+                Toast.makeText(this@EditPropertyActivity,"Permission not granted", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    // For take a photo from Media
+    val pickPhoto = registerForActivityResult(ActivityResultContracts.GetContent()) {
+        lifecycleScope.launch {
+            if (isWritePermissionGranted) {
+                val imageUrl: Uri = it!!
+                val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(),imageUrl)
+                if (savePhotoToInternalStorage(houseIdUpdate + "." + UUID.randomUUID().toString(), bitmap/*it!!*/)) {
+                    Toast.makeText(this@EditPropertyActivity, "Photo Saved Successfully", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(this@EditPropertyActivity, "Failed to Save photo", Toast.LENGTH_LONG).show()
+                }
+            } else {
+                Toast.makeText(this@EditPropertyActivity,"Permission not granted", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    private fun selectPictureInMedia() {
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            pickPhoto.launch("image/*")
+        } else {
+            Toast.makeText(this, "Read Permission is not Granted", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun showPopup(view: View) {
+        val popup = PopupMenu(this, view)
+        popup.inflate(R.menu.menu_popup_choice_add_picture)
+
+        popup.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item: MenuItem? ->
+            when (item!!.itemId) {
+                R.id.add_by_camera -> {
+                    takephoto.launch()
+                }
+                R.id.add_by_mediastore -> {
+                    selectPictureInMedia()
+                }
+            }
+            true
+        })
+        popup.show()
+    }
+
     // ------ Toolbar ------
     private fun configureToolbar() {
-        val addPropertyActivitytoolbar: Toolbar = findViewById(com.openclassrooms.realestatemanager.R.id.toolbar)
+        val addPropertyActivitytoolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(addPropertyActivitytoolbar)
-        title = "Add a Property"
+        title = "Edit a Property"
 
     }
 
@@ -139,7 +191,7 @@ class EditPropertyActivity: AppCompatActivity() {
     @SuppressLint("RestrictedApi")
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         if (menu is MenuBuilder) menu.setOptionalIconsVisible(true)
-        menuInflater.inflate(com.openclassrooms.realestatemanager.R.menu.menu_toolbar_add_property,menu)
+        menuInflater.inflate(R.menu.menu_toolbar_add_property,menu)
         return true
     }
 
