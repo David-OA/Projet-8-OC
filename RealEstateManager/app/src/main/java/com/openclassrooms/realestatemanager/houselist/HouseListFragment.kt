@@ -27,6 +27,8 @@ class HouseListFragment : Fragment() {
 
     private var adapter: HouseListAdapter? = null
 
+    var tabletSize: Boolean = false
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -42,6 +44,9 @@ class HouseListFragment : Fragment() {
         recyclerViewListHouse()
 
         clickOnHouseOfTheList()
+
+        //tabletSize = resources.getBoolean(R.bool.isTablet)
+
 
     }
 
@@ -62,8 +67,6 @@ class HouseListFragment : Fragment() {
         addHouseViewModel.allHouses.observe(viewLifecycleOwner) {
         ItemClickSupport.addTo(binding.recyclerView, R.layout.property_list_item).setOnItemClickListener { recyclerView, position, v ->
 
-                //adapter!!.updateSelection(position)
-
                 // Get id property click in recyclerview
                 val maisonId = addHouseViewModel.allHouses.value?.get(position)
 
@@ -75,8 +78,20 @@ class HouseListFragment : Fragment() {
                 val fragment = InfoDetailsFragment()
                 fragment.arguments = bundle
 
-                fragmentManager?.beginTransaction()?.replace(R.id.detail_view, fragment)
-                    ?.commitAllowingStateLoss()
+                // For show if tablet or phone
+                tabletSize = resources.getBoolean(R.bool.isTablet)
+                if (tabletSize) {
+                    fragmentManager?.beginTransaction()?.replace(R.id.detail_view, fragment)
+                        ?.commitAllowingStateLoss()
+
+                } else {
+                    fragmentManager?.beginTransaction()?.replace(R.id.recycler_view_list_house, fragment)
+                        ?.commitAllowingStateLoss()
+                }
+
+
+
+
             }
         }
     }

@@ -34,29 +34,20 @@ class HouseListAdapter(private val onItemClicked: (House) -> Unit) :
 
 
     private lateinit var context: Context
-    var itemSelected: Int? = null
 
     private val viewHolders = mutableListOf<PropertyViewHolder>()
+
+    private var currentSelection = 0
 
 
     // ViewHolder Parts
     class PropertyViewHolder(private var binding: PropertyListItemBinding, val  onItemClicked: (House) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
 
-        private lateinit var background: CardView
-
-        private var backgroundColor: Int? = null
-
-        private var isSelected = false
         private lateinit var context: Context
 
-        init {
-            backgroundColor = binding.listPropertyItemBackground.cardBackgroundColor.defaultColor
-        }
+        fun bind(house: House, context: Context, position: Int, selected: Boolean, function: (Int) -> Unit) {
 
-        fun bind(house: House, context: Context, isSelected: Boolean) {
-
-            this.isSelected = isSelected
             this.context = context
 
             binding.houseType.text = house.detailViewType
@@ -65,27 +56,14 @@ class HouseListAdapter(private val onItemClicked: (House) -> Unit) :
             //binding.houseImage.load(house.detailsViewListPictures)
 
 
-            if (isSelected) configureCardToSelectedState()
+            itemView.isSelected = selected
 
-
-        }
-
-        fun updateSelection(positionSelected: Int) {
-            if (positionSelected != null) {
-                if (this.adapterPosition == positionSelected) {
-                    isSelected = true
-                } else {
-                    isSelected = false
-                }
-            } else {
-
+            itemView.setOnClickListener {
+                function(position)
             }
+
         }
 
-        private fun configureCardToSelectedState(){
-            background.setCardBackgroundColor(getColor(context, R.color.colorAccent))
-            //price.setTextColor(getColor(context, R.color.colorTextAccent))
-        }
     }
 
 
@@ -97,33 +75,29 @@ class HouseListAdapter(private val onItemClicked: (House) -> Unit) :
         val view = layoutInflater.inflate(R.layout.property_list_item, parent, false)
         val holder = PropertyViewHolder(PropertyListItemBinding.bind(view), onItemClicked)
         viewHolders.add(holder)
-        //return PropertyViewHolder(PropertyListItemBinding.bind(view), onItemClicked)
         return holder
     }
 
-    var isSelected: Boolean = false
 
-    @SuppressLint("NotifyDataSetChanged")
+
+    @SuppressLint("NotifyDataSetChanged", "ResourceAsColor")
     override fun onBindViewHolder(holder: PropertyViewHolder, position: Int) {
         val current = getItem(position)
 
-
         holder.itemView.setOnClickListener {
             onItemClicked(current)
-            isSelected = position == itemSelected
+
         }
 
-        holder.bind(current, context, isSelected)
-    }
-
-    fun updateSelection(itemSelected: Int?) {
-        this.itemSelected = itemSelected
-        viewHolders.forEach{
-            if (itemSelected != null) {
-                it.updateSelection(itemSelected)
+        val function = { pos: Int ->
+            if (currentSelection != pos) {
+                currentSelection = pos
+                notifyDataSetChanged()
             }
+
         }
 
+        holder.bind(current, context, position, position  == currentSelection, function)
     }
 
     override fun getItemCount() = currentList.size
