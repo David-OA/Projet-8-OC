@@ -109,8 +109,6 @@ class AddPropertyActivity: AppCompatActivity() {
             loadPhotosFromInternalStorageIntoRecyclerView()
         }
 
-
-
     }
 
     private fun choiceHowTakeAPicture() {
@@ -140,7 +138,7 @@ class AddPropertyActivity: AppCompatActivity() {
             if (isWritePermissionGranted) {
                 val imageUrl: Uri = it!!
                 val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(),imageUrl)
-                if (savePhotoToInternalStorage(propertyId + "." + UUID.randomUUID().toString(), bitmap/*it!!*/)) {
+                if (savePhotoToInternalStorage(propertyId + "." + UUID.randomUUID().toString(), bitmap)) {
                     Toast.makeText(this@AddPropertyActivity, "Photo Saved Successfully", Toast.LENGTH_LONG).show()
                 } else {
                     Toast.makeText(this@AddPropertyActivity, "Failed to Save photo", Toast.LENGTH_LONG).show()
@@ -312,8 +310,6 @@ class AddPropertyActivity: AppCompatActivity() {
             // Agent add house
             val textAgentAddHouse = addAgentViewModel.getAgentClick.value.toString()
 
-
-
             val house = House(propertyId,
                 typeHouseChoice,
                 textPriceTextView,
@@ -386,7 +382,7 @@ class AddPropertyActivity: AppCompatActivity() {
 
     private fun savePhotoToInternalStorage(filename: String, bmp: Bitmap) : Boolean {
         return try {
-            context.openFileOutput("$filename.jpg", Context.MODE_PRIVATE).use { stream ->
+            context.openFileOutput("$filename.jpg",Context.MODE_PRIVATE).use { stream ->
                 if (!bmp.compress(Bitmap.CompressFormat.JPEG, 95, stream)) {
                     throw  IOException("Couldn't save bitamp")
                 }
