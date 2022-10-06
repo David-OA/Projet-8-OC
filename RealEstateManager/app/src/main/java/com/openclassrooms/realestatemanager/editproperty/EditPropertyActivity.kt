@@ -112,7 +112,6 @@ class EditPropertyActivity: AppCompatActivity() {
 
         choiceHowTakeAPicture()
 
-
     }
 
     private fun choiceHowTakeAPicture() {
@@ -141,7 +140,7 @@ class EditPropertyActivity: AppCompatActivity() {
         lifecycleScope.launch {
             if (isWritePermissionGranted) {
                 val imageUrl: Uri = it!!
-                val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(),imageUrl)
+                val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(context.contentResolver,imageUrl)
                 if (savePhotoToInternalStorage(houseIdUpdate + "." + UUID.randomUUID().toString(), bitmap/*it!!*/)) {
                     Toast.makeText(this@EditPropertyActivity, "Photo Saved Successfully", Toast.LENGTH_LONG).show()
                 } else {
@@ -463,7 +462,7 @@ class EditPropertyActivity: AppCompatActivity() {
         return try {
             context.openFileOutput("$filename.jpg", Context.MODE_PRIVATE).use { stream ->
                 if (!bmp.compress(Bitmap.CompressFormat.JPEG, 95, stream)) {
-                    throw  IOException("Couldn't save bitamp")
+                    throw  IOException("Couldn't save bitmap")
                 }
             }
             true
