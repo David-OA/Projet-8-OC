@@ -18,19 +18,35 @@ package com.openclassrooms.realestatemanager.houselist
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getColor
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.openclassrooms.realestatemanager.R
+import com.openclassrooms.realestatemanager.addproperty.InternalStoragePhoto
 import com.openclassrooms.realestatemanager.databinding.PropertyListItemBinding
 import com.openclassrooms.realestatemanager.model.House
+import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
 class HouseListAdapter(private val onItemClicked: (House) -> Unit) :
     ListAdapter<House, HouseListAdapter.PropertyViewHolder>(DiffCallback) {
+
+
 
 
     private lateinit var context: Context
@@ -42,18 +58,34 @@ class HouseListAdapter(private val onItemClicked: (House) -> Unit) :
 
     // ViewHolder Parts
     class PropertyViewHolder(private var binding: PropertyListItemBinding, val  onItemClicked: (House) -> Unit) :
-        RecyclerView.ViewHolder(binding.root) {
+        RecyclerView.ViewHolder(binding.root), CoroutineScope {
+
+        private lateinit var houseIdList: String
 
         private lateinit var context: Context
 
-        fun bind(house: House, context: Context, position: Int, selected: Boolean, function: (Int) -> Unit) {
+        private var job: Job = Job()
 
+        override val coroutineContext: CoroutineContext
+            get() = Dispatchers.Main + job
+
+        fun bind(house: House, context: Context, position: Int, selected: Boolean, function: (Int) -> Unit) {
             this.context = context
 
             binding.houseType.text = house.detailViewType
             binding.houseNeighborhood.text = house.detailViewNearTitle
             binding.housePrice.text = house.detailViewPrice
-            //binding.houseImage.load(house.detailsViewListPictures)
+
+            houseIdList = house.houseId
+
+            launch {
+                val photo = loadPhotosFromInternalStorage()
+                if (photo.isNotEmpty()) {
+                    binding.houseImage.setImageBitmap(photo.first().bmp)
+                } else {
+                    binding.houseImage.setImageResource(R.drawable.home_icon)
+                }
+            }
 
 
             itemView.isSelected = selected
@@ -64,9 +96,22 @@ class HouseListAdapter(private val onItemClicked: (House) -> Unit) :
 
         }
 
+
+        private suspend fun loadPhotosFromInternalStorage(): List<InternalStoragePhoto> {
+            return withContext(Dispatchers.IO) {
+                val files = context.filesDir?.listFiles()
+
+                files?.filter { it.canRead() && it.isFile && it.name.endsWith(".jpg") && it.name.startsWith(houseIdList) }?.map {
+                    val bytes = it.readBytes()
+                    val bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                    InternalStoragePhoto(it.name,bmp)
+                } ?: listOf()
+            }
+        }
+
+
+
     }
-
-
 
     // Adapter parts
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PropertyViewHolder {
