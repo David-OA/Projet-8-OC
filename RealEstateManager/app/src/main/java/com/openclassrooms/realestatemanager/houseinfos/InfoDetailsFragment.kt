@@ -193,7 +193,7 @@ class InfoDetailsFragment : Fragment() {
             files?.filter { it.canRead() && it.isFile && it.name.endsWith(".jpg") && it.name.startsWith(houseIdEdit!!.houseId) }?.map {
                 val bytes = it.readBytes()
                 val bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-                InternalStoragePhoto(it.name, bmp)
+                InternalStoragePhoto(it.name,bmp)
             } ?: listOf()
         }
     }
