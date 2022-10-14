@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/MaisonsListFragment"
-        android:name="com.openclassrooms.realestatemanager.houselist.HouseListFragment"
+        android:name="com.openclassrooms.realestatemanager.propertylist.HouseListFragment"
         android:label="@string/list_fragment_label"
-        tools:layout="@layout/fragment_maisons_list">
+        tools:layout="@layout/fragment_property_list">
 
         <action
             android:id="@+id/action_MaisonsListFragment_to_NewsFragment"
@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/InfoDetailsFragment"
-        android:name="com.openclassrooms.realestatemanager.houseinfos.InfoDetailsFragment"
+        android:name="com.openclassrooms.realestatemanager.propertyinfos.InfoDetailsFragment"
         android:label="@string/info_fragment_label"
         tools:layout="@layout/fragment_property_infos">
     </fragment>

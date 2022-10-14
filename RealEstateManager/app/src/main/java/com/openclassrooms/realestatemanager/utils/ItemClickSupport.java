@@ -1,6 +1,5 @@
 package com.openclassrooms.realestatemanager.utils;
 
-import android.graphics.Color;
 import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;

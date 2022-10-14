@@ -1,13 +1,12 @@
 package com.openclassrooms.realestatemanager.data
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.openclassrooms.realestatemanager.data.dao.AgentDao
 import com.openclassrooms.realestatemanager.data.dao.HouseDao
 import com.openclassrooms.realestatemanager.model.Agent
+import com.openclassrooms.realestatemanager.model.DescriptionPicturesTypeConverter
 import com.openclassrooms.realestatemanager.model.House
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,6 +16,7 @@ import kotlinx.coroutines.launch
 @Database(entities = [House::class, Agent::class],
     version = 1,
     exportSchema = false)
+@TypeConverters(DescriptionPicturesTypeConverter::class)
 abstract class HouseRoomDatabase: RoomDatabase() {
 
     // DAO
