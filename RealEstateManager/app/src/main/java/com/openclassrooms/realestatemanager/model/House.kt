@@ -15,22 +15,20 @@
  */
 package com.openclassrooms.realestatemanager.model
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverter
+import com.google.gson.Gson
+import kotlinx.parcelize.Parcelize
 import java.io.Serializable
-
-
-
-
-
-
-
 
 /**
  * Data model for each row of the RecyclerView
  */
 @Entity(tableName = "house")
+@Parcelize
 data class House(
     @ColumnInfo(name = "house_id") @PrimaryKey var houseId: String,
     @ColumnInfo(name = "details_type") var detailViewType: String,
@@ -51,5 +49,19 @@ data class House(
     @ColumnInfo(name = "details_market_since") var detailMarketSince: String,
     @ColumnInfo(name = "details_sold") var detailSold: Boolean,
     @ColumnInfo(name = "details_sold_on") var detailSoldOn: String,
-    @ColumnInfo(name = "details_manage_by") var detailManageBy: String
-):Serializable
+    @ColumnInfo(name = "details_manage_by") var detailManageBy: String,
+    @ColumnInfo(name = "description_pictures") var descriptionPictures: List<DescriptionPictures>
+):Parcelable
+
+@Parcelize
+data class DescriptionPictures(val description: String, val houseId: String, val picturesId: String): Parcelable
+
+class DescriptionPicturesTypeConverter {
+
+    @TypeConverter
+    fun listToJson(value: List<DescriptionPictures>?) = Gson().toJson(value)
+
+    @TypeConverter
+    fun jsonToList(value: String) = Gson().fromJson(value, Array<DescriptionPictures>::class.java).toList()
+
+}
