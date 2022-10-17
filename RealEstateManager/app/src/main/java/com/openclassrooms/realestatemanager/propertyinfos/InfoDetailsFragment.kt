@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager.houseinfos
+package com.openclassrooms.realestatemanager.propertyinfos
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.*
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -14,7 +15,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.addproperty.AddHouseViewModel
 import com.openclassrooms.realestatemanager.addproperty.InternalStoragePhoto
@@ -62,7 +62,6 @@ class InfoDetailsFragment : Fragment() {
 
         setHasOptionsMenu(true)
 
-
         internalStoragePictureAdapter = PictureAdapter {
             loadPhotosFromInternalStorageIntoRecyclerView()
         }
@@ -74,13 +73,11 @@ class InfoDetailsFragment : Fragment() {
 
         }
 
-        requestPermission()
-
-
+        //requestPermission()
 
         val args = this.arguments
         if (args != null) {
-            val houseId = args.getSerializable("houseClicked") as House
+            val houseId = args.getParcelable<House>("houseClicked") as House
             houseIdEdit = houseId
 
             binding.detailsViewDescription.text = houseId.detailsViewDescription
@@ -133,7 +130,7 @@ class InfoDetailsFragment : Fragment() {
     // For Edit option
     private fun openEditPropertyActivity() {
         val clickForEditPropertyActivity = Intent(requireContext(), EditPropertyActivity::class.java)
-        clickForEditPropertyActivity.putExtra("PropertyInFragment", houseIdEdit as Serializable)
+        clickForEditPropertyActivity.putExtra("PropertyInFragment", houseIdEdit as Parcelable)
         startActivity(clickForEditPropertyActivity)
     }
 

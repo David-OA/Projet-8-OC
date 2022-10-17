@@ -202,7 +202,7 @@ class EditPropertyActivity: AppCompatActivity() {
     }
 
     private fun getDataPropertySelectedToEdit() {
-        val houseIdEdit = intent.extras?.getSerializable("PropertyInFragment") as House
+        val houseIdEdit = intent.extras?.getParcelable<House>("PropertyInFragment") as House
 
         // Property Id
         houseIdUpdate = houseIdEdit.houseId
