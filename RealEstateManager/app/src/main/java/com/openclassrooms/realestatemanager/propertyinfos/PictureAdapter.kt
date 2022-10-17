@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager.houseinfos
+package com.openclassrooms.realestatemanager.propertyinfos
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -41,44 +41,6 @@ class PictureAdapter(
         holder.binding.apply {
             myimage.setImageBitmap(photo.bmp)
 
-            /*val aspectRatio = photo.bmp.width.toFloat() / photo.bmp.height.toFloat()
-            ConstraintSet().apply {
-                clone(root)
-                setDimensionRatio(picturesAddedRvPicture.id, aspectRatio.toString())
-                applyTo(root)
-            }*/
-
         }
     }
 }
-
-
-/*(val pictureList: List<InternalStoragePhoto>) : RecyclerView.Adapter<PictureAdapter.PicturesViewHolder>() {
-
-    /*override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PicturesViewHolder {
-        val inflate: View = LayoutInflater.from(parent.context).inflate(R.layout.picture_recyclerview_item, parent,false)
-        return PicturesViewHolder(inflate)
-    }
-
-    override fun getItemCount(): Int {
-        return pictureList.size
-    }
-
-    override fun onBindViewHolder(holder: PicturesViewHolder, position: Int) {
-            // if view holder is not null we are simply
-
-        holder.bind(pictureList[position])
-
-    }
-
-    class PicturesViewHolder(val itemViewPicture: View) : RecyclerView.ViewHolder(itemViewPicture) {
-
-        fun bind(internalStoragePhoto: InternalStoragePhoto) = with(itemView) {
-
-            itemView.myimage.setImageBitmap(internalStoragePhoto.bmp)
-
-        }
-
-
-    }
-}*/
