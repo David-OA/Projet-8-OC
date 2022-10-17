@@ -14,28 +14,17 @@
  * limitations under the License.
  */
 
-package com.openclassrooms.realestatemanager.houselist
+package com.openclassrooms.realestatemanager.propertylist
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
-import android.os.Build
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.cardview.widget.CardView
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getColor
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.addproperty.InternalStoragePhoto
 import com.openclassrooms.realestatemanager.databinding.PropertyListItemBinding
@@ -43,21 +32,16 @@ import com.openclassrooms.realestatemanager.model.House
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
-class HouseListAdapter(private val onItemClicked: (House) -> Unit) :
+class HouseListAdapter(private val onHouseInTheList: (House) -> Unit) :
     ListAdapter<House, HouseListAdapter.PropertyViewHolder>(DiffCallback) {
-
-
-
 
     private lateinit var context: Context
 
-    private val viewHolders = mutableListOf<PropertyViewHolder>()
 
-    private var currentSelection = 0
-
-
-    // ViewHolder Parts
-    class PropertyViewHolder(private var binding: PropertyListItemBinding, val  onItemClicked: (House) -> Unit) :
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+    //                              ViewHolder Parts
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+    class PropertyViewHolder(private var binding: PropertyListItemBinding) :
         RecyclerView.ViewHolder(binding.root), CoroutineScope {
 
         private lateinit var houseIdList: String
@@ -69,7 +53,7 @@ class HouseListAdapter(private val onItemClicked: (House) -> Unit) :
         override val coroutineContext: CoroutineContext
             get() = Dispatchers.Main + job
 
-        fun bind(house: House, context: Context, position: Int, selected: Boolean, function: (Int) -> Unit) {
+        fun bind(house: House, context: Context) {
             this.context = context
 
             binding.houseType.text = house.detailViewType
@@ -87,16 +71,14 @@ class HouseListAdapter(private val onItemClicked: (House) -> Unit) :
                 }
             }
 
-
-            itemView.isSelected = selected
-
-            itemView.setOnClickListener {
-                function(position)
+            binding.root.setOnClickListener {
+                binding.root.setBackgroundColor(Color.GREEN)
             }
 
         }
 
 
+        // For load pictures
         private suspend fun loadPhotosFromInternalStorage(): List<InternalStoragePhoto> {
             return withContext(Dispatchers.IO) {
                 val files = context.filesDir?.listFiles()
@@ -109,43 +91,26 @@ class HouseListAdapter(private val onItemClicked: (House) -> Unit) :
             }
         }
 
-
-
     }
 
-    // Adapter parts
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+    //                                     Adapter parts
+    /////////////////////////////////////////////////////////////////////////////////////////////////
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PropertyViewHolder {
         context = parent.context
-        val layoutInflater = LayoutInflater.from(context)
-        val view = layoutInflater.inflate(R.layout.property_list_item, parent, false)
-        val holder = PropertyViewHolder(PropertyListItemBinding.bind(view), onItemClicked)
-        viewHolders.add(holder)
-        return holder
+        return PropertyViewHolder(PropertyListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
-
-
 
     @SuppressLint("NotifyDataSetChanged", "ResourceAsColor")
     override fun onBindViewHolder(holder: PropertyViewHolder, position: Int) {
         val current = getItem(position)
 
         holder.itemView.setOnClickListener {
-            onItemClicked(current)
-
+            onHouseInTheList(current)
         }
 
-        val function = { pos: Int ->
-            if (currentSelection != pos) {
-                currentSelection = pos
-                notifyDataSetChanged()
-            }
-
-        }
-
-        holder.bind(current, context, position, position  == currentSelection, function)
+        holder.bind(current, context)
     }
-
-    override fun getItemCount() = currentList.size
 
     companion object {
         private val DiffCallback = object : DiffUtil.ItemCallback<House>() {

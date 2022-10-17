@@ -1,32 +1,25 @@
-package com.openclassrooms.realestatemanager.houselist
+package com.openclassrooms.realestatemanager.propertylist
 
 import android.content.pm.PackageManager
-import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContentProviderCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.realestatemanager.utils.ItemClickSupport
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.addproperty.AddHouseViewModel
-import com.openclassrooms.realestatemanager.addproperty.InternalStoragePhoto
-import com.openclassrooms.realestatemanager.databinding.FragmentMaisonsListBinding
-import com.openclassrooms.realestatemanager.houseinfos.InfoDetailsFragment
+import com.openclassrooms.realestatemanager.databinding.FragmentPropertyListBinding
+import com.openclassrooms.realestatemanager.propertyinfos.InfoDetailsFragment
 import com.openclassrooms.realestatemanager.injection.Injection
 import com.openclassrooms.realestatemanager.injection.ViewModelFactory
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class HouseListFragment : Fragment() {
 
@@ -34,16 +27,13 @@ class HouseListFragment : Fragment() {
         ViewModelFactory(Injection.providesHouseRepository(requireContext()), Injection.providesAgentRepository(requireContext()))
     }
 
-
     private var isReadPermissionGranted = false
     private var isWritePermissionGranted = false
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
 
-    private var _binding: FragmentMaisonsListBinding? = null
+    private var _binding: FragmentPropertyListBinding? = null
 
     private val binding get() = _binding!!
-
-    private var adapter: HouseListAdapter? = null
 
     var tabletSize: Boolean = false
 
@@ -52,13 +42,12 @@ class HouseListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMaisonsListBinding.inflate(inflater, container, false)
+        _binding = FragmentPropertyListBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         // For permission Internal storage
         permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
@@ -72,7 +61,7 @@ class HouseListFragment : Fragment() {
 
         recyclerViewListHouse()
 
-        clickOnHouseOfTheList()
+        //clickOnHouseOfTheList()
 
     }
 
@@ -110,56 +99,41 @@ class HouseListFragment : Fragment() {
 
     }
 
+    private var adapter: PropertyListAdapter? = null
+
     private fun recyclerViewListHouse() {
         // Initialize the adapter and set it to the RecyclerView.
-        val adapter = HouseListAdapter {}
+        adapter = PropertyListAdapter ()
 
+        // Getting the recyclerview by its id binding
         val recyclerView: RecyclerView = binding.recyclerView
+
+        // Setting the Adapter with the recyclerview
         recyclerView.adapter = adapter
 
+        // Pass the data to our Adapter
         addHouseViewModel.allHouses.observe(viewLifecycleOwner) {
-            houses -> houses?.let { adapter.submitList(it) }
+            houses -> houses?.let { adapter?.submitList(it) }
         }
+
+        clickOnHouseOfTheList()
     }
-
-    /* For pictures in the recyclerview
-    private fun setupInternalStoragePicturesRecyclerView() = binding.detailViewCardPictures.apply {
-        adapter = internalStoragePictureAdapter
-        layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-    }
-
-    private fun loadPhotosFromInternalStorageIntoRecyclerView() {
-        lifecycleScope.launch {
-            // For recyclerview
-            val photos = loadPhotosFromInternalStorage()
-            internalStoragePictureAdapter.submitList(photos)
-        }
-    }
-
-    private suspend fun loadPhotosFromInternalStorage(): List<InternalStoragePhoto> {
-        return withContext(Dispatchers.IO) {
-            val files = requireContext().filesDir?.listFiles()
-
-            files?.filter { it.canRead() && it.isFile && it.name.endsWith(".jpg") && it.name.startsWith(houseIdEdit!!.houseId) }?.map {
-                val bytes = it.readBytes()
-                val bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-                InternalStoragePhoto(it.name,bmp)
-            } ?: listOf()
-        }
-    }*/
-
-
 
     private fun clickOnHouseOfTheList() {
-        addHouseViewModel.allHouses.observe(viewLifecycleOwner) {
         ItemClickSupport.addTo(binding.recyclerView, R.layout.property_list_item).setOnItemClickListener { recyclerView, position, v ->
 
+            Toast.makeText(context,"la position est $position", Toast.LENGTH_LONG).show()
+
+            adapter!!.updateSelection(position)
+
                 // Get id property click in recyclerview
+            // change maisonId
                 val maisonId = addHouseViewModel.allHouses.value?.get(position)
 
+                // Get Data House clicked for pass to the fragment
                 val bundle = Bundle()
                 if (maisonId != null) {
-                    bundle.putSerializable("houseClicked", maisonId)
+                    bundle.putParcelable("houseClicked", maisonId)
                 }
 
                 val fragment = InfoDetailsFragment()
@@ -176,6 +150,5 @@ class HouseListFragment : Fragment() {
                         ?.commitAllowingStateLoss()
                 }
             }
-        }
     }
 }
