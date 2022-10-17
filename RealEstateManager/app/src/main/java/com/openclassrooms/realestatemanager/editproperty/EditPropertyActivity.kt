@@ -31,14 +31,14 @@ import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.addagent.AddAgentViewModel
 import com.openclassrooms.realestatemanager.addproperty.AddHouseViewModel
 import com.openclassrooms.realestatemanager.addproperty.InternalStoragePhoto
-import com.openclassrooms.realestatemanager.addproperty.InternalStoragePhotoAdapter
+import com.openclassrooms.realestatemanager.addproperty.ListPictureDescriptionAdapter
 import com.openclassrooms.realestatemanager.addproperty.ListAgentsDialogView
 import com.openclassrooms.realestatemanager.databinding.ActivityAddPropertyBinding
 import com.openclassrooms.realestatemanager.injection.Injection
 import com.openclassrooms.realestatemanager.injection.ViewModelFactory
+import com.openclassrooms.realestatemanager.model.DescriptionPictures
 import com.openclassrooms.realestatemanager.model.House
 import com.openclassrooms.realestatemanager.utils.TypeProperty
-import com.openclassrooms.realestatemanager.utils.idGenerated
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -66,7 +66,7 @@ class EditPropertyActivity: AppCompatActivity() {
 
     private lateinit var context: Context
 
-    private lateinit var internalStoragePhotoAdapter: InternalStoragePhotoAdapter
+    private lateinit var listPictureDescriptionAdapter: ListPictureDescriptionAdapter
 
     private val addHouseViewModel: AddHouseViewModel by viewModels {
         ViewModelFactory(Injection.providesHouseRepository(this), Injection.providesAgentRepository(this))
@@ -86,7 +86,7 @@ class EditPropertyActivity: AppCompatActivity() {
 
         configureToolbar()
 
-        this.internalStoragePhotoAdapter = InternalStoragePhotoAdapter { }
+        this.listPictureDescriptionAdapter = ListPictureDescriptionAdapter {}
         this.context = this@EditPropertyActivity
 
         permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
@@ -407,12 +407,20 @@ class EditPropertyActivity: AppCompatActivity() {
                 textOnMarketSince,
                 switchSoldCheck,
                 textSoldOn,
-                textAgentAddHouse)
+                textAgentAddHouse,getTheListofDescriptionPictures())
 
             addHouseViewModel.update(house)
 
             returnToMainActivity()
             showToastForUpdateHouse()
+    }
+
+    private fun getTheListofDescriptionPictures(): List<DescriptionPictures> {
+        val descriptions = ArrayList<DescriptionPictures>()
+        descriptions.add(DescriptionPictures("",houseIdUpdate,""))
+        descriptions.add(DescriptionPictures("test",houseIdUpdate,"test"))
+
+        return descriptions
     }
 
     private fun  returnToMainActivity() {
@@ -473,14 +481,14 @@ class EditPropertyActivity: AppCompatActivity() {
     }
 
     private fun setupInternalStorageRecyclerView() = binding.addPropertyViewPictureRv.apply {
-        adapter = internalStoragePhotoAdapter
+        adapter = listPictureDescriptionAdapter
         layoutManager = LinearLayoutManager(this@EditPropertyActivity, LinearLayoutManager.VERTICAL, false)
     }
 
     private fun loadPhotosFromInternalStorageIntoRecyclerView() {
         lifecycleScope.launch {
             val photos = loadPhotosFromInternalStorage()
-            internalStoragePhotoAdapter.submitList(photos)
+            listPictureDescriptionAdapter.submitList(photos)
         }
     }
 

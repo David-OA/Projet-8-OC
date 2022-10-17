@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager.addproperty
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -7,9 +8,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.realestatemanager.databinding.ListPicturesAddedItemBinding
 
-class InternalStoragePhotoAdapter (
+class ListPictureDescriptionAdapter (
     val onPhotoClick: (InternalStoragePhoto) -> Unit
-) : ListAdapter<InternalStoragePhoto, InternalStoragePhotoAdapter.PhotoViewHolder>(Companion) {
+) : ListAdapter<InternalStoragePhoto, ListPictureDescriptionAdapter.PhotoViewHolder>(Companion) {
 
     inner class PhotoViewHolder(val binding: ListPicturesAddedItemBinding): RecyclerView.ViewHolder(binding.root)
 

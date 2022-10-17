@@ -9,15 +9,28 @@ import kotlinx.coroutines.launch
 
 class AddHouseViewModel (private val repository: HouseRepository) : ViewModel() {
 
+    // For take all houses
     val  allHouses: LiveData<List<House>> = repository.allHouses.asLiveData()
 
 
+    // For insert house
     fun insert(house: House) = viewModelScope.launch {
         repository.insert(house)
     }
 
+    // For add modification in house
     fun update(house: House) = viewModelScope.launch(Dispatchers.IO) {
         repository.update(house)
+    }
+
+    // For save selected when click on the item in recyclerview
+    var itemSelected: Int? = null
+    fun setPropertySelected(itemPosition: Int?) {
+        this.itemSelected = itemPosition
+    }
+
+    fun getPropertySelected(): Int? {
+        return itemSelected
     }
 
 }

@@ -17,24 +17,27 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.PopupMenu
 import android.widget.Toast
-import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.launch
-import androidx.activity.result.registerForActivityResult
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.menu.MenuBuilder
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.ItemTouchHelper.*
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.realestatemanager.MainActivity
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.addagent.AddAgentViewModel
 import com.openclassrooms.realestatemanager.databinding.ActivityAddPropertyBinding
+import com.openclassrooms.realestatemanager.databinding.ListPicturesAddedItemBinding
 import com.openclassrooms.realestatemanager.injection.Injection
 import com.openclassrooms.realestatemanager.injection.ViewModelFactory
+import com.openclassrooms.realestatemanager.model.DescriptionPictures
 import com.openclassrooms.realestatemanager.model.House
 import com.openclassrooms.realestatemanager.utils.TypeProperty
 import com.openclassrooms.realestatemanager.utils.idGenerated
@@ -43,6 +46,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class AddPropertyActivity: AppCompatActivity() {
@@ -59,6 +63,7 @@ class AddPropertyActivity: AppCompatActivity() {
     private var switchSoldCheck: Boolean = false
 
     private var propertyId: String = idGenerated
+    private var picturesId: String = idGenerated
 
     private var isReadPermissionGranted = false
     private var isWritePermissionGranted = false
@@ -66,7 +71,7 @@ class AddPropertyActivity: AppCompatActivity() {
 
     private lateinit var context: Context
 
-    private lateinit var internalStoragePhotoAdapter: InternalStoragePhotoAdapter
+    private lateinit var listPictureDescriptionAdapter: ListPictureDescriptionAdapter
 
     private val addHouseViewModel: AddHouseViewModel by viewModels {
         ViewModelFactory(Injection.providesHouseRepository(this), Injection.providesAgentRepository(this))
@@ -84,7 +89,8 @@ class AddPropertyActivity: AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        this.internalStoragePhotoAdapter = InternalStoragePhotoAdapter { }
+        this.listPictureDescriptionAdapter = ListPictureDescriptionAdapter {  }
+
         this.context = this@AddPropertyActivity
 
         permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
@@ -105,11 +111,14 @@ class AddPropertyActivity: AppCompatActivity() {
         choiceHowTakeAPicture()
 
         binding.addPictureInRecyclerview.setOnClickListener {
-            setupInternalStorageRecyclerView()
-            loadPhotosFromInternalStorageIntoRecyclerView()
+            setUpRecyclerviewPictures()
         }
 
+
+
     }
+
+
 
     private fun choiceHowTakeAPicture() {
         binding.addPropertyViewAddPictureButton.setOnClickListener {
@@ -121,7 +130,7 @@ class AddPropertyActivity: AppCompatActivity() {
     private val takephoto = registerForActivityResult(ActivityResultContracts.TakePicturePreview()) {
         lifecycleScope.launch {
             if (isWritePermissionGranted) {
-                if (savePhotoToInternalStorage(propertyId + "." + UUID.randomUUID().toString(), it!!)) {
+                if (savePhotoToInternalStorage("$propertyId.$picturesId", it!!)) {
                     Toast.makeText(this@AddPropertyActivity, "Photo Saved Successfully", Toast.LENGTH_LONG).show()
                 } else {
                     Toast.makeText(this@AddPropertyActivity, "Failed to Save photo", Toast.LENGTH_LONG).show()
@@ -329,7 +338,7 @@ class AddPropertyActivity: AppCompatActivity() {
                 textOnMarketSince,
                 switchSoldCheck,
                 textSoldOn,
-                textAgentAddHouse)
+                textAgentAddHouse,getTheListOfDescriptionPictures())
 
             addHouseViewModel.insert(house)
 
@@ -394,15 +403,21 @@ class AddPropertyActivity: AppCompatActivity() {
         }
     }
 
+    // For the list of pictures and description
+    private fun setUpRecyclerviewPictures() {
+        setupInternalStorageRecyclerView()
+        loadPhotosFromInternalStorageIntoRecyclerView()
+    }
+
     private fun setupInternalStorageRecyclerView() = binding.addPropertyViewPictureRv.apply {
-        adapter = internalStoragePhotoAdapter
+        adapter = listPictureDescriptionAdapter
         layoutManager = LinearLayoutManager(this@AddPropertyActivity, LinearLayoutManager.VERTICAL, false)
     }
 
     private fun loadPhotosFromInternalStorageIntoRecyclerView() {
         lifecycleScope.launch {
             val photos = loadPhotosFromInternalStorage()
-            internalStoragePhotoAdapter.submitList(photos)
+            listPictureDescriptionAdapter.submitList(photos)
         }
     }
 
@@ -415,5 +430,18 @@ class AddPropertyActivity: AppCompatActivity() {
                 InternalStoragePhoto(it.name, bmp)
             } ?: listOf()
         }
+    }
+
+    /*private lateinit var bindingPictures: ListPicturesAddedItemBinding*/
+
+    private fun getTheListOfDescriptionPictures(): List<DescriptionPictures> {
+
+        //val descriptionPictures = bindingPictures.picturesAddedRvDescription
+        //val textDescriptionPictures= descriptionPictures.text.toString()
+
+        val descriptions = ArrayList<DescriptionPictures>()
+        descriptions.add(DescriptionPictures("textDescriptionPictures",propertyId,picturesId))
+
+        return descriptions
     }
 }
