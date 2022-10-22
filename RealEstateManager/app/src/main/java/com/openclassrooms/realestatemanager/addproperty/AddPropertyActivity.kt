@@ -89,7 +89,7 @@ class AddPropertyActivity: AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        this.listPictureDescriptionAdapter = ListPictureDescriptionAdapter {  }
+        this.listPictureDescriptionAdapter = ListPictureDescriptionAdapter(descriptionPictureList)
 
         this.context = this@AddPropertyActivity
 
@@ -110,6 +110,11 @@ class AddPropertyActivity: AppCompatActivity() {
 
         choiceHowTakeAPicture()
 
+        addItemPictureRecyclerview()
+
+    }
+
+    private fun addItemPictureRecyclerview() {
         binding.addPictureInRecyclerview.setOnClickListener {
             setUpRecyclerviewPictures()
         }
@@ -409,11 +414,23 @@ class AddPropertyActivity: AppCompatActivity() {
         loadPhotosFromInternalStorageIntoRecyclerView()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun setupInternalStorageRecyclerView() = binding.addPropertyViewPictureRv.apply {
         adapter = listPictureDescriptionAdapter
         layoutManager = LinearLayoutManager(this@AddPropertyActivity, LinearLayoutManager.VERTICAL, false)
+
+        val position = if (descriptionPictureList.isEmpty()) {
+            0
+        } else {
+            descriptionPictureList.size -1
+        }
+        descriptionPictureList.add(DescriptionPictures("",propertyId,picturesId))
+
+        listPictureDescriptionAdapter.notifyItemInserted(position)
+        listPictureDescriptionAdapter.notifyDataSetChanged()
     }
 
+    // Load pictures from internal storage
     private fun loadPhotosFromInternalStorageIntoRecyclerView() {
         lifecycleScope.launch {
             val photos = loadPhotosFromInternalStorage()
@@ -432,16 +449,8 @@ class AddPropertyActivity: AppCompatActivity() {
         }
     }
 
-    /*private lateinit var bindingPictures: ListPicturesAddedItemBinding*/
-
     private fun getTheListOfDescriptionPictures(): List<DescriptionPictures> {
-
-        //val descriptionPictures = bindingPictures.picturesAddedRvDescription
-        //val textDescriptionPictures= descriptionPictures.text.toString()
-
-        val descriptions = ArrayList<DescriptionPictures>()
-        descriptions.add(DescriptionPictures("textDescriptionPictures",propertyId,picturesId))
-
+        val descriptions = descriptionPictureList
         return descriptions
     }
 }

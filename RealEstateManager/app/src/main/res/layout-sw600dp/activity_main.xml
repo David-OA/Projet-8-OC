@@ -19,7 +19,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/recycler_view_list_house"
-        android:name="com.openclassrooms.realestatemanager.propertylist.HouseListFragment"
+        android:name="com.openclassrooms.realestatemanager.propertylist.PropertiesListFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"

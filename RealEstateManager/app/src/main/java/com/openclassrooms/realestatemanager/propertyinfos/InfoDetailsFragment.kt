@@ -22,11 +22,11 @@ import com.openclassrooms.realestatemanager.databinding.FragmentPropertyInfosBin
 import com.openclassrooms.realestatemanager.editproperty.EditPropertyActivity
 import com.openclassrooms.realestatemanager.injection.Injection
 import com.openclassrooms.realestatemanager.injection.ViewModelFactory
+import com.openclassrooms.realestatemanager.model.DescriptionPictures
 import com.openclassrooms.realestatemanager.model.House
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.io.Serializable
 
 class InfoDetailsFragment : Fragment() {
 
@@ -46,6 +46,8 @@ class InfoDetailsFragment : Fragment() {
     private var _binding: FragmentPropertyInfosBinding? = null
     private val binding get() = _binding!!
 
+    private var listDescriptionPicture: List<DescriptionPictures> = listOf()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -62,9 +64,9 @@ class InfoDetailsFragment : Fragment() {
 
         setHasOptionsMenu(true)
 
-        internalStoragePictureAdapter = PictureAdapter {
-            loadPhotosFromInternalStorageIntoRecyclerView()
-        }
+
+
+
 
         permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
 
@@ -105,14 +107,27 @@ class InfoDetailsFragment : Fragment() {
             if (houseId.amenitySubway == true) {
                 binding.detailViewAmenitySix.setImageResource(R.drawable.subway_icon)
             }
+
+            listDescriptionPicture = houseId.descriptionPictures
+
         }
+
+        this.internalStoragePictureAdapter = PictureAdapter(listDescriptionPicture.toMutableList())
 
         if (houseIdEdit != null) {
             loadPhotosFromInternalStorageIntoRecyclerView()
             setupInternalStoragePicturesRecyclerView()
         }
 
+
+
     }
+
+    private fun getTheListOfDescriptionsPictures(): List<DescriptionPictures> {
+        val descriptionPictures = listDescriptionPicture
+        return descriptionPictures
+    }
+
 
     // Menu Toolbar
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

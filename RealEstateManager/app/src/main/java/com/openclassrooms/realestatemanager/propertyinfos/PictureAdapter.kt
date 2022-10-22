@@ -3,17 +3,27 @@ package com.openclassrooms.realestatemanager.propertyinfos
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.realestatemanager.addproperty.InternalStoragePhoto
 import com.openclassrooms.realestatemanager.databinding.PictureRecyclerviewItemBinding
+import com.openclassrooms.realestatemanager.model.DescriptionPictures
 
 class PictureAdapter(
-    val pictureList: (InternalStoragePhoto) -> Unit
+    private val descriptionPicturesList: MutableList<DescriptionPictures>
 ) : ListAdapter<InternalStoragePhoto, PictureAdapter.PictureViewHolder>(Companion) {
 
-    inner class PictureViewHolder(val binding: PictureRecyclerviewItemBinding): RecyclerView.ViewHolder(binding.root)
+    inner class PictureViewHolder(val binding: PictureRecyclerviewItemBinding): RecyclerView.ViewHolder(binding.root) {
+
+        fun bind() {
+            val descriptionSelected = descriptionPicturesList[adapterPosition]
+
+            binding.descriptionPicture.setText(descriptionSelected.description)
+
+        }
+    }
 
     companion object : DiffUtil.ItemCallback<InternalStoragePhoto>() {
         override fun areItemsTheSame(oldItem: InternalStoragePhoto, newItem: InternalStoragePhoto): Boolean {
@@ -27,20 +37,19 @@ class PictureAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PictureViewHolder {
-        return PictureViewHolder(
-            PictureRecyclerviewItemBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
+        return PictureViewHolder(PictureRecyclerviewItemBinding.inflate(LayoutInflater.from(parent.context), parent,false))
     }
+
+    //override fun getItemCount(): Int = descriptionPicturesList.size
 
     override fun onBindViewHolder(holder: PictureViewHolder, position: Int) {
         val photo = currentList[position]
         holder.binding.apply {
             myimage.setImageBitmap(photo.bmp)
-
         }
+
+
+        holder.bind()
+
     }
 }

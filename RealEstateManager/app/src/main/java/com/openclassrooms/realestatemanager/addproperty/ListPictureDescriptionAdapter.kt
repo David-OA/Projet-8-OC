@@ -1,18 +1,47 @@
 package com.openclassrooms.realestatemanager.addproperty
 
-import android.annotation.SuppressLint
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.realestatemanager.databinding.ListPicturesAddedItemBinding
+import com.openclassrooms.realestatemanager.model.DescriptionPictures
 
 class ListPictureDescriptionAdapter (
-    val onPhotoClick: (InternalStoragePhoto) -> Unit
-) : ListAdapter<InternalStoragePhoto, ListPictureDescriptionAdapter.PhotoViewHolder>(Companion) {
+     private val descriptionPictureList: MutableList<DescriptionPictures>
+) : ListAdapter<InternalStoragePhoto, ListPictureDescriptionAdapter.PhotoViewHolder>(Companion), DescriptionPicturesUi.DescriptionPictureSaved{
 
-    inner class PhotoViewHolder(val binding: ListPicturesAddedItemBinding): RecyclerView.ViewHolder(binding.root)
+    class PhotoViewHolder(val binding: ListPicturesAddedItemBinding, descriptionPictureSaved: DescriptionPicturesUi.DescriptionPictureSaved): RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.picturesAddedRvDescription.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    val description = s.toString()
+
+                    descriptionPictureSaved.run {
+                        if (adapterPosition != RecyclerView.NO_POSITION) {
+                            descriptionPictureSaved.onDescriptionPictureUpdated(adapterPosition, description)
+                        }
+                    }
+                }
+
+            })
+        }
+
+        fun bind(descriptionPictures: DescriptionPictures) {
+            binding.picturesAddedRvDescription.setText(descriptionPictures.description)
+        }
+
+    }
 
     companion object : DiffUtil.ItemCallback<InternalStoragePhoto>() {
         override fun areItemsTheSame(oldItem: InternalStoragePhoto, newItem: InternalStoragePhoto): Boolean {
@@ -25,31 +54,23 @@ class ListPictureDescriptionAdapter (
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {
-        return PhotoViewHolder(
-            ListPicturesAddedItemBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
+        return PhotoViewHolder(ListPicturesAddedItemBinding.inflate(LayoutInflater.from(parent.context), parent,false), this)
     }
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
         val photo = currentList[position]
         holder.binding.apply {
             picturesAddedRvPicture.setImageBitmap(photo.bmp)
+        }
 
-            /*val aspectRatio = photo.bmp.width.toFloat() / photo.bmp.height.toFloat()
-            ConstraintSet().apply {
-                clone(root)
-                setDimensionRatio(picturesAddedRvPicture.id, aspectRatio.toString())
-                applyTo(root)
-            }*/
+        if (descriptionPictureList.isNotEmpty()) {
+            holder.bind(descriptionPictureList[position])
+        }
+    }
 
-            picturesAddedRvPicture.setOnLongClickListener {
-                onPhotoClick(photo)
-                true
-            }
+    override fun onDescriptionPictureUpdated(position: Int, description: String) {
+        if (descriptionPictureList.isNotEmpty()) {
+            descriptionPictureList[position].description = description
         }
     }
 }
