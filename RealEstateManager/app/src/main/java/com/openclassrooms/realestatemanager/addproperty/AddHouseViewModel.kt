@@ -23,14 +23,6 @@ class AddHouseViewModel (private val repository: HouseRepository) : ViewModel() 
         repository.update(house)
     }
 
-    // For save selected when click on the item in recyclerview
-    var itemSelected: Int? = null
-    fun setPropertySelected(itemPosition: Int?) {
-        this.itemSelected = itemPosition
-    }
 
-    fun getPropertySelected(): Int? {
-        return itemSelected
-    }
 
 }
