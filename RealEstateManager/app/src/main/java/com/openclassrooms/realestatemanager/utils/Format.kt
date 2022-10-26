@@ -19,12 +19,6 @@ import kotlin.math.roundToLong
         return field
     }
 
-    var idGeneratedPicture: String = ""
-    get() {
-        field = UUID.randomUUID().toString()
-        return field
-    }
-
     fun Double.toEuro(currency: Currency): Double{
         if(currency == Currency.EURO) return this
 
