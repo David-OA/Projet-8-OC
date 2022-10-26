@@ -13,7 +13,13 @@ import kotlin.math.roundToLong
         return NumberFormat.getNumberInstance(Locale.US).format(this)
     }
 
-    var idGenerated: String = ""
+    var idGeneratedProperty: String = ""
+    get() {
+        field = UUID.randomUUID().toString()
+        return field
+    }
+
+    var idGeneratedPicture: String = ""
     get() {
         field = UUID.randomUUID().toString()
         return field
