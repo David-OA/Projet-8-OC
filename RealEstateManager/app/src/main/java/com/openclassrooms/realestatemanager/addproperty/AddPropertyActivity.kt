@@ -26,33 +26,30 @@ import androidx.appcompat.view.menu.MenuBuilder
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.ItemTouchHelper.*
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.realestatemanager.MainActivity
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.addagent.AddAgentViewModel
 import com.openclassrooms.realestatemanager.databinding.ActivityAddPropertyBinding
-import com.openclassrooms.realestatemanager.databinding.ListPicturesAddedItemBinding
 import com.openclassrooms.realestatemanager.injection.Injection
 import com.openclassrooms.realestatemanager.injection.ViewModelFactory
 import com.openclassrooms.realestatemanager.model.DescriptionPictures
 import com.openclassrooms.realestatemanager.model.House
 import com.openclassrooms.realestatemanager.utils.TypeProperty
-import com.openclassrooms.realestatemanager.utils.idGenerated
+import com.openclassrooms.realestatemanager.utils.idGeneratedProperty
+import com.openclassrooms.realestatemanager.utils.idGeneratedPicture
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class AddPropertyActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityAddPropertyBinding
 
+    // For checkBoxes
     private var playgroudCheck: Boolean = false
     private var schoolCheck: Boolean = false
     private var shopCheck: Boolean = false
@@ -62,9 +59,15 @@ class AddPropertyActivity: AppCompatActivity() {
 
     private var switchSoldCheck: Boolean = false
 
-    private var propertyId: String = idGenerated
-    private var picturesId: String = idGenerated
+    // For auto generated id
+    private var propertyId: String = idGeneratedProperty
+    private var picturesId: String = ""
+    get() {
+        field = UUID.randomUUID().toString()
+        return field
+    }
 
+    // For permissions
     private var isReadPermissionGranted = false
     private var isWritePermissionGranted = false
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
@@ -73,6 +76,8 @@ class AddPropertyActivity: AppCompatActivity() {
 
     private lateinit var listPictureDescriptionAdapter: ListPictureDescriptionAdapter
 
+
+    // ViewModels
     private val addHouseViewModel: AddHouseViewModel by viewModels {
         ViewModelFactory(Injection.providesHouseRepository(this), Injection.providesAgentRepository(this))
     }
@@ -82,6 +87,8 @@ class AddPropertyActivity: AppCompatActivity() {
     }
 
     private val dropdownTypeHouse by lazy { binding.addPropertyViewDropdownType }
+
+    private var descriptionPictureList: MutableList<DescriptionPictures> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
@@ -101,13 +108,9 @@ class AddPropertyActivity: AppCompatActivity() {
         }
 
         requestPermission()
-
         getHouseType()
-
         getAgentInTheList()
-
         configureToolbar()
-
         choiceHowTakeAPicture()
 
         addItemPictureRecyclerview()
@@ -118,12 +121,7 @@ class AddPropertyActivity: AppCompatActivity() {
         binding.addPictureInRecyclerview.setOnClickListener {
             setUpRecyclerviewPictures()
         }
-
-
-
     }
-
-
 
     private fun choiceHowTakeAPicture() {
         binding.addPropertyViewAddPictureButton.setOnClickListener {
@@ -147,12 +145,12 @@ class AddPropertyActivity: AppCompatActivity() {
     }
 
     // For take a photo from Media
-    val pickPhoto = registerForActivityResult(ActivityResultContracts.GetContent()) {
+    private val pickPhoto = registerForActivityResult(ActivityResultContracts.GetContent()) {
         lifecycleScope.launch {
             if (isWritePermissionGranted) {
                 val imageUrl: Uri = it!!
                 val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(),imageUrl)
-                if (savePhotoToInternalStorage(propertyId + "." + UUID.randomUUID().toString(), bitmap)) {
+                if (savePhotoToInternalStorage("$propertyId.$picturesId", bitmap)) {
                     Toast.makeText(this@AddPropertyActivity, "Photo Saved Successfully", Toast.LENGTH_LONG).show()
                 } else {
                     Toast.makeText(this@AddPropertyActivity, "Failed to Save photo", Toast.LENGTH_LONG).show()
@@ -210,7 +208,6 @@ class AddPropertyActivity: AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
 
     private fun getHouseType() {
         //Type House
