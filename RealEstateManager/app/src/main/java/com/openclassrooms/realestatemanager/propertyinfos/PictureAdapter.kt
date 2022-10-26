@@ -40,16 +40,12 @@ class PictureAdapter(
         return PictureViewHolder(PictureRecyclerviewItemBinding.inflate(LayoutInflater.from(parent.context), parent,false))
     }
 
-    //override fun getItemCount(): Int = descriptionPicturesList.size
-
     override fun onBindViewHolder(holder: PictureViewHolder, position: Int) {
         val photo = currentList[position]
         holder.binding.apply {
             myimage.setImageBitmap(photo.bmp)
         }
 
-
         holder.bind()
-
     }
 }
