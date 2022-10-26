@@ -64,10 +64,6 @@ class InfoDetailsFragment : Fragment() {
 
         setHasOptionsMenu(true)
 
-
-
-
-
         permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
 
             isReadPermissionGranted = permissions[android.Manifest.permission.READ_EXTERNAL_STORAGE] ?: isReadPermissionGranted
