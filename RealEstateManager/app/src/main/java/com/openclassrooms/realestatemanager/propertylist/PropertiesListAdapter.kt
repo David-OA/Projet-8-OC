@@ -18,31 +18,43 @@ package com.openclassrooms.realestatemanager.propertylist
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat.getColor
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import butterknife.BindView
-import butterknife.ButterKnife
 import com.openclassrooms.realestatemanager.R
+import com.openclassrooms.realestatemanager.addproperty.InternalStoragePhoto
 import com.openclassrooms.realestatemanager.databinding.PropertyListItemBinding
 import com.openclassrooms.realestatemanager.model.House
+import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
-class PropertyListAdapter : ListAdapter<House, PropertyListAdapter.PropertyViewHolder>(DiffCallback) {
+class PropertiesListAdapter :
+    ListAdapter<House, PropertiesListAdapter.PropertyViewHolder>(DiffCallback) {
+
+    private lateinit var context: Context
 
     var itemSelectedPosition = -1
+
 
     /////////////////////////////////////////////////////////////////////////////////////////////////
     //                              ViewHolder Parts
     /////////////////////////////////////////////////////////////////////////////////////////////////
     class PropertyViewHolder(private var binding: PropertyListItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+        RecyclerView.ViewHolder(binding.root), CoroutineScope {
 
-        lateinit var context: Context
+        private lateinit var houseIdList: String
+
+        private lateinit var context: Context
+
+        private var job: Job = Job()
+
+        override val coroutineContext: CoroutineContext
+            get() = Dispatchers.Main + job
 
         fun bind(house: House, context: Context, position: Int, itemSelectedPosition: Int) {
             this.context = context
@@ -51,6 +63,16 @@ class PropertyListAdapter : ListAdapter<House, PropertyListAdapter.PropertyViewH
             binding.houseNeighborhood.text = house.detailViewNearTitle
             binding.housePrice.text = house.detailViewPrice
 
+            houseIdList = house.houseId
+
+            launch {
+                val photo = loadPhotosFromInternalStorage()
+                if (photo.isNotEmpty()) {
+                    binding.houseImage.setImageBitmap(photo.first().bmp)
+                } else {
+                    binding.houseImage.setImageResource(R.drawable.home_icon)
+                }
+            }
 
             if (position == itemSelectedPosition) {
                 configureCardToSelectedState()
@@ -60,34 +82,47 @@ class PropertyListAdapter : ListAdapter<House, PropertyListAdapter.PropertyViewH
 
         }
 
-
         private fun configureCardToNormalState() {
             binding.root.setBackgroundColor(Color.WHITE)
-            binding.housePrice.setTextColor(getColor(context, R.color.colorAccent))
+            binding.housePrice.setTextColor(ContextCompat.getColor(context, R.color.colorAccent))
         }
 
         private fun configureCardToSelectedState() {
-            binding.root.setBackgroundColor(getColor(context, R.color.colorAccent))
-            binding.housePrice.setTextColor(getColor(context, R.color.colorTextAccent))
+            binding.root.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent))
+            binding.housePrice.setTextColor(
+                ContextCompat.getColor(
+                    context,
+                    R.color.colorTextAccent
+                )
+            )
         }
 
+
+        // For load pictures
+        private suspend fun loadPhotosFromInternalStorage(): List<InternalStoragePhoto> {
+            return withContext(Dispatchers.IO) {
+                val files = context.filesDir?.listFiles()
+
+                files?.filter { it.canRead() && it.isFile && it.name.endsWith(".jpg") && it.name.startsWith(houseIdList) }?.map {
+                    val bytes = it.readBytes()
+                    val bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                    InternalStoragePhoto(it.name,bmp)
+                } ?: listOf()
+            }
+        }
 
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////
     //                                     Adapter parts
     /////////////////////////////////////////////////////////////////////////////////////////////////
-
-    private lateinit var context: Context
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PropertyViewHolder {
         context = parent.context
         return PropertyViewHolder(PropertyListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     @SuppressLint("NotifyDataSetChanged", "ResourceAsColor")
-    override fun onBindViewHolder(holder: PropertyViewHolder, @SuppressLint("RecyclerView") position: Int) {
-
+    override fun onBindViewHolder(holder: PropertyViewHolder, position: Int) {
 
         holder.bind(getItem(position), context, position, itemSelectedPosition)
     }
@@ -104,9 +139,8 @@ class PropertyListAdapter : ListAdapter<House, PropertyListAdapter.PropertyViewH
             override fun areItemsTheSame(oldItem: House, newItem: House): Boolean {
                 return (
                     oldItem.houseId == newItem.houseId ||
-                        oldItem.detailViewType == newItem.detailViewType ||
-                        oldItem.detailViewNearTitle == newItem.detailViewNearTitle ||
-                        oldItem.detailViewPrice == newItem.detailViewPrice
+                        oldItem.detailsViewDescription == newItem.detailsViewDescription ||
+                        oldItem.detailsViewSurface == newItem.detailsViewSurface
                     )
             }
 

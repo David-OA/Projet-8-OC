@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -21,7 +20,7 @@ import com.openclassrooms.realestatemanager.propertyinfos.InfoDetailsFragment
 import com.openclassrooms.realestatemanager.injection.Injection
 import com.openclassrooms.realestatemanager.injection.ViewModelFactory
 
-class HouseListFragment : Fragment() {
+class PropertiesListFragment : Fragment() {
 
     private val addHouseViewModel: AddHouseViewModel by activityViewModels{
         ViewModelFactory(Injection.providesHouseRepository(requireContext()), Injection.providesAgentRepository(requireContext()))
@@ -37,11 +36,9 @@ class HouseListFragment : Fragment() {
 
     var tabletSize: Boolean = false
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    private var adapter: PropertiesListAdapter? = null
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentPropertyListBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -62,7 +59,6 @@ class HouseListFragment : Fragment() {
         recyclerViewListHouse()
 
         //clickOnHouseOfTheList()
-
     }
 
     // For managed request permissions
@@ -99,11 +95,9 @@ class HouseListFragment : Fragment() {
 
     }
 
-    private var adapter: PropertyListAdapter? = null
-
     private fun recyclerViewListHouse() {
         // Initialize the adapter and set it to the RecyclerView.
-        adapter = PropertyListAdapter ()
+        adapter = PropertiesListAdapter ()
 
         // Getting the recyclerview by its id binding
         val recyclerView: RecyclerView = binding.recyclerView
@@ -122,33 +116,30 @@ class HouseListFragment : Fragment() {
     private fun clickOnHouseOfTheList() {
         ItemClickSupport.addTo(binding.recyclerView, R.layout.property_list_item).setOnItemClickListener { recyclerView, position, v ->
 
-            Toast.makeText(context,"la position est $position", Toast.LENGTH_LONG).show()
-
             adapter!!.updateSelection(position)
 
-                // Get id property click in recyclerview
-            // change maisonId
-                val maisonId = addHouseViewModel.allHouses.value?.get(position)
+            // Get id property click in recyclerview
+            val propertyClick = addHouseViewModel.allHouses.value?.get(position)
 
-                // Get Data House clicked for pass to the fragment
-                val bundle = Bundle()
-                if (maisonId != null) {
-                    bundle.putParcelable("houseClicked", maisonId)
-                }
-
-                val fragment = InfoDetailsFragment()
-                fragment.arguments = bundle
-
-                // For show if tablet or phone
-                tabletSize = resources.getBoolean(R.bool.isTablet)
-                if (tabletSize) {
-                    fragmentManager?.beginTransaction()?.replace(R.id.detail_view, fragment)
-                        ?.commitAllowingStateLoss()
-
-                } else {
-                    fragmentManager?.beginTransaction()?.replace(R.id.recycler_view_list_house, fragment)
-                        ?.commitAllowingStateLoss()
-                }
+            // Get Data House clicked for pass to the fragment
+            val bundle = Bundle()
+            if (propertyClick != null) {
+                bundle.putParcelable("houseClicked", propertyClick)
             }
+
+            val fragment = InfoDetailsFragment()
+            fragment.arguments = bundle
+
+            // For show if tablet or phone
+            tabletSize = resources.getBoolean(R.bool.isTablet)
+            if (tabletSize) {
+                fragmentManager?.beginTransaction()?.replace(R.id.detail_view, fragment)
+                    ?.commitAllowingStateLoss()
+
+            } else {
+                fragmentManager?.beginTransaction()?.replace(R.id.recycler_view_list_house, fragment)
+                    ?.commitAllowingStateLoss()
+            }
+        }
     }
 }
