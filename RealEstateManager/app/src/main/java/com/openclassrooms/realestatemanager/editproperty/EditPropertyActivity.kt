@@ -59,6 +59,11 @@ class EditPropertyActivity: AppCompatActivity() {
     private var switchSoldCheck: Boolean = false
 
     private lateinit var houseIdUpdate: String
+    private var picturesId: String = ""
+        get() {
+            field = UUID.randomUUID().toString()
+            return field
+        }
 
     private var isReadPermissionGranted = false
     private var isWritePermissionGranted = false
@@ -66,7 +71,10 @@ class EditPropertyActivity: AppCompatActivity() {
 
     private lateinit var context: Context
 
-    private lateinit var listPictureDescriptionAdapter: ListPictureDescriptionAdapter
+    private lateinit var listPictureDescriptionEditAdapter: ListPictureDescriptionEditAdapter
+
+    // For show description in recyclerView
+    private var lisDescriptionPicture: List<DescriptionPictures> = listOf()
 
     private val addHouseViewModel: AddHouseViewModel by viewModels {
         ViewModelFactory(Injection.providesHouseRepository(this), Injection.providesAgentRepository(this))
@@ -78,6 +86,8 @@ class EditPropertyActivity: AppCompatActivity() {
 
     private val dropdownTypeHouse by lazy { binding.addPropertyViewDropdownType }
 
+    private var descriptionPictureList: MutableList<DescriptionPictures> = mutableListOf()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddPropertyBinding.inflate(layoutInflater)
@@ -86,7 +96,6 @@ class EditPropertyActivity: AppCompatActivity() {
 
         configureToolbar()
 
-        this.listPictureDescriptionAdapter = ListPictureDescriptionAdapter {}
         this.context = this@EditPropertyActivity
 
         permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
@@ -95,19 +104,21 @@ class EditPropertyActivity: AppCompatActivity() {
             isWritePermissionGranted = permissions[android.Manifest.permission.WRITE_EXTERNAL_STORAGE] ?: isWritePermissionGranted
 
         }
-
-        requestPermission()
         
-        // For get data
+        // For get data and show
         getDataPropertySelectedToEdit()
+        this.listPictureDescriptionEditAdapter = ListPictureDescriptionEditAdapter (descriptionPictureList, lisDescriptionPicture.toMutableList())
+
+
+
+        setUpRecyclerviewPictures()
 
         // For edit change
         getHouseType()
         getAgentInTheList()
 
         binding.addPictureInRecyclerview.setOnClickListener {
-            setupInternalStorageRecyclerView()
-            loadPhotosFromInternalStorageIntoRecyclerView()
+
         }
 
         choiceHowTakeAPicture()
@@ -124,7 +135,7 @@ class EditPropertyActivity: AppCompatActivity() {
     private val takephoto = registerForActivityResult(ActivityResultContracts.TakePicturePreview()) {
         lifecycleScope.launch {
             if (isWritePermissionGranted) {
-                if (savePhotoToInternalStorage(houseIdUpdate + "." + UUID.randomUUID().toString(), it!!)) {
+                if (savePhotoToInternalStorage("$houseIdUpdate.$picturesId", it!!)) {
                     Toast.makeText(this@EditPropertyActivity, "Photo Saved Successfully", Toast.LENGTH_LONG).show()
                 } else {
                     Toast.makeText(this@EditPropertyActivity, "Failed to Save photo", Toast.LENGTH_LONG).show()
@@ -136,12 +147,12 @@ class EditPropertyActivity: AppCompatActivity() {
     }
 
     // For take a photo from Media
-    val pickPhoto = registerForActivityResult(ActivityResultContracts.GetContent()) {
+    private val pickPhoto = registerForActivityResult(ActivityResultContracts.GetContent()) {
         lifecycleScope.launch {
             if (isWritePermissionGranted) {
                 val imageUrl: Uri = it!!
                 val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(context.contentResolver,imageUrl)
-                if (savePhotoToInternalStorage(houseIdUpdate + "." + UUID.randomUUID().toString(), bitmap/*it!!*/)) {
+                if (savePhotoToInternalStorage("$houseIdUpdate.$picturesId", bitmap/*it!!*/)) {
                     Toast.makeText(this@EditPropertyActivity, "Photo Saved Successfully", Toast.LENGTH_LONG).show()
                 } else {
                     Toast.makeText(this@EditPropertyActivity, "Failed to Save photo", Toast.LENGTH_LONG).show()
@@ -202,10 +213,10 @@ class EditPropertyActivity: AppCompatActivity() {
     }
 
     private fun getDataPropertySelectedToEdit() {
-        val houseIdEdit = intent.extras?.getParcelable<House>("PropertyInFragment") as House
+        val houseIdEdit = intent.extras?.getParcelable<House>("PropertyInFragment")
 
         // Property Id
-        houseIdUpdate = houseIdEdit.houseId
+        houseIdUpdate = houseIdEdit!!.houseId
 
         //Property type
         binding.addPropertyViewDropdownType.setText(houseIdEdit.detailViewType)
@@ -268,9 +279,9 @@ class EditPropertyActivity: AppCompatActivity() {
         // Agent add property
         binding.addPropertyViewDropdownAgent.setText(houseIdEdit.detailManageBy)
 
-        // Add Pictures
-        setupInternalStorageRecyclerView()
-        loadPhotosFromInternalStorageIntoRecyclerView()
+        //List of description
+        lisDescriptionPicture = houseIdEdit.descriptionPictures
+
     }
 
     // For Save the data after change
@@ -296,7 +307,6 @@ class EditPropertyActivity: AppCompatActivity() {
                 dialog.show(supportFragmentManager, "tag test")
             }
         }
-
     }
 
     private fun showAgentListSelected() {
@@ -416,10 +426,7 @@ class EditPropertyActivity: AppCompatActivity() {
     }
 
     private fun getTheListofDescriptionPictures(): List<DescriptionPictures> {
-        val descriptions = ArrayList<DescriptionPictures>()
-        descriptions.add(DescriptionPictures("",houseIdUpdate,""))
-        descriptions.add(DescriptionPictures("test",houseIdUpdate,"test"))
-
+        val descriptions = descriptionPictureList
         return descriptions
     }
 
@@ -480,15 +487,32 @@ class EditPropertyActivity: AppCompatActivity() {
         }
     }
 
+    // For the list of pictures and description
+    private fun setUpRecyclerviewPictures() {
+        setupInternalStorageRecyclerView()
+        loadPhotosFromInternalStorageIntoRecyclerView()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
     private fun setupInternalStorageRecyclerView() = binding.addPropertyViewPictureRv.apply {
-        adapter = listPictureDescriptionAdapter
+        adapter = listPictureDescriptionEditAdapter
         layoutManager = LinearLayoutManager(this@EditPropertyActivity, LinearLayoutManager.VERTICAL, false)
+
+        val position = if (descriptionPictureList.isEmpty()) {
+            0
+        } else {
+            descriptionPictureList.size -1
+        }
+        descriptionPictureList.add(DescriptionPictures("",houseIdUpdate,picturesId))
+
+        listPictureDescriptionEditAdapter.notifyItemInserted(position)
+        listPictureDescriptionEditAdapter.notifyDataSetChanged()
     }
 
     private fun loadPhotosFromInternalStorageIntoRecyclerView() {
         lifecycleScope.launch {
             val photos = loadPhotosFromInternalStorage()
-            listPictureDescriptionAdapter.submitList(photos)
+            listPictureDescriptionEditAdapter.submitList(photos)
         }
     }
 
