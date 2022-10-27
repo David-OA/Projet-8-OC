@@ -76,10 +76,6 @@ class ListPictureDescriptionEditAdapter (
             picturesAddedRvPicture.setImageBitmap(photo.bmp)
         }
 
-        /*if (descriptionEditPictureList.isNotEmpty()) {
-            //holder.bind(descriptionPictureList[position])
-
-        }*/
         holder.bind()
     }
 
