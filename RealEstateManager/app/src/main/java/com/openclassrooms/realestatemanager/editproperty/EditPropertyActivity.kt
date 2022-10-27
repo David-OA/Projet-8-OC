@@ -104,6 +104,8 @@ class EditPropertyActivity: AppCompatActivity() {
             isWritePermissionGranted = permissions[android.Manifest.permission.WRITE_EXTERNAL_STORAGE] ?: isWritePermissionGranted
 
         }
+
+        requestPermission()
         
         // For get data and show
         getDataPropertySelectedToEdit()
