@@ -114,9 +114,6 @@ class InfoDetailsFragment : Fragment() {
             loadPhotosFromInternalStorageIntoRecyclerView()
             setupInternalStoragePicturesRecyclerView()
         }
-
-
-
     }
 
     private fun getTheListOfDescriptionsPictures(): List<DescriptionPictures> {
