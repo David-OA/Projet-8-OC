@@ -2,6 +2,7 @@ package com.openclassrooms.realestatemanager.editproperty
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -10,16 +11,19 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.InputType
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.launch
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.menu.MenuBuilder
 import androidx.appcompat.widget.Toolbar
@@ -31,13 +35,14 @@ import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.addagent.AddAgentViewModel
 import com.openclassrooms.realestatemanager.addproperty.AddHouseViewModel
 import com.openclassrooms.realestatemanager.addproperty.InternalStoragePhoto
-import com.openclassrooms.realestatemanager.addproperty.ListPictureDescriptionAdapter
 import com.openclassrooms.realestatemanager.addproperty.ListAgentsDialogView
+import com.openclassrooms.realestatemanager.addproperty.ListPictureDescriptionAdapter
 import com.openclassrooms.realestatemanager.databinding.ActivityAddPropertyBinding
 import com.openclassrooms.realestatemanager.injection.Injection
 import com.openclassrooms.realestatemanager.injection.ViewModelFactory
 import com.openclassrooms.realestatemanager.model.DescriptionPictures
 import com.openclassrooms.realestatemanager.model.House
+import com.openclassrooms.realestatemanager.utils.ItemClickSupport
 import com.openclassrooms.realestatemanager.utils.TypeProperty
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -86,8 +91,6 @@ class EditPropertyActivity: AppCompatActivity() {
 
     private val dropdownTypeHouse by lazy { binding.addPropertyViewDropdownType }
 
-    private var descriptionPictureList: MutableList<DescriptionPictures> = mutableListOf()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddPropertyBinding.inflate(layoutInflater)
@@ -109,9 +112,7 @@ class EditPropertyActivity: AppCompatActivity() {
         
         // For get data and show
         getDataPropertySelectedToEdit()
-        this.listPictureDescriptionEditAdapter = ListPictureDescriptionEditAdapter (descriptionPictureList, lisDescriptionPicture.toMutableList())
-
-
+        this.listPictureDescriptionEditAdapter = ListPictureDescriptionEditAdapter (lisDescriptionPicture.toMutableList())
 
         setUpRecyclerviewPictures()
 
@@ -120,8 +121,9 @@ class EditPropertyActivity: AppCompatActivity() {
         getAgentInTheList()
 
         binding.addPictureInRecyclerview.setOnClickListener {
-
+            setUpRecyclerviewPictures()
         }
+        clickOnTextViewForAddOrChangeDescription()
 
         choiceHowTakeAPicture()
 
@@ -154,7 +156,7 @@ class EditPropertyActivity: AppCompatActivity() {
             if (isWritePermissionGranted) {
                 val imageUrl: Uri = it!!
                 val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(context.contentResolver,imageUrl)
-                if (savePhotoToInternalStorage("$houseIdUpdate.$picturesId", bitmap/*it!!*/)) {
+                if (savePhotoToInternalStorage("$houseIdUpdate.$picturesId", bitmap)) {
                     Toast.makeText(this@EditPropertyActivity, "Photo Saved Successfully", Toast.LENGTH_LONG).show()
                 } else {
                     Toast.makeText(this@EditPropertyActivity, "Failed to Save photo", Toast.LENGTH_LONG).show()
@@ -386,7 +388,6 @@ class EditPropertyActivity: AppCompatActivity() {
             val onMarketSince = binding.addPropertyViewSince
             val textOnMarketSince = onMarketSince.text.toString()
 
-
             //Sold
             val switchSold = binding.addPropertyViewSoldSwitch
             if (switchSold.isChecked) {
@@ -428,7 +429,7 @@ class EditPropertyActivity: AppCompatActivity() {
     }
 
     private fun getTheListofDescriptionPictures(): List<DescriptionPictures> {
-        val descriptions = descriptionPictureList
+        val descriptions = listPictureDescriptionEditAdapter.getTheListofDescriptionPictures()
         return descriptions
     }
 
@@ -472,7 +473,6 @@ class EditPropertyActivity: AppCompatActivity() {
         if (permissionRequest.isNotEmpty()) {
             permissionLauncher.launch(permissionRequest.toTypedArray())
         }
-
     }
 
     private fun savePhotoToInternalStorage(filename: String, bmp: Bitmap) : Boolean {
@@ -499,16 +499,33 @@ class EditPropertyActivity: AppCompatActivity() {
     private fun setupInternalStorageRecyclerView() = binding.addPropertyViewPictureRv.apply {
         adapter = listPictureDescriptionEditAdapter
         layoutManager = LinearLayoutManager(this@EditPropertyActivity, LinearLayoutManager.VERTICAL, false)
+    }
 
-        val position = if (descriptionPictureList.isEmpty()) {
-            0
-        } else {
-            descriptionPictureList.size -1
+    private fun clickOnTextViewForAddOrChangeDescription() {
+        ItemClickSupport.addTo(binding.addPropertyViewPictureRv, R.layout.list_pictures_added_item).setOnItemClickListener { recyclerView, position, v ->
+            showDialogForAddDescription(position)
         }
-        descriptionPictureList.add(DescriptionPictures("",houseIdUpdate,picturesId))
+    }
 
-        listPictureDescriptionEditAdapter.notifyItemInserted(position)
-        listPictureDescriptionEditAdapter.notifyDataSetChanged()
+    private fun showDialogForAddDescription(position: Int) {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+        builder.setTitle("Description")
+
+        val input = EditText(this)
+        input.setHint("Enter Description")
+        input.inputType = InputType.TYPE_CLASS_TEXT
+        builder.setView(input)
+
+        builder.setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
+            val descriptionAlertDialog = input.text.toString()
+            listPictureDescriptionEditAdapter.addPicturesDescription(position,descriptionAlertDialog,houseIdUpdate,picturesId)
+        })
+
+        builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which ->
+            dialog.cancel()
+        })
+
+        builder.show()
     }
 
     private fun loadPhotosFromInternalStorageIntoRecyclerView() {

@@ -11,37 +11,10 @@ import com.openclassrooms.realestatemanager.databinding.ListPicturesAddedItemBin
 import com.openclassrooms.realestatemanager.model.DescriptionPictures
 
 class ListPictureDescriptionAdapter (
-     private val descriptionPictureList: MutableList<DescriptionPictures>
-) : ListAdapter<InternalStoragePhoto, ListPictureDescriptionAdapter.PhotoViewHolder>(Companion), DescriptionPicturesUi.DescriptionPictureSaved{
+     private val descriptionPicturesList: MutableList<DescriptionPictures>
+) : ListAdapter<InternalStoragePhoto, ListPictureDescriptionAdapter.PhotoViewHolder>(Companion){
 
-    class PhotoViewHolder(val binding: ListPicturesAddedItemBinding, descriptionPictureSaved: DescriptionPicturesUi.DescriptionPictureSaved): RecyclerView.ViewHolder(binding.root) {
-
-        init {
-            binding.picturesAddedRvDescription.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                }
-
-                override fun afterTextChanged(s: Editable?) {
-                    val description = s.toString()
-
-                    descriptionPictureSaved.run {
-                        if (adapterPosition != RecyclerView.NO_POSITION) {
-                            descriptionPictureSaved.onDescriptionPictureUpdated(adapterPosition, description)
-                        }
-                    }
-                }
-
-            })
-        }
-
-        fun bind(descriptionPictures: DescriptionPictures) {
-            binding.picturesAddedRvDescription.setText(descriptionPictures.description)
-        }
-
-    }
+    private var descriptionPictureList: MutableList<DescriptionPictures> = mutableListOf()
 
     companion object : DiffUtil.ItemCallback<InternalStoragePhoto>() {
         override fun areItemsTheSame(oldItem: InternalStoragePhoto, newItem: InternalStoragePhoto): Boolean {
@@ -54,7 +27,7 @@ class ListPictureDescriptionAdapter (
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {
-        return PhotoViewHolder(ListPicturesAddedItemBinding.inflate(LayoutInflater.from(parent.context), parent,false), this)
+        return PhotoViewHolder(ListPicturesAddedItemBinding.inflate(LayoutInflater.from(parent.context), parent,false))
     }
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
@@ -63,14 +36,37 @@ class ListPictureDescriptionAdapter (
             picturesAddedRvPicture.setImageBitmap(photo.bmp)
         }
 
-        if (descriptionPictureList.isNotEmpty()) {
-            holder.bind(descriptionPictureList[position])
+        holder.bind()
+
+    }
+
+    // For add a description in the list
+    fun addPicturesDescription(position: Int, description:String, houseId: String, picturesId: String) {
+        if (descriptionPictureList.getOrNull(position) == null) {
+            descriptionPictureList.add(DescriptionPictures(description,houseId, picturesId))
+            notifyItemInserted(descriptionPictureList.size -1)
+            notifyDataSetChanged()
+        } else {
+            descriptionPictureList[position] = DescriptionPictures(description,houseId, picturesId)
+            notifyItemChanged(descriptionPictureList.size -1)
+            notifyDataSetChanged()
         }
     }
 
-    override fun onDescriptionPictureUpdated(position: Int, description: String) {
-        if (descriptionPictureList.isNotEmpty()) {
-            descriptionPictureList[position].description = description
+    fun getTheListofDescriptionPictures(): List<DescriptionPictures> {
+        val descriptions = descriptionPictureList
+        return descriptions
+    }
+
+    inner class PhotoViewHolder(val binding: ListPicturesAddedItemBinding): RecyclerView.ViewHolder(binding.root) {
+
+        fun bind() {
+            if (descriptionPicturesList.isNotEmpty()) {
+                val descriptionPictureFromAlertDialog = descriptionPicturesList[adapterPosition]
+                binding.picturesAddedTextview.setText(descriptionPictureFromAlertDialog.description)
+            } else {
+                binding.picturesAddedTextview.setText("C'est vide")
+            }
         }
     }
 }

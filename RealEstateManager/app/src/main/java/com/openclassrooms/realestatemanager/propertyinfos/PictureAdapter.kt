@@ -18,10 +18,11 @@ class PictureAdapter(
     inner class PictureViewHolder(val binding: PictureRecyclerviewItemBinding): RecyclerView.ViewHolder(binding.root) {
 
         fun bind() {
-            val descriptionSelected = descriptionPicturesList[adapterPosition]
+            if (descriptionPicturesList.isNotEmpty()) {
+                val descriptionSelected = descriptionPicturesList[adapterPosition]
 
-            binding.descriptionPicture.setText(descriptionSelected.description)
-
+                binding.descriptionPicture.setText(descriptionSelected.description)
+            }
         }
     }
 

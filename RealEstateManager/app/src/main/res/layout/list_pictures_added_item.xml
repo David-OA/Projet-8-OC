@@ -30,33 +30,19 @@
             app:layout_constraintEnd_toEndOf="@id/pictures_added_rv_picture"
             app:layout_constraintHeight_percent="0.5"/>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/pictures_added_rv_input_layout"
+        <TextView
+            android:id="@+id/pictures_added_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/pictures_added_rv_picture"
             app:layout_constraintEnd_toStartOf="@id/pictures_added_rv_drag"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
             android:hint="@string/description"
             android:layout_margin="@dimen/margin_small">
-            <EditText
-                android:id="@+id/pictures_added_rv_description"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="10sp"/>
-        </com.google.android.material.textfield.TextInputLayout>
 
-        <ImageButton
-            app:layout_constraintTop_toTopOf="@id/pictures_added_rv_delete_button"
-            app:layout_constraintBottom_toBottomOf="@id/pictures_added_rv_delete_button"
-            app:layout_constraintStart_toStartOf="@id/pictures_added_rv_delete_button"
-            app:layout_constraintEnd_toEndOf="@id/pictures_added_rv_delete_button"
-            android:id="@+id/pictures_added_rv_delete"
-            android:layout_width="25dip"
-            android:layout_height="25dip"
-            android:background="@color/colorAccent"
-            android:layout_gravity="center_vertical"/>
+        </TextView>
 
         <ImageButton
             android:layout_margin="@dimen/margin_small"
