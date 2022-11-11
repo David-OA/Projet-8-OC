@@ -7,7 +7,6 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -42,9 +41,7 @@ import com.openclassrooms.realestatemanager.model.House
 import com.openclassrooms.realestatemanager.utils.ItemClickSupport
 import com.openclassrooms.realestatemanager.utils.TypeProperty
 import com.openclassrooms.realestatemanager.utils.idGeneratedProperty
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.util.*
 
@@ -54,7 +51,7 @@ class AddPropertyActivity: AppCompatActivity() {
     private lateinit var binding: ActivityAddPropertyBinding
 
     // For checkBoxes
-    private var playgroudCheck: Boolean = false
+    private var playgroundCheck: Boolean = false
     private var schoolCheck: Boolean = false
     private var shopCheck: Boolean = false
     private var subwayCheck: Boolean = false
@@ -78,9 +75,6 @@ class AddPropertyActivity: AppCompatActivity() {
 
     private lateinit var context: Context
 
-    private lateinit var listPictureDescriptionAdapter: ListPictureDescriptionAdapter
-
-
     // ViewModels
     private val addHouseViewModel: AddHouseViewModel by viewModels {
         ViewModelFactory(Injection.providesHouseRepository(this), Injection.providesAgentRepository(this))
@@ -92,7 +86,9 @@ class AddPropertyActivity: AppCompatActivity() {
 
     private val dropdownTypeHouse by lazy { binding.addPropertyViewDropdownType }
 
-    private var descriptionPictureList: List<DescriptionPictures> = listOf()
+    // RecyclerView
+    private lateinit var listPictureDescriptionAdapter: ListPictureDescriptionAdapter
+    private val photoList : MutableList<InternalStoragePhoto> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
@@ -100,9 +96,9 @@ class AddPropertyActivity: AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        this.listPictureDescriptionAdapter = ListPictureDescriptionAdapter(descriptionPictureList.toMutableList())
-
         this.context = this@AddPropertyActivity
+
+        setUpRecyclerviewPictures()
 
         permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
 
@@ -118,18 +114,13 @@ class AddPropertyActivity: AppCompatActivity() {
         configureToolbar()
         choiceHowTakeAPicture()
 
-        addItemPictureRecyclerview()
-
         clickOnTextViewForAddOrChangeDescription()
 
     }
 
-    private fun addItemPictureRecyclerview() {
-        binding.addPictureInRecyclerview.setOnClickListener {
-            setUpRecyclerviewPictures()
-        }
-    }
-
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // For Add a picture
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private fun choiceHowTakeAPicture() {
         binding.addPropertyViewAddPictureButton.setOnClickListener {
             showPopup(binding.addPropertyViewAddPictureButton)
@@ -142,6 +133,10 @@ class AddPropertyActivity: AppCompatActivity() {
             if (isWritePermissionGranted) {
                 if (savePhotoToInternalStorage("$propertyId.$picturesId", it!!)) {
                     Toast.makeText(this@AddPropertyActivity, "Photo Saved Successfully", Toast.LENGTH_LONG).show()
+
+                    photoList.add(InternalStoragePhoto("$propertyId.$picturesId",it,""))
+
+                    setUpRecyclerviewPictures()
                 } else {
                     Toast.makeText(this@AddPropertyActivity, "Failed to Save photo", Toast.LENGTH_LONG).show()
                 }
@@ -159,6 +154,10 @@ class AddPropertyActivity: AppCompatActivity() {
                 val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(),imageUrl)
                 if (savePhotoToInternalStorage("$propertyId.$picturesId", bitmap)) {
                     Toast.makeText(this@AddPropertyActivity, "Photo Saved Successfully", Toast.LENGTH_LONG).show()
+
+                    photoList.add(InternalStoragePhoto("$propertyId.$picturesId",bitmap,""))
+
+                    setUpRecyclerviewPictures()
                 } else {
                     Toast.makeText(this@AddPropertyActivity, "Failed to Save photo", Toast.LENGTH_LONG).show()
                 }
@@ -176,6 +175,7 @@ class AddPropertyActivity: AppCompatActivity() {
         }
     }
 
+    // For choice where take a picture
     private fun showPopup(view: View) {
         val popup = PopupMenu(this, view)
         popup.inflate(R.menu.menu_popup_choice_add_picture)
@@ -201,6 +201,10 @@ class AddPropertyActivity: AppCompatActivity() {
         title = "Add a Property"
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // For Toolbar
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     // Menu Toolbar
     @SuppressLint("RestrictedApi")
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -214,6 +218,120 @@ class AddPropertyActivity: AppCompatActivity() {
            R.id.menu_add_property -> addHouseInRoomDatabase()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // For add a property
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
+    private fun addHouseInRoomDatabase() {
+
+        //Price
+        val editPriceTextView = binding.addPropertyViewPrice
+        val textPriceTextView = editPriceTextView.text.toString()
+
+        //Surface
+        val editSurfaceTextView = binding.addPropertyViewSurface
+        val textSurfaceTextView = editSurfaceTextView.text.toString()
+
+        //Room
+        val editRoomTextView = binding.addPropertyViewRoom
+        val textRoomTextView = editRoomTextView.text.toString()
+
+        //Bath
+        val editBathTextView = binding.addPropertyViewBathroom
+        val textBathTextView = editBathTextView.text.toString()
+
+        //Bed
+        val editBedTextView = binding.addPropertyViewBedroom
+        val textBedTextView = editBedTextView.text.toString()
+
+        //Description
+        val editDescriptionTextView = binding.addPropertyViewDescription
+        val textDescriptionTextView = editDescriptionTextView.text.toString()
+
+        //Address
+        val editAdressTextView = binding.addPropertyViewAddress
+        val textAdressTextView = editAdressTextView.text.toString()
+
+        //Neighbourhood
+        val editNeighbourhoodTextView = binding.addPropertyViewNeighbourhood
+        val textNeighbourhoodTextView = editNeighbourhoodTextView.text.toString()
+
+        // Near By
+        val schoolCheckBoxe = binding.addPropertyViewNearbyGridlayoutNearby.checkboxNearbySchool
+        val playgroudCheckBoxe = binding.addPropertyViewNearbyGridlayoutNearby.checkboxNearbyPlayground
+        val shopCheckBoxe = binding.addPropertyViewNearbyGridlayoutNearby.checkboxNearbyShop
+        val busesCheckBoxe = binding.addPropertyViewNearbyGridlayoutNearby.checkboxNearbyBuses
+        val subwayCheckBoxe = binding.addPropertyViewNearbyGridlayoutNearby.checkboxNearbySubway
+        val parkCheckBoxe = binding.addPropertyViewNearbyGridlayoutNearby.checkboxNearbyPark
+
+        if (schoolCheckBoxe.isChecked) {
+            schoolCheck = true
+        }
+        if (playgroudCheckBoxe.isChecked) {
+            playgroundCheck = true
+        }
+        if (shopCheckBoxe.isChecked) {
+            shopCheck = true
+        }
+        if (busesCheckBoxe.isChecked) {
+            busesCheck = true
+        }
+        if (subwayCheckBoxe.isChecked) {
+            subwayCheck = true
+        }
+        if (parkCheckBoxe.isChecked) {
+            parkCheck = true
+        }
+
+        // type Property
+        val  typeHouseChoice = dropdownTypeHouse.text.toString()
+
+        //On market since
+        val onMarketSince = binding.addPropertyViewSince
+        val textOnMarketSince = onMarketSince.text.toString()
+
+
+        //Sold
+        val switchSold = binding.addPropertyViewSoldSwitch
+        if (switchSold.isChecked) {
+            switchSoldCheck = true
+        }
+
+        //Sold On
+        val soldOn = binding.addPropertyViewSoldOn
+        val textSoldOn = soldOn.text.toString()
+
+        // Agent add house
+        val textAgentAddHouse = addAgentViewModel.getAgentClick.value.toString()
+
+        val house = House(propertyId,
+            typeHouseChoice,
+            textPriceTextView,
+            textSurfaceTextView,
+            textRoomTextView,
+            textBedTextView,
+            textBathTextView,
+            busesCheck,
+            schoolCheck,
+            playgroundCheck,
+            shopCheck,
+            subwayCheck,
+            parkCheck,
+            textDescriptionTextView,
+            textAdressTextView,
+            textNeighbourhoodTextView,
+            textOnMarketSince,
+            switchSoldCheck,
+            textSoldOn,
+            textAgentAddHouse,getTheListOfDescriptionPictures())
+
+        addHouseViewModel.insert(house)
+
+        returnToMainActivity()
+        showToastForAddHouse()
     }
 
     private fun getHouseType() {
@@ -245,115 +363,9 @@ class AddPropertyActivity: AppCompatActivity() {
         binding.addPropertyViewDropdownAgent.setText(agentSelected)
     }
 
-    @SuppressLint("UseSwitchCompatOrMaterialCode")
-    private fun addHouseInRoomDatabase() {
-
-            //Price
-            val editPriceTextView = binding.addPropertyViewPrice
-            val textPriceTextView = editPriceTextView.text.toString()
-
-            //Surface
-            val editSurfaceTextView = binding.addPropertyViewSurface
-            val textSurfaceTextView = editSurfaceTextView.text.toString()
-
-            //Room
-            val editRoomTextView = binding.addPropertyViewRoom
-            val textRoomTextView = editRoomTextView.text.toString()
-
-            //Bath
-            val editBathTextView = binding.addPropertyViewBathroom
-            val textBathTextView = editBathTextView.text.toString()
-
-            //Bed
-            val editBedTextView = binding.addPropertyViewBedroom
-            val textBedTextView = editBedTextView.text.toString()
-
-            //Description
-            val editDescriptionTextView = binding.addPropertyViewDescription
-            val textDescriptionTextView = editDescriptionTextView.text.toString()
-
-            //Address
-            val editAdressTextView = binding.addPropertyViewAddress
-            val textAdressTextView = editAdressTextView.text.toString()
-
-            //Neighbourhood
-            val editNeighbourhoodTextView = binding.addPropertyViewNeighbourhood
-            val textNeighbourhoodTextView = editNeighbourhoodTextView.text.toString()
-
-            // Near By
-            val schoolCheckBoxe = binding.addPropertyViewNearbyGridlayoutNearby.checkboxNearbySchool
-            val playgroudCheckBoxe = binding.addPropertyViewNearbyGridlayoutNearby.checkboxNearbyPlayground
-            val shopCheckBoxe = binding.addPropertyViewNearbyGridlayoutNearby.checkboxNearbyShop
-            val busesCheckBoxe = binding.addPropertyViewNearbyGridlayoutNearby.checkboxNearbyBuses
-            val subwayCheckBoxe = binding.addPropertyViewNearbyGridlayoutNearby.checkboxNearbySubway
-            val parkCheckBoxe = binding.addPropertyViewNearbyGridlayoutNearby.checkboxNearbyPark
-
-            if (schoolCheckBoxe.isChecked) {
-                schoolCheck = true
-            }
-            if (playgroudCheckBoxe.isChecked) {
-                playgroudCheck = true
-            }
-            if (shopCheckBoxe.isChecked) {
-                shopCheck = true
-            }
-            if (busesCheckBoxe.isChecked) {
-                busesCheck = true
-            }
-            if (subwayCheckBoxe.isChecked) {
-                subwayCheck = true
-            }
-            if (parkCheckBoxe.isChecked) {
-                parkCheck = true
-            }
-
-            // type Property
-            val  typeHouseChoice = dropdownTypeHouse.text.toString()
-
-            //On market since
-            val onMarketSince = binding.addPropertyViewSince
-            val textOnMarketSince = onMarketSince.text.toString()
-
-
-            //Sold
-            val switchSold = binding.addPropertyViewSoldSwitch
-            if (switchSold.isChecked) {
-                switchSoldCheck = true
-            }
-
-            //Sold On
-            val soldOn = binding.addPropertyViewSoldOn
-            val textSoldOn = soldOn.text.toString()
-
-            // Agent add house
-            val textAgentAddHouse = addAgentViewModel.getAgentClick.value.toString()
-
-            val house = House(propertyId,
-                typeHouseChoice,
-                textPriceTextView,
-                textSurfaceTextView,
-                textRoomTextView,
-                textBedTextView,
-                textBathTextView,
-                busesCheck,
-                schoolCheck,
-                playgroudCheck,
-                shopCheck,
-                subwayCheck,
-                parkCheck,
-                textDescriptionTextView,
-                textAdressTextView,
-                textNeighbourhoodTextView,
-                textOnMarketSince,
-                switchSoldCheck,
-                textSoldOn,
-                textAgentAddHouse,getTheListofDescriptionPictures())
-
-            addHouseViewModel.insert(house)
-
-            returnToMainActivity()
-            showToastForAddHouse()
-    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // For manage some actions
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private fun  returnToMainActivity() {
         val mainActivity = Intent(this, MainActivity::class.java)
@@ -398,6 +410,10 @@ class AddPropertyActivity: AppCompatActivity() {
 
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // For save pictures pictures
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     private fun savePhotoToInternalStorage(filename: String, bmp: Bitmap) : Boolean {
         return try {
             context.openFileOutput("$filename.jpg",Context.MODE_PRIVATE).use { stream ->
@@ -412,21 +428,27 @@ class AddPropertyActivity: AppCompatActivity() {
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // For manage the recyclerview
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     // For the list of pictures and description
     private fun setUpRecyclerviewPictures() {
         setupInternalStorageRecyclerView()
-        loadPhotosFromInternalStorageIntoRecyclerView()
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun setupInternalStorageRecyclerView() = binding.addPropertyViewPictureRv.apply {
+        listPictureDescriptionAdapter = ListPictureDescriptionAdapter(photoList)
         adapter = listPictureDescriptionAdapter
         layoutManager = LinearLayoutManager(this@AddPropertyActivity, LinearLayoutManager.VERTICAL, false)
+        listPictureDescriptionAdapter.notifyDataSetChanged()
     }
 
-    private fun getTheListofDescriptionPictures(): List<DescriptionPictures> {
-        val descriptions = listPictureDescriptionAdapter.getTheListofDescriptionPictures()
-        return descriptions
+    private fun getTheListOfDescriptionPictures(): List<DescriptionPictures> {
+        val listdescription = photoList
+
+        return listPictureDescriptionAdapter.getTheListOfDescriptionPicturesInTheAdapter()
     }
 
     private fun clickOnTextViewForAddOrChangeDescription() {
@@ -440,13 +462,18 @@ class AddPropertyActivity: AppCompatActivity() {
         builder.setTitle("Description")
 
         val input = EditText(this)
-        input.setHint("Enter Description")
+        input.hint = "Enter Description"
         input.inputType = InputType.TYPE_CLASS_TEXT
         builder.setView(input)
 
         builder.setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
             val descriptionAlertDialog = input.text.toString()
-            listPictureDescriptionAdapter.addPicturesDescription(position,descriptionAlertDialog,propertyId,picturesId)
+            val elementClick = photoList.getOrNull(position)
+            if (elementClick != null) {
+                photoList.set(position,elementClick.copy(description = descriptionAlertDialog))
+            }
+            setUpRecyclerviewPictures()
+
         })
 
         builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which ->
@@ -454,24 +481,5 @@ class AddPropertyActivity: AppCompatActivity() {
         })
 
         builder.show()
-    }
-
-    // Load pictures from internal storage
-    private fun loadPhotosFromInternalStorageIntoRecyclerView() {
-        lifecycleScope.launch {
-            val photos = loadPhotosFromInternalStorage()
-            listPictureDescriptionAdapter.submitList(photos)
-        }
-    }
-
-    private suspend fun loadPhotosFromInternalStorage(): List<InternalStoragePhoto> {
-        return withContext(Dispatchers.IO) {
-            val files = filesDir.listFiles()
-            files?.filter { it.canRead() && it.isFile && it.name.endsWith(".jpg") && it.name.startsWith(propertyId) }?.map {
-                val bytes = it.readBytes()
-                val bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-                InternalStoragePhoto(it.name, bmp)
-            } ?: listOf()
-        }
     }
 }
