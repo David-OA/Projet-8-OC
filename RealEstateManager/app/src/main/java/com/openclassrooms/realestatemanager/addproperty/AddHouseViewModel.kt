@@ -23,6 +23,4 @@ class AddHouseViewModel (private val repository: HouseRepository) : ViewModel() 
         repository.update(house)
     }
 
-
-
 }
