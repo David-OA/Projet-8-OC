@@ -31,7 +31,6 @@ class PropertiesListFragment : Fragment() {
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
 
     private var _binding: FragmentPropertyListBinding? = null
-
     private val binding get() = _binding!!
 
     var tabletSize: Boolean = false
@@ -48,10 +47,8 @@ class PropertiesListFragment : Fragment() {
 
         // For permission Internal storage
         permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-
             isReadPermissionGranted = permissions[android.Manifest.permission.READ_EXTERNAL_STORAGE] ?: isReadPermissionGranted
             isWritePermissionGranted = permissions[android.Manifest.permission.WRITE_EXTERNAL_STORAGE] ?: isWritePermissionGranted
-
         }
 
         requestPermission()

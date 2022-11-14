@@ -65,13 +65,9 @@ class InfoDetailsFragment : Fragment() {
         setHasOptionsMenu(true)
 
         permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-
             isReadPermissionGranted = permissions[android.Manifest.permission.READ_EXTERNAL_STORAGE] ?: isReadPermissionGranted
             isWritePermissionGranted = permissions[android.Manifest.permission.WRITE_EXTERNAL_STORAGE] ?: isWritePermissionGranted
-
         }
-
-        //requestPermission()
 
         val args = this.arguments
         if (args != null) {
@@ -116,12 +112,6 @@ class InfoDetailsFragment : Fragment() {
         }
     }
 
-    private fun getTheListOfDescriptionsPictures(): List<DescriptionPictures> {
-        val descriptionPictures = listDescriptionPicture
-        return descriptionPictures
-    }
-
-
     // Menu Toolbar
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater!!.inflate(R.menu.menu_toolbar_detail_view_edit, menu)
@@ -141,8 +131,6 @@ class InfoDetailsFragment : Fragment() {
         clickForEditPropertyActivity.putExtra("PropertyInFragment", houseIdEdit as Parcelable)
         startActivity(clickForEditPropertyActivity)
     }
-
-    // For pictures
 
     // For managed request permissions
     private fun requestPermission() {
@@ -178,11 +166,13 @@ class InfoDetailsFragment : Fragment() {
 
     }
 
+    // For recyclerview
     private fun setupInternalStoragePicturesRecyclerView() = binding.detailViewCardPictures.apply {
         adapter = internalStoragePictureAdapter
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
     }
 
+    // For load pictures
     private fun loadPhotosFromInternalStorageIntoRecyclerView() {
         lifecycleScope.launch {
             // For recyclerview
@@ -198,7 +188,7 @@ class InfoDetailsFragment : Fragment() {
             files?.filter { it.canRead() && it.isFile && it.name.endsWith(".jpg") && it.name.startsWith(houseIdEdit!!.houseId) }?.map {
                 val bytes = it.readBytes()
                 val bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-                InternalStoragePhoto(it.name,bmp)
+                InternalStoragePhoto(it.name,bmp,"")
             } ?: listOf()
         }
     }

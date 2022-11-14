@@ -33,13 +33,47 @@ import com.openclassrooms.realestatemanager.model.House
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
-class PropertiesListAdapter :
-    ListAdapter<House, PropertiesListAdapter.PropertyViewHolder>(DiffCallback) {
+class PropertiesListAdapter : ListAdapter<House, PropertiesListAdapter.PropertyViewHolder>(DiffCallback) {
 
     private lateinit var context: Context
 
     var itemSelectedPosition = -1
 
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+    //                                     Adapter parts
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PropertyViewHolder {
+        context = parent.context
+        return PropertyViewHolder(PropertyListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+    }
+
+    @SuppressLint("NotifyDataSetChanged", "ResourceAsColor")
+    override fun onBindViewHolder(holder: PropertyViewHolder, position: Int) {
+        holder.bind(getItem(position), context, position, itemSelectedPosition)
+    }
+
+    // For change the configuration when you click on a item
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateSelection(positionSelected: Int) {
+        this.itemSelectedPosition = positionSelected
+        notifyDataSetChanged()
+    }
+
+    companion object {
+        private val DiffCallback = object : DiffUtil.ItemCallback<House>() {
+            override fun areItemsTheSame(oldItem: House, newItem: House): Boolean {
+                return (
+                    oldItem.houseId == newItem.houseId ||
+                        oldItem.detailsViewDescription == newItem.detailsViewDescription ||
+                        oldItem.detailsViewSurface == newItem.detailsViewSurface
+                    )
+            }
+
+            override fun areContentsTheSame(oldItem: House, newItem: House): Boolean {
+                return oldItem == newItem
+            }
+        }
+    }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////
     //                              ViewHolder Parts
@@ -89,14 +123,8 @@ class PropertiesListAdapter :
 
         private fun configureCardToSelectedState() {
             binding.root.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent))
-            binding.housePrice.setTextColor(
-                ContextCompat.getColor(
-                    context,
-                    R.color.colorTextAccent
-                )
-            )
+            binding.housePrice.setTextColor(ContextCompat.getColor(context, R.color.colorTextAccent))
         }
-
 
         // For load pictures
         private suspend fun loadPhotosFromInternalStorage(): List<InternalStoragePhoto> {
@@ -106,47 +134,10 @@ class PropertiesListAdapter :
                 files?.filter { it.canRead() && it.isFile && it.name.endsWith(".jpg") && it.name.startsWith(houseIdList) }?.map {
                     val bytes = it.readBytes()
                     val bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-                    InternalStoragePhoto(it.name,bmp)
+                    InternalStoragePhoto(it.name,bmp,"")
                 } ?: listOf()
             }
         }
 
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////
-    //                                     Adapter parts
-    /////////////////////////////////////////////////////////////////////////////////////////////////
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PropertyViewHolder {
-        context = parent.context
-        return PropertyViewHolder(PropertyListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
-    }
-
-    @SuppressLint("NotifyDataSetChanged", "ResourceAsColor")
-    override fun onBindViewHolder(holder: PropertyViewHolder, position: Int) {
-
-        holder.bind(getItem(position), context, position, itemSelectedPosition)
-    }
-
-    // For change the configuration when you click on a item
-    @SuppressLint("NotifyDataSetChanged")
-    fun updateSelection(positionSelected: Int) {
-        this.itemSelectedPosition = positionSelected
-        notifyDataSetChanged()
-    }
-
-    companion object {
-        private val DiffCallback = object : DiffUtil.ItemCallback<House>() {
-            override fun areItemsTheSame(oldItem: House, newItem: House): Boolean {
-                return (
-                    oldItem.houseId == newItem.houseId ||
-                        oldItem.detailsViewDescription == newItem.detailsViewDescription ||
-                        oldItem.detailsViewSurface == newItem.detailsViewSurface
-                    )
-            }
-
-            override fun areContentsTheSame(oldItem: House, newItem: House): Boolean {
-                return oldItem == newItem
-            }
-        }
     }
 }

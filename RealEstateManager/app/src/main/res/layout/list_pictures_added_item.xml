@@ -15,20 +15,10 @@
             android:id="@+id/pictures_added_rv_picture"
             android:layout_width="@dimen/size_item_rv_pic_added"
             android:layout_height="0dp"
+            android:scaleType="centerCrop"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
-
-        <ImageButton
-            android:id="@+id/pictures_added_rv_delete_button"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@color/colorPrimaryDark"
-            android:alpha="0.7"
-            app:layout_constraintStart_toStartOf="@id/pictures_added_rv_picture"
-            app:layout_constraintBottom_toBottomOf="@id/pictures_added_rv_picture"
-            app:layout_constraintEnd_toEndOf="@id/pictures_added_rv_picture"
-            app:layout_constraintHeight_percent="0.5"/>
 
         <TextView
             android:id="@+id/pictures_added_textview"
@@ -38,7 +28,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/pictures_added_rv_picture"
-            app:layout_constraintEnd_toStartOf="@id/pictures_added_rv_drag"
+            app:layout_constraintEnd_toStartOf="@id/pictures_added_rv_delete_button"
             android:hint="@string/description"
             android:layout_margin="@dimen/margin_small">
 
@@ -49,7 +39,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:id="@+id/pictures_added_rv_drag"
+            android:id="@+id/pictures_added_rv_delete_button"
             android:layout_width="25dip"
             android:layout_height="25dip"
             android:background="@color/colorAccent"

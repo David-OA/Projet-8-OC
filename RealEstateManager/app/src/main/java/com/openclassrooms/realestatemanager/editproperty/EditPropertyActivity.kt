@@ -36,7 +36,6 @@ import com.openclassrooms.realestatemanager.addagent.AddAgentViewModel
 import com.openclassrooms.realestatemanager.addproperty.AddHouseViewModel
 import com.openclassrooms.realestatemanager.addproperty.InternalStoragePhoto
 import com.openclassrooms.realestatemanager.addproperty.ListAgentsDialogView
-import com.openclassrooms.realestatemanager.addproperty.ListPictureDescriptionAdapter
 import com.openclassrooms.realestatemanager.databinding.ActivityAddPropertyBinding
 import com.openclassrooms.realestatemanager.injection.Injection
 import com.openclassrooms.realestatemanager.injection.ViewModelFactory
@@ -54,7 +53,7 @@ class EditPropertyActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityAddPropertyBinding
 
-    private var playgroudCheck: Boolean = false
+    private var playgroundCheck: Boolean = false
     private var schoolCheck: Boolean = false
     private var shopCheck: Boolean = false
     private var subwayCheck: Boolean = false
@@ -76,7 +75,9 @@ class EditPropertyActivity: AppCompatActivity() {
 
     private lateinit var context: Context
 
+    // RecyclerView
     private lateinit var listPictureDescriptionEditAdapter: ListPictureDescriptionEditAdapter
+    private val photoList : MutableList<InternalStoragePhoto> = mutableListOf()
 
     // For show description in recyclerView
     private var lisDescriptionPicture: List<DescriptionPictures> = listOf()
@@ -112,7 +113,6 @@ class EditPropertyActivity: AppCompatActivity() {
         
         // For get data and show
         getDataPropertySelectedToEdit()
-        this.listPictureDescriptionEditAdapter = ListPictureDescriptionEditAdapter (lisDescriptionPicture.toMutableList())
 
         setUpRecyclerviewPictures()
 
@@ -120,9 +120,7 @@ class EditPropertyActivity: AppCompatActivity() {
         getHouseType()
         getAgentInTheList()
 
-        binding.addPictureInRecyclerview.setOnClickListener {
-            setUpRecyclerviewPictures()
-        }
+        setUpRecyclerviewPictures()
         clickOnTextViewForAddOrChangeDescription()
 
         choiceHowTakeAPicture()
@@ -141,6 +139,11 @@ class EditPropertyActivity: AppCompatActivity() {
             if (isWritePermissionGranted) {
                 if (savePhotoToInternalStorage("$houseIdUpdate.$picturesId", it!!)) {
                     Toast.makeText(this@EditPropertyActivity, "Photo Saved Successfully", Toast.LENGTH_LONG).show()
+
+                    photoList.add(InternalStoragePhoto("$houseIdUpdate.$picturesId",it,""))
+
+                    setUpRecyclerviewPictures()
+
                 } else {
                     Toast.makeText(this@EditPropertyActivity, "Failed to Save photo", Toast.LENGTH_LONG).show()
                 }
@@ -158,6 +161,11 @@ class EditPropertyActivity: AppCompatActivity() {
                 val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(context.contentResolver,imageUrl)
                 if (savePhotoToInternalStorage("$houseIdUpdate.$picturesId", bitmap)) {
                     Toast.makeText(this@EditPropertyActivity, "Photo Saved Successfully", Toast.LENGTH_LONG).show()
+
+                    photoList.add(InternalStoragePhoto("$houseIdUpdate.$picturesId",bitmap,""))
+
+                    setUpRecyclerviewPictures()
+
                 } else {
                     Toast.makeText(this@EditPropertyActivity, "Failed to Save photo", Toast.LENGTH_LONG).show()
                 }
@@ -367,7 +375,7 @@ class EditPropertyActivity: AppCompatActivity() {
                 schoolCheck = true
             }
             if (playgroudCheckBoxe.isChecked) {
-                playgroudCheck = true
+                playgroundCheck = true
             }
             if (shopCheckBoxe.isChecked) {
                 shopCheck = true
@@ -410,7 +418,7 @@ class EditPropertyActivity: AppCompatActivity() {
                 textBathTextView,
                 busesCheck,
                 schoolCheck,
-                playgroudCheck,
+                playgroundCheck,
                 shopCheck,
                 subwayCheck,
                 parkCheck,
@@ -492,13 +500,14 @@ class EditPropertyActivity: AppCompatActivity() {
     // For the list of pictures and description
     private fun setUpRecyclerviewPictures() {
         setupInternalStorageRecyclerView()
-        loadPhotosFromInternalStorageIntoRecyclerView()
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun setupInternalStorageRecyclerView() = binding.addPropertyViewPictureRv.apply {
+        listPictureDescriptionEditAdapter = ListPictureDescriptionEditAdapter(photoList)
         adapter = listPictureDescriptionEditAdapter
         layoutManager = LinearLayoutManager(this@EditPropertyActivity, LinearLayoutManager.VERTICAL, false)
+        listPictureDescriptionEditAdapter.notifyDataSetChanged()
     }
 
     private fun clickOnTextViewForAddOrChangeDescription() {
@@ -518,7 +527,11 @@ class EditPropertyActivity: AppCompatActivity() {
 
         builder.setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
             val descriptionAlertDialog = input.text.toString()
-            listPictureDescriptionEditAdapter.addPicturesDescription(position,descriptionAlertDialog,houseIdUpdate,picturesId)
+            val elementClick = photoList.getOrNull(position)
+            if (elementClick != null) {
+                photoList.set(position,elementClick.copy(description = descriptionAlertDialog))
+            }
+            setUpRecyclerviewPictures()
         })
 
         builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which ->
@@ -526,23 +539,5 @@ class EditPropertyActivity: AppCompatActivity() {
         })
 
         builder.show()
-    }
-
-    private fun loadPhotosFromInternalStorageIntoRecyclerView() {
-        lifecycleScope.launch {
-            val photos = loadPhotosFromInternalStorage()
-            listPictureDescriptionEditAdapter.submitList(photos)
-        }
-    }
-
-    private suspend fun loadPhotosFromInternalStorage(): List<InternalStoragePhoto> {
-        return withContext(Dispatchers.IO) {
-            val files = filesDir.listFiles()
-            files?.filter { it.canRead() && it.isFile && it.name.endsWith(".jpg") && it.name.startsWith(houseIdUpdate) }?.map {
-                val bytes = it.readBytes()
-                val bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-                InternalStoragePhoto(it.name, bmp)
-            } ?: listOf()
-        }
     }
 }

@@ -1,21 +1,17 @@
 package com.openclassrooms.realestatemanager.editproperty
 
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.openclassrooms.realestatemanager.addproperty.DescriptionPicturesUi
 import com.openclassrooms.realestatemanager.addproperty.InternalStoragePhoto
 import com.openclassrooms.realestatemanager.addproperty.ListPictureDescriptionAdapter
 import com.openclassrooms.realestatemanager.databinding.ListPicturesAddedItemBinding
 import com.openclassrooms.realestatemanager.model.DescriptionPictures
 
 class ListPictureDescriptionEditAdapter (
-     private val descriptionPicturesList: MutableList<DescriptionPictures>
-) : ListAdapter<InternalStoragePhoto, ListPictureDescriptionEditAdapter.PhotoViewHolder>(Companion)/*, DescriptionPicturesUi.DescriptionPictureSaved*/{
+     private val picturesListEdit: MutableList<InternalStoragePhoto>
+) : RecyclerView.Adapter<ListPictureDescriptionEditAdapter.PhotoViewHolder>(){
 
     private var descriptionPictureList: MutableList<DescriptionPictures> = mutableListOf()
 
@@ -34,10 +30,6 @@ class ListPictureDescriptionEditAdapter (
     }
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
-        val photo = currentList[position]
-        holder.binding.apply {
-            picturesAddedRvPicture.setImageBitmap(photo.bmp)
-        }
 
         holder.bind()
     }
@@ -63,12 +55,16 @@ class ListPictureDescriptionEditAdapter (
     inner class PhotoViewHolder(val binding: ListPicturesAddedItemBinding): RecyclerView.ViewHolder(binding.root) {
 
         fun bind() {
-            if (descriptionPicturesList.isNotEmpty()) {
-                val descriptionPictureFromAlertDialog = descriptionPicturesList[adapterPosition]
-                binding.picturesAddedTextview.setText(descriptionPictureFromAlertDialog.description)
-            } else {
-                binding.picturesAddedTextview.setText("C'est vide")
-            }
+            val descriptionPictureFromAlertDialog = picturesListEdit[adapterPosition]
+
+            binding.picturesAddedTextview.text = descriptionPictureFromAlertDialog.description
+
+            binding.picturesAddedRvPicture.setImageBitmap(descriptionPictureFromAlertDialog.bmp)
+
         }
+    }
+
+    override fun getItemCount(): Int {
+        return picturesListEdit.size
     }
 }

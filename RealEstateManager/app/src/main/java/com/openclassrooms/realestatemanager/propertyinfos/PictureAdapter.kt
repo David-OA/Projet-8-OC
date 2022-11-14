@@ -3,7 +3,6 @@ package com.openclassrooms.realestatemanager.propertyinfos
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -21,7 +20,7 @@ class PictureAdapter(
             if (descriptionPicturesList.isNotEmpty()) {
                 val descriptionSelected = descriptionPicturesList[adapterPosition]
 
-                binding.descriptionPicture.setText(descriptionSelected.description)
+                binding.descriptionPicture.text = descriptionSelected.description
             }
         }
     }
