@@ -446,8 +446,6 @@ class AddPropertyActivity: AppCompatActivity() {
     }
 
     private fun getTheListOfDescriptionPictures(): List<DescriptionPictures> {
-        val listdescription = photoList
-
         return listPictureDescriptionAdapter.getTheListOfDescriptionPicturesInTheAdapter()
     }
 
@@ -473,6 +471,7 @@ class AddPropertyActivity: AppCompatActivity() {
                 photoList.set(position,elementClick.copy(description = descriptionAlertDialog))
             }
             setUpRecyclerviewPictures()
+            listPictureDescriptionAdapter.addPicturesDescription(position,descriptionAlertDialog, propertyId,picturesId)
 
         })
 

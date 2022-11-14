@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.realestatemanager.addproperty.InternalStoragePhoto
-import com.openclassrooms.realestatemanager.addproperty.ListPictureDescriptionAdapter
 import com.openclassrooms.realestatemanager.databinding.ListPicturesAddedItemBinding
 import com.openclassrooms.realestatemanager.model.DescriptionPictures
 
@@ -48,8 +47,7 @@ class ListPictureDescriptionEditAdapter (
     }
 
     fun getTheListofDescriptionPictures(): List<DescriptionPictures> {
-        val descriptions = descriptionPictureList
-        return descriptions
+        return descriptionPictureList
     }
 
     inner class PhotoViewHolder(val binding: ListPicturesAddedItemBinding): RecyclerView.ViewHolder(binding.root) {

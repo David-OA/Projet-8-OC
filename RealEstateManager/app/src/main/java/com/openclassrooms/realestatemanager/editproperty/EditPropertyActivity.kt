@@ -6,7 +6,6 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -43,9 +42,7 @@ import com.openclassrooms.realestatemanager.model.DescriptionPictures
 import com.openclassrooms.realestatemanager.model.House
 import com.openclassrooms.realestatemanager.utils.ItemClickSupport
 import com.openclassrooms.realestatemanager.utils.TypeProperty
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.util.*
 
@@ -294,6 +291,8 @@ class EditPropertyActivity: AppCompatActivity() {
         //List of description
         lisDescriptionPicture = houseIdEdit.descriptionPictures
 
+
+
     }
 
     // For Save the data after change
@@ -437,8 +436,7 @@ class EditPropertyActivity: AppCompatActivity() {
     }
 
     private fun getTheListofDescriptionPictures(): List<DescriptionPictures> {
-        val descriptions = listPictureDescriptionEditAdapter.getTheListofDescriptionPictures()
-        return descriptions
+        return listPictureDescriptionEditAdapter.getTheListofDescriptionPictures()
     }
 
     private fun  returnToMainActivity() {
@@ -532,6 +530,7 @@ class EditPropertyActivity: AppCompatActivity() {
                 photoList.set(position,elementClick.copy(description = descriptionAlertDialog))
             }
             setUpRecyclerviewPictures()
+            listPictureDescriptionEditAdapter.addPicturesDescription(position,descriptionAlertDialog,houseIdUpdate,picturesId)
         })
 
         builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which ->
