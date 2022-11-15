@@ -24,6 +24,12 @@
     </item>
 
     <item
+        android:id="@+id/money"
+        android:icon="@drawable/dollar_icon"
+        app:showAsAction="always"
+        android:title="money"/>
+
+    <item
         android:id="@+id/edit"
         android:icon="@drawable/edit_icon"
         app:showAsAction="always"
