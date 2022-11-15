@@ -1,6 +1,7 @@
 package com.openclassrooms.realestatemanager
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -61,8 +62,13 @@ class MainActivity : AppCompatActivity(){
             R.id.add_agent -> openAddAgentActivity()
             R.id.edit -> openEditPropertyActivity()
             R.id.search -> openSearchPropertyActivity()
+            R.id.money -> changeCurrency()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun changeCurrency() {
+        Toast.makeText(this,"Need to change currency", Toast.LENGTH_LONG).show()
     }
 
     // For add options
