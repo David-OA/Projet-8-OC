@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.realestatemanager.databinding.ListPicturesAddedItemBinding
 import com.openclassrooms.realestatemanager.model.DescriptionPictures
+import com.squareup.picasso.Picasso
+import java.io.File
 
 class ListPictureDescriptionAdapter (
     private val picturesList: MutableList<InternalStoragePhoto>
@@ -30,9 +32,7 @@ class ListPictureDescriptionAdapter (
     }
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
-        val context = holder.binding.picturesAddedRvPicture.context
-
-        holder.bind(context)
+        holder.bind()
     }
 
     // For add a description in the list
@@ -56,19 +56,10 @@ class ListPictureDescriptionAdapter (
     inner class PhotoViewHolder(val binding: ListPicturesAddedItemBinding): RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n", "SdCardPath")
-        fun bind(context: Context) {
+        fun bind() {
             val descriptionPictureFromAlertDialog = picturesList[adapterPosition]
 
             binding.picturesAddedTextview.text =  descriptionPictureFromAlertDialog.description
-
-            val namePhoto = descriptionPictureFromAlertDialog.name
-
-            /*val path = "/data/data/com.openclassrooms.realestatemanager/files"//context.filesDir.absolutePath//Paths.get("/data/data/com.openclassrooms.realestatemanager/files")
-
-            Picasso.get()
-                .load(File("$path/$namePhoto.jpg"))
-                //.placeholder(R.drawable.home_icon)
-                .into(binding.picturesAddedRvPicture)*/
 
             binding.picturesAddedRvPicture.setImageBitmap(descriptionPictureFromAlertDialog.bmp)
         }

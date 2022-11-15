@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager.editproperty
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -34,6 +35,7 @@ class ListPictureDescriptionEditAdapter (
     }
 
     // For add a description in the list
+    @SuppressLint("NotifyDataSetChanged")
     fun addPicturesDescription(position: Int, description:String, houseId: String, picturesId: String) {
         if (descriptionPictureList.getOrNull(position) == null) {
             descriptionPictureList.add(DescriptionPictures(description,houseId, picturesId))
