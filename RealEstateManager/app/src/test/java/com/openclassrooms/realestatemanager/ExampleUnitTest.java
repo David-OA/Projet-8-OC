@@ -1,5 +1,8 @@
 package com.openclassrooms.realestatemanager;
 
+import static com.openclassrooms.realestatemanager.utils.Utils.convertDollarToEuro;
+import static com.openclassrooms.realestatemanager.utils.Utils.convertEuroToDollar;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -13,5 +16,17 @@ public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
         assertEquals(4, 2 + 2);
+    }
+
+    @Test
+    public void convertDollarsToEurosIsCorrect() throws Exception {
+        int dollars = 1000;
+        assertEquals(812,convertDollarToEuro(dollars));
+    }
+
+    @Test
+    public void convertEurosToDollarsIsCorrect() throws Exception {
+        int euros = 812;
+        assertEquals(1000, convertEuroToDollar(euros));
     }
 }
