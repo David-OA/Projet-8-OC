@@ -6,6 +6,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -26,6 +27,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.menu.MenuBuilder
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -42,7 +44,11 @@ import com.openclassrooms.realestatemanager.model.DescriptionPictures
 import com.openclassrooms.realestatemanager.model.House
 import com.openclassrooms.realestatemanager.utils.ItemClickSupport
 import com.openclassrooms.realestatemanager.utils.TypeProperty
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import okhttp3.Dispatcher
 import java.io.IOException
 import java.util.*
 
@@ -110,8 +116,6 @@ class EditPropertyActivity: AppCompatActivity() {
         
         // For get data and show
         getDataPropertySelectedToEdit()
-
-        setUpRecyclerviewPictures()
 
         // For edit change
         getHouseType()
@@ -495,9 +499,33 @@ class EditPropertyActivity: AppCompatActivity() {
         }
     }
 
+    // For load pictures
+    private fun loadPhotosFromInternalStorageIntoRecyclerView() {
+        lifecycleScope.launch {
+            // For recyclerview
+            val photos = loadPhotosFromInternalStorage()
+
+            photoList.addAll(photos)
+            
+            setupInternalStorageRecyclerView()
+        }
+    }
+
+    private suspend fun loadPhotosFromInternalStorage(): List<InternalStoragePhoto> {
+        return withContext(Dispatchers.IO) {
+            val files = context.filesDir?.listFiles()
+
+            files?.filter { it.canRead() && it.isFile && it.name.endsWith(".jpg") && it.name.startsWith(houseIdUpdate) }?.map {
+                val bytes = it.readBytes()
+                val bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                InternalStoragePhoto(it.name,bmp,"")
+            } ?: listOf()
+        }
+    }
+
     // For the list of pictures and description
     private fun setUpRecyclerviewPictures() {
-        setupInternalStorageRecyclerView()
+        loadPhotosFromInternalStorageIntoRecyclerView()
     }
 
     @SuppressLint("NotifyDataSetChanged")
