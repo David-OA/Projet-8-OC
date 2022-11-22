@@ -22,10 +22,12 @@ import com.openclassrooms.realestatemanager.injection.ViewModelFactory
 
 class PropertiesListFragment : Fragment() {
 
+    // ViewModel
     private val addHouseViewModel: AddHouseViewModel by activityViewModels{
         ViewModelFactory(Injection.providesHouseRepository(requireContext()), Injection.providesAgentRepository(requireContext()))
     }
 
+    // For permissions
     private var isReadPermissionGranted = false
     private var isWritePermissionGranted = false
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
@@ -33,8 +35,10 @@ class PropertiesListFragment : Fragment() {
     private var _binding: FragmentPropertyListBinding? = null
     private val binding get() = _binding!!
 
+    // For screen if tablet or phone
     var tabletSize: Boolean = false
 
+    // Recyclerview
     private var adapter: PropertiesListAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -55,7 +59,6 @@ class PropertiesListFragment : Fragment() {
 
         recyclerViewListHouse()
 
-        //clickOnHouseOfTheList()
     }
 
     // For managed request permissions

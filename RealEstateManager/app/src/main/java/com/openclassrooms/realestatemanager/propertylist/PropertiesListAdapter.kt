@@ -18,8 +18,10 @@ package com.openclassrooms.realestatemanager.propertylist
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -30,7 +32,9 @@ import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.addproperty.InternalStoragePhoto
 import com.openclassrooms.realestatemanager.databinding.PropertyListItemBinding
 import com.openclassrooms.realestatemanager.model.House
+import com.openclassrooms.realestatemanager.utils.Utils
 import kotlinx.coroutines.*
+import java.util.*
 import kotlin.coroutines.CoroutineContext
 
 class PropertiesListAdapter : ListAdapter<House, PropertiesListAdapter.PropertyViewHolder>(DiffCallback) {
@@ -94,8 +98,18 @@ class PropertiesListAdapter : ListAdapter<House, PropertiesListAdapter.PropertyV
             this.context = context
 
             binding.houseType.text = house.detailViewType
+
             binding.houseNeighborhood.text = house.detailViewNearTitle
-            binding.housePrice.text = house.detailViewPrice
+
+            // For price and check if euros or dollars selected
+            val sharedPref = context.getSharedPreferences("CHANGE_CURRENCY", Context.MODE_PRIVATE)
+            val currencyValue = sharedPref.getString("CHANGE_CURRENCY","")
+
+            if (currencyValue == "currencyDollars"){
+                binding.housePrice.text = Utils.numberFormat(Utils.convertEuroToDollar(house.detailViewPrice.toInt()))
+            } else if (currencyValue == "currencyEuros") {
+                binding.housePrice.text = Utils.numberFormat(house.detailViewPrice.toInt())
+            }
 
             houseIdList = house.houseId
 
@@ -108,6 +122,7 @@ class PropertiesListAdapter : ListAdapter<House, PropertiesListAdapter.PropertyV
                 }
             }
 
+            // For background color selected
             if (position == itemSelectedPosition) {
                 configureCardToSelectedState()
             } else {

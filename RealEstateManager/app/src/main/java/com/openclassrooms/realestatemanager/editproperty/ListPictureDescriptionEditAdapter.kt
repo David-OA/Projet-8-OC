@@ -52,7 +52,7 @@ class ListPictureDescriptionEditAdapter (
         return descriptionPictureList
     }
 
-    inner class PhotoViewHolder(val binding: ListPicturesAddedItemBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class PhotoViewHolder(private val binding: ListPicturesAddedItemBinding): RecyclerView.ViewHolder(binding.root) {
 
         fun bind() {
             val descriptionPictureFromAlertDialog = picturesListEdit[adapterPosition]

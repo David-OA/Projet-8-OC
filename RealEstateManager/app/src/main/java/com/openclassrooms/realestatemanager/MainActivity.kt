@@ -3,7 +3,9 @@ package com.openclassrooms.realestatemanager
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
@@ -36,6 +38,8 @@ class MainActivity : AppCompatActivity(){
         //configureTextViewMain()
         //configureTextViewQuantity()
 
+        sharedPref = this@MainActivity.getSharedPreferences("CHANGE_CURRENCY",Context.MODE_PRIVATE)
+
     }
 
     // CONFIGURE UI
@@ -67,8 +71,28 @@ class MainActivity : AppCompatActivity(){
         return super.onOptionsItemSelected(item)
     }
 
+    private lateinit var sharedPref: SharedPreferences
+
     private fun changeCurrency() {
-        Toast.makeText(this,"Need to change currency", Toast.LENGTH_LONG).show()
+        val currencyValue = sharedPref.getString("CHANGE_CURRENCY","")
+        if (currencyValue == "currencyDollars") {
+            sharedPref = getSharedPreferences("CHANGE_CURRENCY", MODE_PRIVATE)?: return
+            with(sharedPref.edit()) {
+                putString("CHANGE_CURRENCY","currencyEuros")
+                apply()
+            }
+        } else if (currencyValue == "currencyEuros") {
+            sharedPref = getSharedPreferences("CHANGE_CURRENCY", MODE_PRIVATE)?: return
+            with(sharedPref.edit()) {
+                putString("CHANGE_CURRENCY","currencyDollars")
+                apply()
+            }
+        }
+        // For refresh the screen with new data
+        finish()
+        overridePendingTransition(0, 0);
+        startActivity(getIntent())
+        overridePendingTransition(0, 0);
     }
 
     // For add options

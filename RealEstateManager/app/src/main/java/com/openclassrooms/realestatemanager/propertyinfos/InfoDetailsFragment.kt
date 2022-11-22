@@ -1,6 +1,7 @@
 package com.openclassrooms.realestatemanager.propertyinfos
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
@@ -24,6 +25,7 @@ import com.openclassrooms.realestatemanager.injection.Injection
 import com.openclassrooms.realestatemanager.injection.ViewModelFactory
 import com.openclassrooms.realestatemanager.model.DescriptionPictures
 import com.openclassrooms.realestatemanager.model.House
+import com.openclassrooms.realestatemanager.utils.Utils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -48,11 +50,7 @@ class InfoDetailsFragment : Fragment() {
 
     private var listDescriptionPicture: List<DescriptionPictures> = listOf()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentPropertyInfosBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -79,8 +77,17 @@ class InfoDetailsFragment : Fragment() {
             binding.detailsViewRooms.text = houseId.detailsViewRooms
             binding.detailsViewBath.text = houseId.detailsViewBath
             binding.detailsViewBed.text = houseId.detailsViewBed
-            binding.detailViewPrice.text = houseId.detailViewPrice
+
+            val sharedPref = context?.getSharedPreferences("CHANGE_CURRENCY", Context.MODE_PRIVATE)
+            val currencyValue = sharedPref?.getString("CHANGE_CURRENCY","")
+            if (currencyValue == "currencyDollars"){
+                binding.detailViewPrice.text = Utils.numberFormat(Utils.convertEuroToDollar(houseId.detailViewPrice.toInt()))
+            } else if (currencyValue == "currencyEuros") {
+                binding.detailViewPrice.text = Utils.numberFormat(houseId.detailViewPrice.toInt())
+            }
+
             binding.detailViewType.text = houseId.detailViewType
+
             if (houseId.amenityBuses == true) {
                 binding.detailViewAmenityOne.setImageResource(R.drawable.bus_icon)
             }

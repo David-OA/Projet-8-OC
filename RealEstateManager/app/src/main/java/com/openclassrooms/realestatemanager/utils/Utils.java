@@ -4,8 +4,10 @@ import android.content.Context;
 import android.net.wifi.WifiManager;
 
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by Philippe on 21/02/2018.
@@ -23,10 +25,18 @@ public class Utils {
         return (int) Math.round(dollars * 0.812);
     }
 
+    /**
+     * Conversion d'un prix d'un bien immobilier (Euros vers Dollars)
+     * @param euros
+     * @return
+     */
     public static int convertEuroToDollar(int euros){
         return (int) Math.round(euros / 0.812);
     }
 
+    public static String numberFormat(int money) {
+        return NumberFormat.getInstance(Locale.FRENCH).format(money);
+    }
 
 
     /**
