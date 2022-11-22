@@ -216,6 +216,7 @@ class AddPropertyActivity: AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
            R.id.menu_add_property -> addHouseInRoomDatabase()
+
         }
         return super.onOptionsItemSelected(item)
     }
@@ -472,7 +473,6 @@ class AddPropertyActivity: AppCompatActivity() {
             }
             setUpRecyclerviewPictures()
             listPictureDescriptionAdapter.addPicturesDescription(position,descriptionAlertDialog, propertyId,picturesId)
-
         })
 
         builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which ->
