@@ -32,10 +32,6 @@ import kotlinx.coroutines.withContext
 
 class InfoDetailsFragment : Fragment() {
 
-    private val addHouseViewModel: AddHouseViewModel by activityViewModels{
-        ViewModelFactory(Injection.providesHouseRepository(requireContext()), Injection.providesAgentRepository(requireContext()))
-    }
-
     private lateinit var internalStoragePictureAdapter: PictureAdapter
 
     private var houseIdEdit: House? = null
@@ -88,22 +84,22 @@ class InfoDetailsFragment : Fragment() {
 
             binding.detailViewType.text = houseId.detailViewType
 
-            if (houseId.amenityBuses == true) {
+            if (houseId.amenityBuses) {
                 binding.detailViewAmenityOne.setImageResource(R.drawable.bus_icon)
             }
-            if (houseId.amenityPark == true) {
+            if (houseId.amenityPark) {
                 binding.detailViewAmenityTwo.setImageResource(R.drawable.park_icon)
             }
-            if (houseId.amenityPlayground == true) {
+            if (houseId.amenityPlayground) {
                 binding.detailViewAmenityThree.setImageResource(R.drawable.playground_icon)
             }
-            if (houseId.amenityShop == true) {
+            if (houseId.amenityShop) {
                 binding.detailViewAmenityFour.setImageResource(R.drawable.shopping_icon)
             }
-            if (houseId.amenitySchool == true) {
+            if (houseId.amenitySchool) {
                 binding.detailViewAmenityFive.setImageResource(R.drawable.school_icon)
             }
-            if (houseId.amenitySubway == true) {
+            if (houseId.amenitySubway) {
                 binding.detailViewAmenitySix.setImageResource(R.drawable.subway_icon)
             }
 
@@ -120,11 +116,13 @@ class InfoDetailsFragment : Fragment() {
     }
 
     // Menu Toolbar
+    @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater!!.inflate(R.menu.menu_toolbar_detail_view_edit, menu)
+        inflater.inflate(R.menu.menu_toolbar_detail_view_edit, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.edit -> openEditPropertyActivity()
@@ -137,40 +135,6 @@ class InfoDetailsFragment : Fragment() {
         val clickForEditPropertyActivity = Intent(requireContext(), EditPropertyActivity::class.java)
         clickForEditPropertyActivity.putExtra("PropertyInFragment", houseIdEdit as Parcelable)
         startActivity(clickForEditPropertyActivity)
-    }
-
-    // For managed request permissions
-    private fun requestPermission() {
-        val isReadPermission = ContextCompat.checkSelfPermission(
-            requireContext(),
-            android.Manifest.permission.READ_EXTERNAL_STORAGE
-        ) == PackageManager.PERMISSION_GRANTED
-
-        val isWritePermission = ContextCompat.checkSelfPermission(
-            requireContext(),
-            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-        ) == PackageManager.PERMISSION_GRANTED
-
-
-        val minSdkLevel = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
-
-        isReadPermissionGranted = isReadPermission
-        isWritePermissionGranted = isWritePermission || minSdkLevel
-
-
-        val permissionRequest = mutableListOf<String>()
-
-        if (!isWritePermissionGranted) {
-            permissionRequest.add(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        }
-        if (!isReadPermissionGranted) {
-            permissionRequest.add(android.Manifest.permission.READ_EXTERNAL_STORAGE)
-        }
-
-        if (permissionRequest.isNotEmpty()) {
-            permissionLauncher.launch(permissionRequest.toTypedArray())
-        }
-
     }
 
     // For recyclerview
