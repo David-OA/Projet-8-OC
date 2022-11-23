@@ -94,6 +94,7 @@ class PropertiesListAdapter : ListAdapter<House, PropertiesListAdapter.PropertyV
         override val coroutineContext: CoroutineContext
             get() = Dispatchers.Main + job
 
+        @SuppressLint("SetTextI18n")
         fun bind(house: House, context: Context, position: Int, itemSelectedPosition: Int) {
             this.context = context
 
@@ -106,9 +107,9 @@ class PropertiesListAdapter : ListAdapter<House, PropertiesListAdapter.PropertyV
             val currencyValue = sharedPref.getString("CHANGE_CURRENCY","")
 
             if (currencyValue == "currencyDollars"){
-                binding.housePrice.text = Utils.numberFormat(Utils.convertEuroToDollar(house.detailViewPrice.toInt()))
+                binding.housePrice.text = "$ " + Utils.numberFormat(Utils.convertEuroToDollar(house.detailViewPrice.toInt()))
             } else if (currencyValue == "currencyEuros") {
-                binding.housePrice.text = Utils.numberFormat(house.detailViewPrice.toInt())
+                binding.housePrice.text = Utils.numberFormat(house.detailViewPrice.toInt()) + " €"
             }
 
             houseIdList = house.houseId
