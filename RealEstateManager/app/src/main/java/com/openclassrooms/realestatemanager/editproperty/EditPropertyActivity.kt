@@ -124,6 +124,8 @@ class EditPropertyActivity: AppCompatActivity() {
         setUpRecyclerviewPictures()
         clickOnTextViewForAddOrChangeDescription()
 
+        loadPhotosFromInternalStorageIntoRecyclerView()
+
         choiceHowTakeAPicture()
 
     }
@@ -525,7 +527,7 @@ class EditPropertyActivity: AppCompatActivity() {
 
     // For the list of pictures and description
     private fun setUpRecyclerviewPictures() {
-        loadPhotosFromInternalStorageIntoRecyclerView()
+        setupInternalStorageRecyclerView()
     }
 
     @SuppressLint("NotifyDataSetChanged")
