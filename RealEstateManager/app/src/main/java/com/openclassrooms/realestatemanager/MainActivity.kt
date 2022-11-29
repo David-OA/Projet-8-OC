@@ -5,17 +5,16 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.menu.MenuBuilder
 import androidx.appcompat.widget.Toolbar
 import com.openclassrooms.realestatemanager.addagent.AddAgentActivity
 import com.openclassrooms.realestatemanager.addproperty.AddPropertyActivity
 import com.openclassrooms.realestatemanager.editproperty.EditPropertyActivity
+import com.openclassrooms.realestatemanager.searchProperty.SearchPropertyActivity
 import com.openclassrooms.realestatemanager.utils.Utils
 
 
@@ -56,7 +55,7 @@ class MainActivity : AppCompatActivity(){
         if (menu is MenuBuilder) menu.setOptionalIconsVisible(true)
         menuInflater.inflate(R.menu.menu,menu)
         menu!!.findItem(R.id.edit).isVisible = false
-        menu!!.findItem(R.id.menu_add_property).isVisible = false
+        menu.findItem(R.id.menu_add_property).isVisible = false
         return true
     }
 
@@ -74,7 +73,7 @@ class MainActivity : AppCompatActivity(){
     private lateinit var sharedPref: SharedPreferences
 
     private fun changeCurrency() {
-        val currencyValue = sharedPref.getString("CHANGE_CURRENCY","")
+        val currencyValue = sharedPref.getString("CHANGE_CURRENCY","currencyEuros")
         if (currencyValue == "currencyDollars") {
             sharedPref = getSharedPreferences("CHANGE_CURRENCY", MODE_PRIVATE)?: return
             with(sharedPref.edit()) {
@@ -114,9 +113,8 @@ class MainActivity : AppCompatActivity(){
 
     // For Search option
     private fun openSearchPropertyActivity() {
-        val clickForSearchPropertyActivity = SearchPropertyActivity()
-        supportFragmentManager.beginTransaction().replace(R.id.recycler_view_list_house, clickForSearchPropertyActivity).commitAllowingStateLoss()
-        Toast.makeText(this,"En construction", Toast.LENGTH_LONG).show()
+        val clickForSearchPropertyActivity = Intent(this, SearchPropertyActivity::class.java)
+        startActivity(clickForSearchPropertyActivity)
     }
 
     private fun configureTextViewMain() {
