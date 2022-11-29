@@ -110,6 +110,7 @@ class PropertiesListAdapter : ListAdapter<House, PropertiesListAdapter.PropertyV
                 binding.housePrice.text = "$ " + Utils.numberFormat(Utils.convertEuroToDollar(house.detailViewPrice.toInt()))
             } else if (currencyValue == "currencyEuros") {
                 binding.housePrice.text = Utils.numberFormat(house.detailViewPrice.toInt()) + " €"
+                //binding.housePrice.text = "is free"
             }
 
             houseIdList = house.houseId
