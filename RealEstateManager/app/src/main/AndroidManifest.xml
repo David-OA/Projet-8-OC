@@ -31,6 +31,7 @@
         <activity android:name=".addproperty.AddPropertyActivity" />
         <activity android:name=".addagent.AddAgentActivity" />
         <activity android:name=".editproperty.EditPropertyActivity" />
+        <activity android:name=".searchProperty.SearchPropertyActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

@@ -62,11 +62,11 @@ class AddPropertyActivity: AppCompatActivity() {
 
     // For auto generated id
     private var propertyId: String = idGeneratedProperty
-    private var picturesId: String = ""
+    /*private var picturesId: String = ""
     get() {
         field = UUID.randomUUID().toString()
         return field
-    }
+    }*/
 
     // For permissions
     private var isReadPermissionGranted = false
@@ -131,6 +131,7 @@ class AddPropertyActivity: AppCompatActivity() {
     private val takephoto = registerForActivityResult(ActivityResultContracts.TakePicturePreview()) {
         lifecycleScope.launch {
             if (isWritePermissionGranted) {
+                val picturesId: String = UUID.randomUUID().toString()
                 if (savePhotoToInternalStorage("$propertyId.$picturesId", it!!)) {
                     Toast.makeText(this@AddPropertyActivity, "Photo Saved Successfully", Toast.LENGTH_LONG).show()
 
@@ -151,7 +152,8 @@ class AddPropertyActivity: AppCompatActivity() {
         lifecycleScope.launch {
             if (isWritePermissionGranted) {
                 val imageUrl: Uri = it!!
-                val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(),imageUrl)
+                val picturesId: String = UUID.randomUUID().toString()
+                val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(context.contentResolver,imageUrl)
                 if (savePhotoToInternalStorage("$propertyId.$picturesId", bitmap)) {
                     Toast.makeText(this@AddPropertyActivity, "Photo Saved Successfully", Toast.LENGTH_LONG).show()
 
@@ -194,16 +196,17 @@ class AddPropertyActivity: AppCompatActivity() {
         popup.show()
     }
 
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // For Toolbar
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     // ------ Toolbar ------
     private fun configureToolbar() {
         val addPropertyActivitytoolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(addPropertyActivitytoolbar)
         title = "Add a Property"
     }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // For Toolbar
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Menu Toolbar
     @SuppressLint("RestrictedApi")
@@ -447,12 +450,24 @@ class AddPropertyActivity: AppCompatActivity() {
     }
 
     private fun getTheListOfDescriptionPictures(): List<DescriptionPictures> {
-        return listPictureDescriptionAdapter.getTheListOfDescriptionPicturesInTheAdapter()
+        return descriptionPictureList
     }
 
     private fun clickOnTextViewForAddOrChangeDescription() {
         ItemClickSupport.addTo(binding.addPropertyViewPictureRv, R.layout.list_pictures_added_item).setOnItemClickListener { recyclerView, position, v ->
             showDialogForAddDescription(position)
+        }
+    }
+
+    private val descriptionPictureList: MutableList<DescriptionPictures> = mutableListOf()
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun addPicturesDescription(position: Int, description:String, houseId: String, picturesId: String) {
+        if (descriptionPictureList.getOrNull(position) == null) {
+            descriptionPictureList.add(DescriptionPictures(description,houseId, picturesId))
+
+        } else {
+            descriptionPictureList[position] = DescriptionPictures(description,houseId, picturesId)
         }
     }
 
@@ -471,8 +486,14 @@ class AddPropertyActivity: AppCompatActivity() {
             if (elementClick != null) {
                 photoList.set(position,elementClick.copy(description = descriptionAlertDialog))
             }
+
             setUpRecyclerviewPictures()
-            listPictureDescriptionAdapter.addPicturesDescription(position,descriptionAlertDialog, propertyId,picturesId)
+
+            val id = elementClick?.name?.substringAfter(".",".jpg")
+            val propertyIdClick = elementClick?.name?.subSequence(0,36).toString()
+            if (id != null) {
+                addPicturesDescription(position,descriptionAlertDialog, propertyIdClick,id)
+            }
         })
 
         builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which ->
