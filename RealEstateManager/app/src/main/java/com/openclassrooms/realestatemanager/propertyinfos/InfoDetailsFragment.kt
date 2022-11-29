@@ -3,36 +3,24 @@ package com.openclassrooms.realestatemanager.propertyinfos
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.graphics.BitmapFactory
-import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.*
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.openclassrooms.realestatemanager.R
-import com.openclassrooms.realestatemanager.addproperty.AddHouseViewModel
 import com.openclassrooms.realestatemanager.addproperty.InternalStoragePhoto
 import com.openclassrooms.realestatemanager.databinding.FragmentPropertyInfosBinding
 import com.openclassrooms.realestatemanager.editproperty.EditPropertyActivity
-import com.openclassrooms.realestatemanager.injection.Injection
-import com.openclassrooms.realestatemanager.injection.ViewModelFactory
 import com.openclassrooms.realestatemanager.model.DescriptionPictures
 import com.openclassrooms.realestatemanager.model.House
 import com.openclassrooms.realestatemanager.utils.Utils
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class InfoDetailsFragment : Fragment() {
 
-    private lateinit var internalStoragePictureAdapter: PictureAdapter
+    private lateinit var internalStorageInfoDetailsAdapter: InfoDetailsAdapter
 
     private var houseIdEdit: House? = null
 
@@ -44,7 +32,9 @@ class InfoDetailsFragment : Fragment() {
     private var _binding: FragmentPropertyInfosBinding? = null
     private val binding get() = _binding!!
 
+    // For RecyclerView
     private var listDescriptionPicture: List<DescriptionPictures> = listOf()
+    private val photoList : MutableList<InternalStoragePhoto> = mutableListOf()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentPropertyInfosBinding.inflate(inflater, container, false)
@@ -107,10 +97,8 @@ class InfoDetailsFragment : Fragment() {
 
         }
 
-        this.internalStoragePictureAdapter = PictureAdapter(listDescriptionPicture.toMutableList())
-
         if (houseIdEdit != null) {
-            loadPhotosFromInternalStorageIntoRecyclerView()
+            //loadPhotosFromInternalStorageIntoRecyclerView()
             setupInternalStoragePicturesRecyclerView()
         }
     }
@@ -139,29 +127,10 @@ class InfoDetailsFragment : Fragment() {
 
     // For recyclerview
     private fun setupInternalStoragePicturesRecyclerView() = binding.detailViewCardPictures.apply {
-        adapter = internalStoragePictureAdapter
+        internalStorageInfoDetailsAdapter = InfoDetailsAdapter(listDescriptionPicture)//InfoDetailsAdapter(photoList)
+        adapter = internalStorageInfoDetailsAdapter
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-    }
-
-    // For load pictures
-    private fun loadPhotosFromInternalStorageIntoRecyclerView() {
-        lifecycleScope.launch {
-            // For recyclerview
-            val photos = loadPhotosFromInternalStorage()
-            internalStoragePictureAdapter.submitList(photos)
-        }
-    }
-
-    private suspend fun loadPhotosFromInternalStorage(): List<InternalStoragePhoto> {
-        return withContext(Dispatchers.IO) {
-            val files = requireContext().filesDir?.listFiles()
-
-            files?.filter { it.canRead() && it.isFile && it.name.endsWith(".jpg") && it.name.startsWith(houseIdEdit!!.houseId) }?.map {
-                val bytes = it.readBytes()
-                val bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-                InternalStoragePhoto(it.name,bmp,"")
-            } ?: listOf()
-        }
+        internalStorageInfoDetailsAdapter.notifyDataSetChanged()
     }
 
 }
