@@ -7,7 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.model.Agent
 
-class ListAgentDialogAdapter(var agents: List<Agent>) : RecyclerView.Adapter<ListAgentDialogViewHolder>(){
+class ListAgentDialogAdapter(var agents: List<Agent>
+) : RecyclerView.Adapter<ListAgentDialogViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListAgentDialogViewHolder {
         val context = parent.context
