@@ -6,8 +6,10 @@
     <string name="info_fragment_label">Maisons Info</string>
 
     <string name="architecte">Architecte</string>
-    <string name="rooms">4</string>
-    <string name="bath">4</string>
+    <string name="rooms">Chambres</string>
+    <string name="price">Prix</string>
+    <string name="surface">Surface</string>
+    <string name="bath">Bain</string>
 
 
     <!-- Add property-->
