@@ -12,6 +12,14 @@ class HouseRepository (
 
         val allHouses: Flow<List<House>> = houseDao.getAllHouse()
 
+        suspend fun getPropertiesQuery(
+                minPrice:String, maxPrice:String,
+                minNbBathrooms: String,
+                minSurface:String, maxSurface:String,
+                minNbRoom:String,
+                minNbBedroom:String
+        ) = houseDao.getPropertiesQuery(minPrice,maxPrice,minNbBathrooms,minSurface,maxSurface,minNbRoom,minNbBedroom)
+
         @Suppress("RedundantSuspendModifier")
         @WorkerThread
         suspend fun insert(house: House) {
