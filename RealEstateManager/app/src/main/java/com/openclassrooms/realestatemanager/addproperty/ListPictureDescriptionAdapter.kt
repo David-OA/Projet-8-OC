@@ -15,8 +15,6 @@ class ListPictureDescriptionAdapter (
     private val picturesList: MutableList<InternalStoragePhoto>
 ) : RecyclerView.Adapter<ListPictureDescriptionAdapter.PhotoViewHolder>(){
 
-    private var descriptionPictureList: MutableList<DescriptionPictures> = mutableListOf()
-
     companion object : DiffUtil.ItemCallback<InternalStoragePhoto>() {
         override fun areItemsTheSame(oldItem: InternalStoragePhoto, newItem: InternalStoragePhoto): Boolean {
             return oldItem.name == newItem.name
@@ -33,24 +31,6 @@ class ListPictureDescriptionAdapter (
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
         holder.bind()
-    }
-
-    // For add a description in the list
-    @SuppressLint("NotifyDataSetChanged")
-    fun addPicturesDescription(position: Int, description:String, houseId: String, picturesId: String) {
-        if (descriptionPictureList.getOrNull(position) == null) {
-            descriptionPictureList.add(DescriptionPictures(description,houseId, picturesId))
-            notifyItemInserted(descriptionPictureList.size -1)
-            notifyDataSetChanged()
-        } else {
-            descriptionPictureList[position] = DescriptionPictures(description,houseId, picturesId)
-            notifyItemChanged(descriptionPictureList.size -1)
-            notifyDataSetChanged()
-        }
-    }
-
-    fun getTheListOfDescriptionPicturesInTheAdapter(): List<DescriptionPictures> {
-        return descriptionPictureList
     }
 
     inner class PhotoViewHolder(val binding: ListPicturesAddedItemBinding): RecyclerView.ViewHolder(binding.root) {
