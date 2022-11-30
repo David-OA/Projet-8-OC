@@ -89,6 +89,7 @@ class AddPropertyActivity: AppCompatActivity() {
     // RecyclerView
     private lateinit var listPictureDescriptionAdapter: ListPictureDescriptionAdapter
     private val photoList : MutableList<InternalStoragePhoto> = mutableListOf()
+    private val descriptionPictureList: MutableList<DescriptionPictures> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
@@ -458,8 +459,6 @@ class AddPropertyActivity: AppCompatActivity() {
             showDialogForAddDescription(position)
         }
     }
-
-    private val descriptionPictureList: MutableList<DescriptionPictures> = mutableListOf()
 
     @SuppressLint("NotifyDataSetChanged")
     fun addPicturesDescription(position: Int, description:String, houseId: String, picturesId: String) {

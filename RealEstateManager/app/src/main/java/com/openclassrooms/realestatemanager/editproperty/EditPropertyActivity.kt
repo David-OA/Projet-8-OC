@@ -66,11 +66,6 @@ class EditPropertyActivity: AppCompatActivity() {
     private var switchSoldCheck: Boolean = false
 
     private lateinit var houseIdUpdate: String
-    private var picturesId: String = ""
-        get() {
-            field = UUID.randomUUID().toString()
-            return field
-        }
 
     private var isReadPermissionGranted = false
     private var isWritePermissionGranted = false
@@ -81,6 +76,7 @@ class EditPropertyActivity: AppCompatActivity() {
     // RecyclerView
     private lateinit var listPictureDescriptionEditAdapter: ListPictureDescriptionEditAdapter
     private val photoList : MutableList<InternalStoragePhoto> = mutableListOf()
+    private val descriptionPictureList: MutableList<DescriptionPictures> = mutableListOf()
 
     // For show description in recyclerView
     private var lisDescriptionPicture: List<DescriptionPictures> = listOf()
@@ -140,6 +136,7 @@ class EditPropertyActivity: AppCompatActivity() {
     private val takephoto = registerForActivityResult(ActivityResultContracts.TakePicturePreview()) {
         lifecycleScope.launch {
             if (isWritePermissionGranted) {
+                val picturesId: String = UUID.randomUUID().toString()
                 if (savePhotoToInternalStorage("$houseIdUpdate.$picturesId", it!!)) {
                     Toast.makeText(this@EditPropertyActivity, "Photo Saved Successfully", Toast.LENGTH_LONG).show()
 
@@ -161,6 +158,7 @@ class EditPropertyActivity: AppCompatActivity() {
         lifecycleScope.launch {
             if (isWritePermissionGranted) {
                 val imageUrl: Uri = it!!
+                val picturesId: String = UUID.randomUUID().toString()
                 val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(context.contentResolver,imageUrl)
                 if (savePhotoToInternalStorage("$houseIdUpdate.$picturesId", bitmap)) {
                     Toast.makeText(this@EditPropertyActivity, "Photo Saved Successfully", Toast.LENGTH_LONG).show()
@@ -209,7 +207,6 @@ class EditPropertyActivity: AppCompatActivity() {
         val addPropertyActivitytoolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(addPropertyActivitytoolbar)
         title = "Edit a Property"
-
     }
 
     // Menu Toolbar
@@ -297,8 +294,6 @@ class EditPropertyActivity: AppCompatActivity() {
         //List of description
         lisDescriptionPicture = houseIdEdit.descriptionPictures
 
-
-
     }
 
     // For Save the data after change
@@ -335,7 +330,6 @@ class EditPropertyActivity: AppCompatActivity() {
 
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private fun addHouseInRoomDatabaseAfterChange() {
-
             //Price
             val editPriceTextView = binding.addPropertyViewPrice
             val textPriceTextView = editPriceTextView.text.toString()
@@ -442,7 +436,7 @@ class EditPropertyActivity: AppCompatActivity() {
     }
 
     private fun getTheListofDescriptionPictures(): List<DescriptionPictures> {
-        return listPictureDescriptionEditAdapter.getTheListofDescriptionPictures()
+        return descriptionPictureList
     }
 
     private fun  returnToMainActivity() {
@@ -466,12 +460,10 @@ class EditPropertyActivity: AppCompatActivity() {
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE
         ) == PackageManager.PERMISSION_GRANTED
 
-
         val minSdkLevel = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
 
         isReadPermissionGranted = isReadPermission
         isWritePermissionGranted = isWritePermission || minSdkLevel
-
 
         val permissionRequest = mutableListOf<String>()
 
@@ -544,12 +536,21 @@ class EditPropertyActivity: AppCompatActivity() {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun addPicturesDescription(position: Int, description:String, houseId: String, picturesId: String) {
+        if (descriptionPictureList.getOrNull(position) == null) {
+            descriptionPictureList.add(DescriptionPictures(description,houseId, picturesId))
+        } else {
+            descriptionPictureList[position] = DescriptionPictures(description,houseId, picturesId)
+        }
+    }
+
     private fun showDialogForAddDescription(position: Int) {
         val builder: AlertDialog.Builder = AlertDialog.Builder(context)
         builder.setTitle("Description")
 
         val input = EditText(this)
-        input.setHint("Enter Description")
+        input.hint = "Enter Description"
         input.inputType = InputType.TYPE_CLASS_TEXT
         builder.setView(input)
 
@@ -560,7 +561,11 @@ class EditPropertyActivity: AppCompatActivity() {
                 photoList.set(position,elementClick.copy(description = descriptionAlertDialog))
             }
             setUpRecyclerviewPictures()
-            listPictureDescriptionEditAdapter.addPicturesDescription(position,descriptionAlertDialog,houseIdUpdate,picturesId)
+            val id = elementClick?.name?.substringAfter(".",".jpg")
+            val propertyIdClick = elementClick?.name?.subSequence(0,36).toString()
+            if (id != null) {
+                addPicturesDescription(position,descriptionAlertDialog, propertyIdClick,id)
+            }
         })
 
         builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which ->
