@@ -11,7 +11,7 @@ import com.openclassrooms.realestatemanager.model.DescriptionPictures
 import com.squareup.picasso.Picasso
 import java.io.File
 
-class ListPictureDescriptionAdapter (
+class ListPictureDescriptionAdapter  (
     private val picturesList: MutableList<InternalStoragePhoto>
 ) : RecyclerView.Adapter<ListPictureDescriptionAdapter.PhotoViewHolder>(){
 

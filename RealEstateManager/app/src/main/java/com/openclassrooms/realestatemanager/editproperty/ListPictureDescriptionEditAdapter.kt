@@ -34,24 +34,6 @@ class ListPictureDescriptionEditAdapter (
         holder.bind()
     }
 
-    // For add a description in the list
-    @SuppressLint("NotifyDataSetChanged")
-    fun addPicturesDescription(position: Int, description:String, houseId: String, picturesId: String) {
-        if (descriptionPictureList.getOrNull(position) == null) {
-            descriptionPictureList.add(DescriptionPictures(description,houseId, picturesId))
-            notifyItemInserted(descriptionPictureList.size -1)
-            notifyDataSetChanged()
-        } else {
-            descriptionPictureList[position] = DescriptionPictures(description,houseId, picturesId)
-            notifyItemChanged(descriptionPictureList.size -1)
-            notifyDataSetChanged()
-        }
-    }
-
-    fun getTheListofDescriptionPictures(): List<DescriptionPictures> {
-        return descriptionPictureList
-    }
-
     inner class PhotoViewHolder(private val binding: ListPicturesAddedItemBinding): RecyclerView.ViewHolder(binding.root) {
 
         fun bind() {
