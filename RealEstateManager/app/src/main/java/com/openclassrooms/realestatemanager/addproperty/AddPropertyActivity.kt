@@ -62,11 +62,6 @@ class AddPropertyActivity: AppCompatActivity() {
 
     // For auto generated id
     private var propertyId: String = idGeneratedProperty
-    /*private var picturesId: String = ""
-    get() {
-        field = UUID.randomUUID().toString()
-        return field
-    }*/
 
     // For permissions
     private var isReadPermissionGranted = false
@@ -220,7 +215,6 @@ class AddPropertyActivity: AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
            R.id.menu_add_property -> addHouseInRoomDatabase()
-
         }
         return super.onOptionsItemSelected(item)
     }
