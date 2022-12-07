@@ -47,4 +47,10 @@
         app:showAsAction="always"
         android:title="Add property"/>
 
+    <item
+        android:id="@+id/menu_start_search"
+        android:icon="@drawable/check_icon"
+        app:showAsAction="always"
+        android:title="Start Search result"/>
+
 </menu>
