@@ -10,7 +10,8 @@ class HouseRepository (
         private val houseDao: HouseDao
 ){
 
-        val allHouses: Flow<List<House>> = houseDao.getAllHouse()
+        var allHouses: Flow<List<House>> = houseDao.getAllHouse()
+
 
         suspend fun getPropertiesQuery(
                 minPrice:String, maxPrice:String,
