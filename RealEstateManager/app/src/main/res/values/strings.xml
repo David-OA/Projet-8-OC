@@ -34,6 +34,25 @@
     <string name="add_a_property_or_agent">Add a property or agent</string>
     <string name="edit">Edit</string>
     <string name="search">Search</string>
+    <string name="type">Type</string>
+    <string name="select_all">Select all</string>
+    <string name="flat">Flat</string>
+    <string name="penthouse">Penthouse</string>
+    <string name="townhouse">Maison de ville</string>
+    <string name="house">Villa</string>
+    <string name="duplex">Duplex</string>
+    <string name="min_price">min price</string>
+    <string name="max_price">max price</string>
+    <string name="min_surface">min surface</string>
+    <string name="max_surface">max surface</string>
+    <string name="min_rooms">min rooms</string>
+    <string name="min_bedrooms">min bedrooms</string>
+    <string name="min_bathrooms">min bathrooms</string>
+    <string name="neighborhood_name">Neighborhood name</string>
+    <string name="extras">extras</string>
+    <string name="is_available">is available</string>
+    <string name="has_pictures">has pictures</string>
+    <string name="posted_after">posted after</string>
 
 
 </resources>
