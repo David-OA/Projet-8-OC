@@ -28,13 +28,11 @@ class InfoDetailsFragment : Fragment() {
     private var isWritePermissionGranted = false
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
 
-
     private var _binding: FragmentPropertyInfosBinding? = null
     private val binding get() = _binding!!
 
     // For RecyclerView
     private var listDescriptionPicture: List<DescriptionPictures> = listOf()
-    private val photoList : MutableList<InternalStoragePhoto> = mutableListOf()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentPropertyInfosBinding.inflate(inflater, container, false)
@@ -70,6 +68,7 @@ class InfoDetailsFragment : Fragment() {
                 binding.detailViewPrice.text = Utils.numberFormat(Utils.convertEuroToDollar(houseId.detailViewPrice.toInt()))
             } else if (currencyValue == "currencyEuros") {
                 binding.detailViewPrice.text = Utils.numberFormat(houseId.detailViewPrice.toInt())
+                binding.detailViewPriceIcon.setImageResource(R.drawable.euro_icon)
             }
 
             binding.detailViewType.text = houseId.detailViewType
@@ -98,7 +97,6 @@ class InfoDetailsFragment : Fragment() {
         }
 
         if (houseIdEdit != null) {
-            //loadPhotosFromInternalStorageIntoRecyclerView()
             setupInternalStoragePicturesRecyclerView()
         }
     }
@@ -127,7 +125,7 @@ class InfoDetailsFragment : Fragment() {
 
     // For recyclerview
     private fun setupInternalStoragePicturesRecyclerView() = binding.detailViewCardPictures.apply {
-        internalStorageInfoDetailsAdapter = InfoDetailsAdapter(listDescriptionPicture)//InfoDetailsAdapter(photoList)
+        internalStorageInfoDetailsAdapter = InfoDetailsAdapter(listDescriptionPicture)
         adapter = internalStorageInfoDetailsAdapter
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         internalStorageInfoDetailsAdapter.notifyDataSetChanged()
