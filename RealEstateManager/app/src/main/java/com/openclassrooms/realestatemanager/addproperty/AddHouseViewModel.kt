@@ -22,5 +22,4 @@ class AddHouseViewModel (private val repository: HouseRepository) : ViewModel() 
     fun update(house: House) = viewModelScope.launch(Dispatchers.IO) {
         repository.update(house)
     }
-
 }
