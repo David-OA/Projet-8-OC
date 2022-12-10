@@ -2,7 +2,6 @@ package com.openclassrooms.realestatemanager.searchProperty
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.openclassrooms.realestatemanager.R
@@ -15,7 +14,20 @@ class SearchPropertyFragment : Fragment() {
     private var _binding: FragmentSearchPropertiesBinding? = null
     private val binding get() = _binding!!
 
-    private var adapterSearchResult: SearchResultAdapter? = null
+    // For checkBoxes near by
+    private var playgroundCheck: Boolean = false
+    private var schoolCheck: Boolean = false
+    private var shopCheck: Boolean = false
+    private var subwayCheck: Boolean = false
+    private var parkCheck: Boolean = false
+    private var busesCheck: Boolean = false
+
+    // For checkBoxes type
+    private var flatCheck: Boolean = false
+    private var penthouseCheck: Boolean = false
+    private var townHouseCheck: Boolean = false
+    private var houseCheck: Boolean = false
+    private var duplexCheck: Boolean = false
 
     // ViewModel
     private val searchPropertyViewModel: SearchPropertyViewModel by activityViewModels {
@@ -30,8 +42,6 @@ class SearchPropertyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        Toast.makeText(requireContext(),"ttttrrrrrrrrrrrrrrr",Toast.LENGTH_LONG).show()
 
     }
 
@@ -50,6 +60,7 @@ class SearchPropertyFragment : Fragment() {
     }
 
     private fun getDataForSearch() {
+
         //Price
         val searchPriceMinTextView = binding.searchViewMinPrice
         val minPrice = searchPriceMinTextView.text.toString()
@@ -76,10 +87,62 @@ class SearchPropertyFragment : Fragment() {
         val searchBedMinTextView = binding.searchViewMinBedrooms
         val textBedTextView = searchBedMinTextView.text.toString()
 
-        searchPropertyViewModel.searchProperty(minPrice,maxPrice,textBathTextView,minSurface,maxSurface,textRoomTextView,textBedTextView)
+        // Near By
+        val schoolCheckBox = binding.searchViewAmenitiesNearBy.checkboxNearbySchool
+        val playgroundCheckBox = binding.searchViewAmenitiesNearBy.checkboxNearbyPlayground
+        val shopCheckBox = binding.searchViewAmenitiesNearBy.checkboxNearbyShop
+        val busesCheckBox = binding.searchViewAmenitiesNearBy.checkboxNearbyBuses
+        val subwayCheckBox = binding.searchViewAmenitiesNearBy.checkboxNearbySubway
+        val parkCheckBox = binding.searchViewAmenitiesNearBy.checkboxNearbyPark
+
+        if (schoolCheckBox.isChecked) {
+            schoolCheck = true
+        }
+        if (playgroundCheckBox.isChecked) {
+            playgroundCheck = true
+        }
+        if (shopCheckBox.isChecked) {
+            shopCheck = true
+        }
+        if (busesCheckBox.isChecked) {
+            busesCheck = true
+        }
+        if (subwayCheckBox.isChecked) {
+            subwayCheck = true
+        }
+        if (parkCheckBox.isChecked) {
+            parkCheck = true
+        }
+
+        // Type
+        val flatCheckBox = binding.searchViewFlatCheck
+        val penthouseCheckBox = binding.searchViewPenthouseCheck
+        val townHouseCheckBox = binding.searchViewTownhouseCheck
+        val houseCheckBox = binding.searchViewHouseCheck
+        val duplexCheckBox = binding.searchViewDuplexCheck
+
+        if (flatCheckBox.isChecked) {
+            flatCheck = true
+        }
+
+        if (penthouseCheckBox.isChecked) {
+            penthouseCheck = true
+        }
+
+        if (townHouseCheckBox.isChecked) {
+            townHouseCheck = true
+        }
+
+        if (houseCheckBox.isChecked) {
+            houseCheck = true
+        }
+
+        if (duplexCheckBox.isChecked) {
+            duplexCheck = true
+        }
+
+        searchPropertyViewModel.searchProperty(minPrice,maxPrice,textBathTextView,minSurface,maxSurface,textRoomTextView,textBedTextView,
+            schoolCheck,playgroundCheck,shopCheck,busesCheck,subwayCheck,parkCheck)
 
     }
-
-
-
 }

@@ -20,12 +20,16 @@ interface HouseDao {
             " AND house.details_bath >= :minNbBathrooms OR details_bath IS NULL" +
             " AND house.details_surface BETWEEN :minSurface AND :maxSurface" +
             " AND house.details_room >= :minNbRoom" +
-            " AND house.details_bed >= :minNbBedroom" )
+            " AND house.details_bed >= :minNbBedroom" +
+            " AND house.details_nearby_school = :nearbySchool" +
+            " AND house.details_nearby_buses = :nearbyBuses" +
+            " AND house.details_nearby_park = :nearbyPark" +
+            " AND house.details_nearby_playground = :nearbyPlayground" +
+            " AND house.details_nearby_shop = :nearbyShop" +
+            " AND house.details_nearby_subway = :nearbySubway")
     suspend fun getPropertiesQuery(
-        minPrice:String, maxPrice:String,
-        minNbBathrooms: String,
-        minSurface:String, maxSurface:String,
-        minNbRoom:String,
-        minNbBedroom:String): List<House>
+        minPrice:String, maxPrice:String, minNbBathrooms: String, minSurface:String, maxSurface:String, minNbRoom:String,
+        minNbBedroom:String,
+        nearbySchool:Boolean, nearbyBuses: Boolean, nearbyPark: Boolean, nearbyPlayground: Boolean, nearbyShop: Boolean, nearbySubway: Boolean): List<House>
 
 }

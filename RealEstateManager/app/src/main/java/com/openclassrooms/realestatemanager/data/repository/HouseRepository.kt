@@ -14,12 +14,11 @@ class HouseRepository (
 
 
         suspend fun getPropertiesQuery(
-                minPrice:String, maxPrice:String,
-                minNbBathrooms: String,
-                minSurface:String, maxSurface:String,
-                minNbRoom:String,
-                minNbBedroom:String
-        ) = houseDao.getPropertiesQuery(minPrice,maxPrice,minNbBathrooms,minSurface,maxSurface,minNbRoom,minNbBedroom)
+                minPrice:String, maxPrice:String, minNbBathrooms: String, minSurface:String, maxSurface:String,
+                minNbRoom:String, minNbBedroom:String,
+                nearbySchool:Boolean, nearbyBuses: Boolean, nearbyPark: Boolean, nearbyPlayground: Boolean, nearbyShop: Boolean, nearbySubway: Boolean
+        ) = houseDao.getPropertiesQuery(minPrice,maxPrice,minNbBathrooms,minSurface,maxSurface,minNbRoom,minNbBedroom,
+                nearbySchool, nearbyBuses, nearbyPark, nearbyPlayground, nearbyShop, nearbySubway)
 
         @Suppress("RedundantSuspendModifier")
         @WorkerThread

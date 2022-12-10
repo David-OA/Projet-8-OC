@@ -43,16 +43,6 @@
                     app:layout_constraintTop_toBottomOf="@id/search_view_type_text">
 
                     <com.google.android.material.checkbox.MaterialCheckBox
-                        android:id="@+id/search_view_select_all_type"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/select_all"
-                        app:layout_row="0"
-                        app:layout_column="0"
-                        app:layout_columnWeight="1"
-                        android:checked="true"/>
-
-                    <com.google.android.material.checkbox.MaterialCheckBox
                         android:id="@+id/search_view_flat_check"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -394,19 +384,12 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
 
-                <com.google.android.material.checkbox.MaterialCheckBox
-                    android:id="@+id/search_view_select_all_amenities"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/select_all"
-                    app:layout_constraintTop_toBottomOf="@id/search_view_nearby_title"
-                    app:layout_constraintStart_toStartOf="parent"/>
-
                 <include
+                    android:id="@+id/search_view_amenities_near_by"
                     layout="@layout/amenities_checkboxes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/search_view_select_all_amenities"
+                    app:layout_constraintTop_toBottomOf="@id/search_view_nearby_title"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -525,7 +508,6 @@
                     app:layout_constraintTop_toBottomOf="@id/search_select_all_agents"
                     tools:listitem="@layout/list_agent_search_view_item"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

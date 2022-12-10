@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager.searchProperty
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,6 +8,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.realestatemanager.databinding.PropertyListItemBinding
 import com.openclassrooms.realestatemanager.model.House
+import com.squareup.picasso.Picasso
+import java.io.File
 
 class SearchResultAdapter(
     private val listSearchProperties: List<House>
@@ -30,28 +33,23 @@ class SearchResultAdapter(
     //                              ViewHolder Parts
     /////////////////////////////////////////////////////////////////////////////////////////////////
     inner class SearchResultViewHolder(val binding: PropertyListItemBinding) : RecyclerView.ViewHolder(binding.root){
+        @SuppressLint("SdCardPath")
         fun bind() {
-
             val resultSearchListProperties = listSearchProperties[adapterPosition]
 
             binding.housePrice.text = resultSearchListProperties.detailViewPrice
 
-        }
-    }
+            binding.houseType.text = resultSearchListProperties.detailViewType
 
+            binding.houseNeighborhood.text = resultSearchListProperties.detailViewNearTitle
 
-    companion object {
-        private val DiffCallback = object : DiffUtil.ItemCallback<House>() {
-            override fun areItemsTheSame(oldItem: House, newItem: House): Boolean {
-                return (
-                        oldItem.houseId == newItem.houseId ||
-                                oldItem.detailsViewDescription == newItem.detailsViewDescription ||
-                                oldItem.detailsViewSurface == newItem.detailsViewSurface
-                        )
-            }
+            if (resultSearchListProperties.descriptionPictures.isNotEmpty()) {
+                val propertyId = resultSearchListProperties.descriptionPictures[0].houseId
+                val pictureId = resultSearchListProperties.descriptionPictures[0].picturesId
 
-            override fun areContentsTheSame(oldItem: House, newItem: House): Boolean {
-                return oldItem == newItem
+                Picasso.get()
+                    .load(File("/data/data/com.openclassrooms.realestatemanager/files/","$propertyId.$pictureId.jpg"))
+                    .into(binding.houseImage)
             }
         }
     }
