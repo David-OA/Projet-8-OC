@@ -79,7 +79,6 @@ class PropertiesListFragment : Fragment() {
         isReadPermissionGranted = isReadPermission
         isWritePermissionGranted = isWritePermission || minSdkLevel
 
-
         val permissionRequest = mutableListOf<String>()
 
         if (!isWritePermissionGranted) {
