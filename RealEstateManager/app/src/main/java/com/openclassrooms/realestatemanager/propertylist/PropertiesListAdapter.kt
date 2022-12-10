@@ -18,10 +18,8 @@ package com.openclassrooms.realestatemanager.propertylist
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.SharedPreferences
 import android.graphics.BitmapFactory
 import android.graphics.Color
-import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -41,7 +39,7 @@ class PropertiesListAdapter : ListAdapter<House, PropertiesListAdapter.PropertyV
 
     private lateinit var context: Context
 
-    var itemSelectedPosition = -1
+    var itemSelectedPosition = 0//-1
 
     /////////////////////////////////////////////////////////////////////////////////////////////////
     //                                     Adapter parts
@@ -72,7 +70,6 @@ class PropertiesListAdapter : ListAdapter<House, PropertiesListAdapter.PropertyV
                         oldItem.detailsViewSurface == newItem.detailsViewSurface
                     )
             }
-
             override fun areContentsTheSame(oldItem: House, newItem: House): Boolean {
                 return oldItem == newItem
             }
@@ -110,7 +107,6 @@ class PropertiesListAdapter : ListAdapter<House, PropertiesListAdapter.PropertyV
                 binding.housePrice.text = "$ " + Utils.numberFormat(Utils.convertEuroToDollar(house.detailViewPrice.toInt()))
             } else if (currencyValue == "currencyEuros") {
                 binding.housePrice.text = Utils.numberFormat(house.detailViewPrice.toInt()) + " €"
-                //binding.housePrice.text = "is free"
             }
 
             houseIdList = house.houseId
@@ -130,7 +126,6 @@ class PropertiesListAdapter : ListAdapter<House, PropertiesListAdapter.PropertyV
             } else {
                 configureCardToNormalState()
             }
-
         }
 
         private fun configureCardToNormalState() {
