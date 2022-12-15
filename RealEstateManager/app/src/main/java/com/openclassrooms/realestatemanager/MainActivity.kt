@@ -57,6 +57,7 @@ class MainActivity : AppCompatActivity(){
         menu!!.findItem(R.id.edit).isVisible = false
         menu.findItem(R.id.menu_add_property).isVisible = false
         menu.findItem(R.id.menu_start_search).isVisible = false
+        menu.findItem(R.id.menu_add_agent).isVisible = false
         return true
     }
 
@@ -91,7 +92,7 @@ class MainActivity : AppCompatActivity(){
         // For refresh the screen with new data
         finish()
         overridePendingTransition(0, 0);
-        startActivity(getIntent())
+        startActivity(intent)
         overridePendingTransition(0, 0);
     }
 
