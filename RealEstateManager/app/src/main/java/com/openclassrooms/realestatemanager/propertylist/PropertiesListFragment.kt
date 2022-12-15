@@ -72,8 +72,7 @@ class PropertiesListFragment : Fragment() {
             requireContext(),
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE
         ) == PackageManager.PERMISSION_GRANTED
-
-
+        
         val minSdkLevel = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
 
         isReadPermissionGranted = isReadPermission
@@ -134,7 +133,6 @@ class PropertiesListFragment : Fragment() {
             if (tabletSize) {
                 fragmentManager?.beginTransaction()?.replace(R.id.detail_view, fragment)
                     ?.commitAllowingStateLoss()
-
             } else {
                 fragmentManager?.beginTransaction()?.replace(R.id.recycler_view_list_house, fragment)
                     ?.commitAllowingStateLoss()
