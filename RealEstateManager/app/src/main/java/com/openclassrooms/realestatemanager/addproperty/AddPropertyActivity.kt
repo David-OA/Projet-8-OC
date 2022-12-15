@@ -60,6 +60,16 @@ class AddPropertyActivity: AppCompatActivity() {
 
     private var switchSoldCheck: Boolean = false
 
+    private var textPriceTextView: String = ""
+    private var textSurfaceTextView: String = ""
+    private var textRoomTextView: String = ""
+    private var textBathTextView: String = ""
+    private var textBedTextView: String = ""
+    private var textDescriptionTextView: String = ""
+    private var textAdressTextView: String = ""
+    private var textNeighbourhoodTextView: String = ""
+    private var textOnMarketSince: String = ""
+
     // For auto generated id
     private var propertyId: String = idGeneratedProperty
 
@@ -106,9 +116,10 @@ class AddPropertyActivity: AppCompatActivity() {
         requestPermission()
 
         getHouseType()
-        getAgentInTheList()
+        //getAgentInTheList()
         configureToolbar()
         choiceHowTakeAPicture()
+        onClickForAddAgent()
 
         clickOnTextViewForAddOrChangeDescription()
 
@@ -214,7 +225,7 @@ class AddPropertyActivity: AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
-           R.id.menu_add_property -> addHouseInRoomDatabase()
+           R.id.menu_add_property -> checkNoErrorBeforeAddHouse()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -222,66 +233,77 @@ class AddPropertyActivity: AppCompatActivity() {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // For add a property
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    private fun checkNoErrorBeforeAddHouse() {
+        if (textPriceTextView.isEmpty() || textSurfaceTextView.isEmpty() || textRoomTextView.isEmpty() || textBathTextView.isEmpty() ||
+        textBedTextView.isEmpty() || textDescriptionTextView.isEmpty() || textAdressTextView.isEmpty() || textNeighbourhoodTextView.isEmpty() ||
+        textOnMarketSince.isEmpty()) {
+
+            Toast.makeText(this,"You forgot to fill in a field",Toast.LENGTH_LONG).show()
+            
+        } else {
+            addHouseInRoomDatabase()
+        }
+
+    }
 
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private fun addHouseInRoomDatabase() {
-
         //Price
         val editPriceTextView = binding.addPropertyViewPrice
-        val textPriceTextView = editPriceTextView.text.toString()
+        textPriceTextView = editPriceTextView.text.toString()
 
         //Surface
         val editSurfaceTextView = binding.addPropertyViewSurface
-        val textSurfaceTextView = editSurfaceTextView.text.toString()
+        textSurfaceTextView = editSurfaceTextView.text.toString()
 
         //Room
         val editRoomTextView = binding.addPropertyViewRoom
-        val textRoomTextView = editRoomTextView.text.toString()
+        textRoomTextView = editRoomTextView.text.toString()
 
         //Bath
         val editBathTextView = binding.addPropertyViewBathroom
-        val textBathTextView = editBathTextView.text.toString()
+        textBathTextView = editBathTextView.text.toString()
 
         //Bed
         val editBedTextView = binding.addPropertyViewBedroom
-        val textBedTextView = editBedTextView.text.toString()
+        textBedTextView = editBedTextView.text.toString()
 
         //Description
         val editDescriptionTextView = binding.addPropertyViewDescription
-        val textDescriptionTextView = editDescriptionTextView.text.toString()
+        textDescriptionTextView = editDescriptionTextView.text.toString()
 
         //Address
         val editAdressTextView = binding.addPropertyViewAddress
-        val textAdressTextView = editAdressTextView.text.toString()
+        textAdressTextView = editAdressTextView.text.toString()
 
         //Neighbourhood
         val editNeighbourhoodTextView = binding.addPropertyViewNeighbourhood
-        val textNeighbourhoodTextView = editNeighbourhoodTextView.text.toString()
+        textNeighbourhoodTextView = editNeighbourhoodTextView.text.toString()
 
         // Near By
-        val schoolCheckBoxe = binding.addPropertyViewNearbyGridlayoutNearby.checkboxNearbySchool
-        val playgroudCheckBoxe = binding.addPropertyViewNearbyGridlayoutNearby.checkboxNearbyPlayground
-        val shopCheckBoxe = binding.addPropertyViewNearbyGridlayoutNearby.checkboxNearbyShop
-        val busesCheckBoxe = binding.addPropertyViewNearbyGridlayoutNearby.checkboxNearbyBuses
-        val subwayCheckBoxe = binding.addPropertyViewNearbyGridlayoutNearby.checkboxNearbySubway
-        val parkCheckBoxe = binding.addPropertyViewNearbyGridlayoutNearby.checkboxNearbyPark
+        val schoolCheckBox = binding.addPropertyViewNearbyGridlayoutNearby.checkboxNearbySchool
+        val playgroundCheckBox = binding.addPropertyViewNearbyGridlayoutNearby.checkboxNearbyPlayground
+        val shopCheckBox = binding.addPropertyViewNearbyGridlayoutNearby.checkboxNearbyShop
+        val busesCheckBox = binding.addPropertyViewNearbyGridlayoutNearby.checkboxNearbyBuses
+        val subwayCheckBox = binding.addPropertyViewNearbyGridlayoutNearby.checkboxNearbySubway
+        val parkCheckBox = binding.addPropertyViewNearbyGridlayoutNearby.checkboxNearbyPark
 
-        if (schoolCheckBoxe.isChecked) {
+        if (schoolCheckBox.isChecked) {
             schoolCheck = true
         }
-        if (playgroudCheckBoxe.isChecked) {
+        if (playgroundCheckBox.isChecked) {
             playgroundCheck = true
         }
-        if (shopCheckBoxe.isChecked) {
+        if (shopCheckBox.isChecked) {
             shopCheck = true
         }
-        if (busesCheckBoxe.isChecked) {
+        if (busesCheckBox.isChecked) {
             busesCheck = true
         }
-        if (subwayCheckBoxe.isChecked) {
+        if (subwayCheckBox.isChecked) {
             subwayCheck = true
         }
-        if (parkCheckBoxe.isChecked) {
+        if (parkCheckBox.isChecked) {
             parkCheck = true
         }
 
@@ -290,7 +312,7 @@ class AddPropertyActivity: AppCompatActivity() {
 
         //On market since
         val onMarketSince = binding.addPropertyViewSince
-        val textOnMarketSince = onMarketSince.text.toString()
+        textOnMarketSince = onMarketSince.text.toString()
 
 
         //Sold
@@ -346,6 +368,7 @@ class AddPropertyActivity: AppCompatActivity() {
         }
     }
 
+    /*
     private fun getAgentInTheList() {
         val clickForChoiceAgentInList = binding.addPropertyViewDropdownAgent
         addAgentViewModel.getAllAgent.observe(this) {
@@ -355,6 +378,25 @@ class AddPropertyActivity: AppCompatActivity() {
                 dialog.show(supportFragmentManager, "tag test")
             }
         }
+        showAgentListSelected()
+    }
+    */
+
+    private fun onClickForAddAgent() {
+        binding.addPropertyViewDropdownAgent.setOnClickListener {
+            getAgentInTheList()
+        }
+    }
+
+    private fun getAgentInTheList() {
+        addAgentViewModel.getAllAgent.observe(this) {
+            val listAgent = addAgentViewModel.getAllAgent.value
+            val dialog = ListAgentsDialogView(listAgent!!)
+            dialog.show(supportFragmentManager.beginTransaction(), "tag test")
+            //Recuperer le click sur l'element car c'est pour cela que ce na marche pas
+        }
+
+        showAgentListSelected()
     }
 
     private fun showAgentListSelected() {
@@ -387,12 +429,10 @@ class AddPropertyActivity: AppCompatActivity() {
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE
         ) == PackageManager.PERMISSION_GRANTED
 
-
         val minSdkLevel = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
 
         isReadPermissionGranted = isReadPermission
         isWritePermissionGranted = isWritePermission || minSdkLevel
-
 
         val permissionRequest = mutableListOf<String>()
 
@@ -406,7 +446,6 @@ class AddPropertyActivity: AppCompatActivity() {
         if (permissionRequest.isNotEmpty()) {
             permissionLauncher.launch(permissionRequest.toTypedArray())
         }
-
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
