@@ -13,7 +13,6 @@ class AddAgentViewModel (private val agentRepository: AgentRepository) : ViewMod
         agentRepository.insert(agent)
     }
 
-
     // For selected the agent add the house
     val getAgentClick = MutableLiveData<String>()
 
@@ -22,8 +21,7 @@ class AddAgentViewModel (private val agentRepository: AgentRepository) : ViewMod
         val agentLastName = agent.lastName
 
         val nameClicked = "$agentFirstName $agentLastName"
-        getAgentClick.value = nameClicked
+        getAgentClick.postValue(nameClicked)
     }
-
 
 }

@@ -116,13 +116,11 @@ class AddPropertyActivity: AppCompatActivity() {
         requestPermission()
 
         getHouseType()
-        //getAgentInTheList()
         configureToolbar()
         choiceHowTakeAPicture()
         onClickForAddAgent()
 
         clickOnTextViewForAddOrChangeDescription()
-
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -203,7 +201,6 @@ class AddPropertyActivity: AppCompatActivity() {
         popup.show()
     }
 
-
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // For Toolbar
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -237,13 +234,10 @@ class AddPropertyActivity: AppCompatActivity() {
         if (textPriceTextView.isEmpty() || textSurfaceTextView.isEmpty() || textRoomTextView.isEmpty() || textBathTextView.isEmpty() ||
         textBedTextView.isEmpty() || textDescriptionTextView.isEmpty() || textAdressTextView.isEmpty() || textNeighbourhoodTextView.isEmpty() ||
         textOnMarketSince.isEmpty()) {
-
             Toast.makeText(this,"You forgot to fill in a field",Toast.LENGTH_LONG).show()
-            
         } else {
             addHouseInRoomDatabase()
         }
-
     }
 
     @SuppressLint("UseSwitchCompatOrMaterialCode")
@@ -314,7 +308,6 @@ class AddPropertyActivity: AppCompatActivity() {
         val onMarketSince = binding.addPropertyViewSince
         textOnMarketSince = onMarketSince.text.toString()
 
-
         //Sold
         val switchSold = binding.addPropertyViewSoldSwitch
         if (switchSold.isChecked) {
@@ -368,19 +361,6 @@ class AddPropertyActivity: AppCompatActivity() {
         }
     }
 
-    /*
-    private fun getAgentInTheList() {
-        val clickForChoiceAgentInList = binding.addPropertyViewDropdownAgent
-        addAgentViewModel.getAllAgent.observe(this) {
-            clickForChoiceAgentInList.setOnClickListener{
-                val listAgent = addAgentViewModel.getAllAgent.value
-                val dialog = ListAgentsDialogView(listAgent!!)
-                dialog.show(supportFragmentManager, "tag test")
-            }
-        }
-        showAgentListSelected()
-    }
-    */
 
     private fun onClickForAddAgent() {
         binding.addPropertyViewDropdownAgent.setOnClickListener {
@@ -393,9 +373,8 @@ class AddPropertyActivity: AppCompatActivity() {
             val listAgent = addAgentViewModel.getAllAgent.value
             val dialog = ListAgentsDialogView(listAgent!!)
             dialog.show(supportFragmentManager.beginTransaction(), "tag test")
-            //Recuperer le click sur l'element car c'est pour cela que ce na marche pas
-        }
 
+        }
         showAgentListSelected()
     }
 
@@ -488,7 +467,7 @@ class AddPropertyActivity: AppCompatActivity() {
     }
 
     private fun clickOnTextViewForAddOrChangeDescription() {
-        ItemClickSupport.addTo(binding.addPropertyViewPictureRv, R.layout.list_pictures_added_item).setOnItemClickListener { recyclerView, position, v ->
+        ItemClickSupport.addTo(binding.addPropertyViewPictureRv, R.layout.list_pictures_added_item).setOnItemClickListener { _, position, _ ->
             showDialogForAddDescription(position)
         }
     }
@@ -516,7 +495,7 @@ class AddPropertyActivity: AppCompatActivity() {
             val descriptionAlertDialog = input.text.toString()
             val elementClick = photoList.getOrNull(position)
             if (elementClick != null) {
-                photoList.set(position,elementClick.copy(description = descriptionAlertDialog))
+                photoList[position] = elementClick.copy(description = descriptionAlertDialog)
             }
 
             setUpRecyclerviewPictures()
@@ -528,9 +507,9 @@ class AddPropertyActivity: AppCompatActivity() {
             }
         })
 
-        builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which ->
+        builder.setNegativeButton("Cancel") { dialog, _ ->
             dialog.cancel()
-        })
+        }
 
         builder.show()
     }
