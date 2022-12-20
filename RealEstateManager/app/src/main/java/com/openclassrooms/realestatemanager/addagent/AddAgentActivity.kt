@@ -21,7 +21,6 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.openclassrooms.realestatemanager.MainActivity
 import com.openclassrooms.realestatemanager.R
-import com.openclassrooms.realestatemanager.addproperty.InternalStoragePhoto
 import com.openclassrooms.realestatemanager.databinding.ActivityAddAgentBinding
 import com.openclassrooms.realestatemanager.injection.Injection
 import com.openclassrooms.realestatemanager.injection.ViewModelFactory
@@ -44,7 +43,14 @@ class AddAgentActivity: AppCompatActivity() {
     private var isWritePermissionGranted = false
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
 
+    // For context
     private lateinit var context: Context
+
+    // For get data
+    private var textFirstNameTextView: String = ""
+    private var textLastNameTextView: String = ""
+    private var textEmailTextView: String = ""
+    private var textPhoneNumberTextView: String = ""
 
     private val  addAgentViewModel: AddAgentViewModel by viewModels {
         ViewModelFactory(Injection.providesHouseRepository(this), Injection.providesAgentRepository(this))
@@ -94,27 +100,37 @@ class AddAgentActivity: AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
-            R.id.menu_add_agent -> addAgentInRoomDatabase()
+            R.id.menu_add_agent -> checkNoErrorBeforeAddHouse()
         }
         return super.onOptionsItemSelected(item)
     }
 
+    // For check if all is not empty
+    private fun checkNoErrorBeforeAddHouse() {
+        if (textFirstNameTextView.isEmpty() || textLastNameTextView.isEmpty() || textEmailTextView.isEmpty() || textPhoneNumberTextView.isEmpty()) {
+            Toast.makeText(this,"You forgot to fill in a field",Toast.LENGTH_LONG).show()
+        } else {
+            addAgentInRoomDatabase()
+        }
+    }
+
+    // For get data
     private fun addAgentInRoomDatabase() {
             // First name
             val editFirstNameTextView = binding.addAgentViewFirstname
-            val textFirstNameTextView = editFirstNameTextView.text.toString()
+            textFirstNameTextView = editFirstNameTextView.text.toString()
 
             // Last Name
             val editLastNameTextView = binding.addAgentViewLastname
-            val textLastNameTextView = editLastNameTextView.text.toString()
+            textLastNameTextView = editLastNameTextView.text.toString()
 
             // Email
             val editEmailTextView = binding.addAgentViewEmail
-            val textEmailTextView = editEmailTextView.text.toString()
+            textEmailTextView = editEmailTextView.text.toString()
 
             // Phone number
             val editPhoneNumberTextView = binding.addAgentViewPhonenb
-            val textPhoneNumberTextView = editPhoneNumberTextView.text.toString()
+            textPhoneNumberTextView = editPhoneNumberTextView.text.toString()
 
             // Creation date
             val editCreationDateTextView = binding
@@ -151,7 +167,6 @@ class AddAgentActivity: AppCompatActivity() {
     private val takephoto = registerForActivityResult(ActivityResultContracts.TakePicturePreview()) {
         lifecycleScope.launch {
             if (isWritePermissionGranted) {
-                val picturesId: String = UUID.randomUUID().toString()
                 if (savePhotoToInternalStorage("$agentId", it!!)) {
                     Toast.makeText(this@AddAgentActivity, "Photo Saved Successfully", Toast.LENGTH_LONG).show()
 
