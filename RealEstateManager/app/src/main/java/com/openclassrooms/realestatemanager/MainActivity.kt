@@ -14,6 +14,7 @@ import androidx.appcompat.widget.Toolbar
 import com.openclassrooms.realestatemanager.addagent.AddAgentActivity
 import com.openclassrooms.realestatemanager.addproperty.AddPropertyActivity
 import com.openclassrooms.realestatemanager.editproperty.EditPropertyActivity
+import com.openclassrooms.realestatemanager.loan.LoanActivity
 import com.openclassrooms.realestatemanager.searchProperty.SearchPropertyActivity
 import com.openclassrooms.realestatemanager.utils.Utils
 
@@ -68,6 +69,7 @@ class MainActivity : AppCompatActivity(){
             R.id.edit -> openEditPropertyActivity()
             R.id.search -> openSearchPropertyActivity()
             R.id.money -> changeCurrency()
+            R.id.menu_loan -> openLoanFragment()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -117,6 +119,11 @@ class MainActivity : AppCompatActivity(){
     private fun openSearchPropertyActivity() {
         val clickForSearchPropertyActivity = Intent(this, SearchPropertyActivity::class.java)
         startActivity(clickForSearchPropertyActivity)
+    }
+
+    private fun openLoanFragment() {
+        val  clickForLoanActivity = Intent(this, LoanActivity::class.java)
+        startActivity(clickForLoanActivity)
     }
 
     private fun configureTextViewMain() {

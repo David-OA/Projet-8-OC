@@ -59,4 +59,10 @@
         app:showAsAction="always"
         android:title="Add Agent"/>
 
+    <item
+        android:id="@+id/menu_loan"
+        android:icon="@drawable/home_icon"
+        app:showAsAction="always"
+        android:title="Loan"/>
+
 </menu>

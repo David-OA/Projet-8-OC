@@ -33,6 +33,7 @@
         <activity android:name=".editproperty.EditPropertyActivity" />
         <activity android:name=".searchProperty.SearchPropertyActivity" />
         <activity android:name=".searchProperty.SearchResultActivity" />
+        <activity android:name=".loan.LoanActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
