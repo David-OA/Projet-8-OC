@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.ActivityLoanBinding
+import kotlin.math.pow
 
 
 class LoanActivity : AppCompatActivity() {
@@ -77,7 +78,8 @@ class LoanActivity : AppCompatActivity() {
                 result = (if (downPayment != null) ( amount!!-(downPayment)) else amount)!! / (term!! * 12)
                 totalPrice = 0.0
             }else{
-                result = (if (downPayment != null) (amount!! -(downPayment)) else amount)!! * ((interest!! / (100)) / (12)) / (1 - Math.pow( 1 + ((interest / 100) / 12), -term!! *12))
+                result = (if (downPayment != null) (amount!! -(downPayment)) else amount)!! * ((interest!! / (100)) / (12)) / (1 - (1 + ((interest / 100) / 12)).pow(-term!! * 12
+                ))
                 totalPrice = 12 * term * result - (if (downPayment != null ) amount?.minus(downPayment)!! else amount!!)
             }
             binding.monthlyPay.setText(String.format("%.2f",result), TextView.BufferType.EDITABLE)
@@ -85,8 +87,4 @@ class LoanActivity : AppCompatActivity() {
 
         }
     }
-
-
-
-
 }
