@@ -11,7 +11,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.openclassrooms.realestatemanager.R
-import com.openclassrooms.realestatemanager.addproperty.InternalStoragePhoto
 import com.openclassrooms.realestatemanager.databinding.FragmentPropertyInfosBinding
 import com.openclassrooms.realestatemanager.editproperty.EditPropertyActivity
 import com.openclassrooms.realestatemanager.model.DescriptionPictures
@@ -93,6 +92,9 @@ class InfoDetailsFragment : Fragment() {
             }
 
             listDescriptionPicture = houseId.descriptionPictures
+
+            binding.detailsViewLocationCity.text = houseId.detailViewNearTitle
+            binding.detailsViewLocationStreet.text = houseId.detailsAddress
 
         }
 
