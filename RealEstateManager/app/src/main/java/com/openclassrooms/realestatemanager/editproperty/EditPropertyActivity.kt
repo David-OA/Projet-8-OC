@@ -27,7 +27,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.menu.MenuBuilder
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -44,11 +43,9 @@ import com.openclassrooms.realestatemanager.model.DescriptionPictures
 import com.openclassrooms.realestatemanager.model.House
 import com.openclassrooms.realestatemanager.utils.ItemClickSupport
 import com.openclassrooms.realestatemanager.utils.TypeProperty
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import okhttp3.Dispatcher
 import java.io.IOException
 import java.util.*
 
@@ -319,6 +316,7 @@ class EditPropertyActivity: AppCompatActivity() {
                 dialog.show(supportFragmentManager, "tag test")
             }
         }
+        showAgentListSelected()
     }
 
     private fun showAgentListSelected() {
@@ -363,29 +361,29 @@ class EditPropertyActivity: AppCompatActivity() {
             val textNeighbourhoodTextView = editNeighbourhoodTextView.text.toString()
 
             // Near By
-            val schoolCheckBoxe = binding.addPropertyViewNearbyGridlayoutNearby.checkboxNearbySchool
-            val playgroudCheckBoxe = binding.addPropertyViewNearbyGridlayoutNearby.checkboxNearbyPlayground
-            val shopCheckBoxe = binding.addPropertyViewNearbyGridlayoutNearby.checkboxNearbyShop
-            val busesCheckBoxe = binding.addPropertyViewNearbyGridlayoutNearby.checkboxNearbyBuses
-            val subwayCheckBoxe = binding.addPropertyViewNearbyGridlayoutNearby.checkboxNearbySubway
-            val parkCheckBoxe = binding.addPropertyViewNearbyGridlayoutNearby.checkboxNearbyPark
+            val schoolCheckBox = binding.addPropertyViewNearbyGridlayoutNearby.checkboxNearbySchool
+            val playgroundCheckBox = binding.addPropertyViewNearbyGridlayoutNearby.checkboxNearbyPlayground
+            val shopCheckBox = binding.addPropertyViewNearbyGridlayoutNearby.checkboxNearbyShop
+            val busesCheckBox = binding.addPropertyViewNearbyGridlayoutNearby.checkboxNearbyBuses
+            val subwayCheckBox = binding.addPropertyViewNearbyGridlayoutNearby.checkboxNearbySubway
+            val parkCheckBox = binding.addPropertyViewNearbyGridlayoutNearby.checkboxNearbyPark
 
-            if (schoolCheckBoxe.isChecked) {
+            if (schoolCheckBox.isChecked) {
                 schoolCheck = true
             }
-            if (playgroudCheckBoxe.isChecked) {
+            if (playgroundCheckBox.isChecked) {
                 playgroundCheck = true
             }
-            if (shopCheckBoxe.isChecked) {
+            if (shopCheckBox.isChecked) {
                 shopCheck = true
             }
-            if (busesCheckBoxe.isChecked) {
+            if (busesCheckBox.isChecked) {
                 busesCheck = true
             }
-            if (subwayCheckBoxe.isChecked) {
+            if (subwayCheckBox.isChecked) {
                 subwayCheck = true
             }
-            if (parkCheckBoxe.isChecked) {
+            if (parkCheckBox.isChecked) {
                 parkCheck = true
             }
 
@@ -427,7 +425,7 @@ class EditPropertyActivity: AppCompatActivity() {
                 textOnMarketSince,
                 switchSoldCheck,
                 textSoldOn,
-                textAgentAddHouse,getTheListofDescriptionPictures())
+                textAgentAddHouse,getTheListOfDescriptionsPictures())
 
             addHouseViewModel.update(house)
 
@@ -435,7 +433,7 @@ class EditPropertyActivity: AppCompatActivity() {
             showToastForUpdateHouse()
     }
 
-    private fun getTheListofDescriptionPictures(): List<DescriptionPictures> {
+    private fun getTheListOfDescriptionsPictures(): List<DescriptionPictures> {
         return descriptionPictureList
     }
 
@@ -506,7 +504,7 @@ class EditPropertyActivity: AppCompatActivity() {
     }
 
     private suspend fun loadPhotosFromInternalStorage(): List<InternalStoragePhoto> {
-        return withContext(Dispatchers.IO) {
+        return withContext(IO) {
             val files = context.filesDir?.listFiles()
 
             files?.filter { it.canRead() && it.isFile && it.name.endsWith(".jpg") && it.name.startsWith(houseIdUpdate) }?.map {
@@ -558,7 +556,7 @@ class EditPropertyActivity: AppCompatActivity() {
             val descriptionAlertDialog = input.text.toString()
             val elementClick = photoList.getOrNull(position)
             if (elementClick != null) {
-                photoList.set(position,elementClick.copy(description = descriptionAlertDialog))
+                photoList[position] = elementClick.copy(description = descriptionAlertDialog)
             }
             setUpRecyclerviewPictures()
             val id = elementClick?.name?.substringAfter(".",".jpg")
@@ -568,9 +566,9 @@ class EditPropertyActivity: AppCompatActivity() {
             }
         })
 
-        builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which ->
+        builder.setNegativeButton("Cancel") { dialog, _ ->
             dialog.cancel()
-        })
+        }
 
         builder.show()
     }
