@@ -14,7 +14,8 @@
             android:layout_width="@dimen/list_agent_picture"
             android:layout_height="@dimen/list_agent_picture"
             android:layout_margin="@dimen/margin_small"
-            android:src="@drawable/agent_picture_default"/>
+            android:src="@drawable/agent_picture_default"
+            android:contentDescription="@string/rv_picture_icon" />
 
         <TextView
             android:id="@+id/list_agent_rv_name"

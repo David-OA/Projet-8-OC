@@ -10,7 +10,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_columnWeight="1"
-        android:text="school"
+        android:text="@string/school"
         app:layout_row="0"
         app:layout_column="0"/>
 
@@ -19,7 +19,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_columnWeight="1"
-        android:text="playground"
+        android:text="@string/playground"
         app:layout_row="0"
         app:layout_column="1"/>
 
@@ -28,7 +28,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_columnWeight="1"
-        android:text="shop"
+        android:text="@string/shop"
         app:layout_row="0"
         app:layout_column="2"/>
 
@@ -37,7 +37,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_columnWeight="1"
-        android:text="buses"
+        android:text="@string/buses"
         app:layout_row="1"
         app:layout_column="0"/>
 
@@ -46,7 +46,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_columnWeight="1"
-        android:text="subway"
+        android:text="@string/subway"
         app:layout_row="1"
         app:layout_column="1"/>
 
@@ -55,7 +55,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_columnWeight="1"
-        android:text="park"
+        android:text="@string/park"
         app:layout_row="1"
         app:layout_column="2"/>
 

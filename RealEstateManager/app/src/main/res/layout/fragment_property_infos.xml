@@ -17,7 +17,7 @@
             android:id="@+id/details_view_media_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Media"
+            android:text="@string/media"
             style="@style/TitleREM"
             android:layout_margin="@dimen/margin_small"
             app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +40,7 @@
             android:id="@+id/details_view_description_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Description"
+            android:text="@string/description"
             style="@style/TitleREM"
             android:layout_margin="@dimen/margin_small"
             app:layout_constraintStart_toStartOf="parent"
@@ -57,7 +57,7 @@
             android:textSize="@dimen/details_size"
             android:layout_margin="@dimen/margin_small"
             android:textAlignment="textStart"
-            android:text="n_a"/>
+            android:text="@string/n_a"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/detail_view_space_group"
@@ -74,11 +74,12 @@
                 style="@style/IconDetailREM"
                 android:src="@drawable/surface_icon"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/icon_surface" />
 
             <TextView
                 android:id="@+id/details_view_surface_title"
-                android:text="surface"
+                android:text="@string/surface"
                 style="@style/SmallTitleREM"
                 android:layout_height="wrap_content"
                 android:layout_width="0dp"
@@ -101,11 +102,12 @@
                 style="@style/IconDetailREM"
                 android:src="@drawable/home_icon"
                 app:layout_constraintTop_toBottomOf="@id/details_view_surface"
-                app:layout_constraintStart_toStartOf="@id/details_view_surface_icon"/>
+                app:layout_constraintStart_toStartOf="@id/details_view_surface_icon"
+                android:contentDescription="@string/number_room_icon" />
 
             <TextView
                 android:id="@+id/details_view_room_title"
-                android:text="number_of_rooms"
+                android:text="@string/number_of_rooms"
                 style="@style/SmallTitleREM"
                 android:layout_height="wrap_content"
                 android:layout_width="0dp"
@@ -115,7 +117,7 @@
                 app:layout_constraintEnd_toEndOf="parent"/>
             <TextView
                 android:id="@+id/details_view_rooms"
-                android:text="n_a"
+                android:text="@string/n_a"
                 style="@style/SmallTextREM"
                 android:layout_height="wrap_content"
                 android:layout_width="0dp"
@@ -129,11 +131,12 @@
                 style="@style/IconDetailREM"
                 android:src="@drawable/bathroom_icon"
                 app:layout_constraintTop_toBottomOf="@id/details_view_rooms"
-                app:layout_constraintStart_toStartOf="@id/details_view_surface_icon"/>
+                app:layout_constraintStart_toStartOf="@id/details_view_surface_icon"
+                android:contentDescription="@string/number_bathroom_icon" />
 
             <TextView
                 android:id="@+id/details_view_bath_title"
-                android:text="number_of_bathrooms"
+                android:text="@string/number_of_bathrooms"
                 style="@style/SmallTitleREM"
                 android:layout_height="wrap_content"
                 android:layout_width="0dp"
@@ -143,7 +146,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/details_view_bath_icon"/>
             <TextView
                 android:id="@+id/details_view_bath"
-                android:text="n_a"
+                android:text="@string/n_a"
                 style="@style/SmallTextREM"
                 android:layout_height="wrap_content"
                 android:layout_width="0dp"
@@ -157,11 +160,12 @@
                 style="@style/IconDetailREM"
                 android:src="@drawable/bed_icon"
                 app:layout_constraintTop_toBottomOf="@id/details_view_bath"
-                app:layout_constraintStart_toStartOf="@id/details_view_surface_icon"/>
+                app:layout_constraintStart_toStartOf="@id/details_view_surface_icon"
+                android:contentDescription="@string/bed_icon" />
 
             <TextView
                 android:id="@+id/details_view_bed_title"
-                android:text="number_of_bedrooms"
+                android:text="@string/number_of_bedrooms"
                 style="@style/SmallTitleREM"
                 android:layout_height="wrap_content"
                 android:layout_width="0dp"
@@ -171,7 +175,7 @@
                 app:layout_constraintEnd_toEndOf="parent"/>
             <TextView
                 android:id="@+id/details_view_bed"
-                android:text="n_a"
+                android:text="@string/n_a"
                 style="@style/SmallTextREM"
                 android:layout_height="wrap_content"
                 android:layout_width="0dp"
@@ -195,13 +199,14 @@
                 style="@style/IconDetailREM"
                 android:src="@drawable/dollar_icon"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/price_icon" />
             <TextView
                 android:id="@+id/detail_view_price_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 style="@style/SmallTitleREM"
-                android:text="price"
+                android:text="@string/price"
                 app:layout_constraintStart_toEndOf="@id/detail_view_price_icon"
                 app:layout_constraintTop_toTopOf="@id/detail_view_price_icon"
                 app:layout_constraintBottom_toBottomOf="@id/detail_view_price_icon"
@@ -211,7 +216,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 style="@style/SmallTextREM"
-                android:text="n_a"
+                android:text="@string/n_a"
                 app:layout_constraintStart_toStartOf="@id/detail_view_price_title"
                 app:layout_constraintTop_toBottomOf="@id/detail_view_price_title"
                 app:layout_constraintEnd_toEndOf="@id/detail_view_price_title"/>
@@ -221,13 +226,14 @@
                 style="@style/IconDetailREM"
                 android:src="@drawable/type_icon"
                 app:layout_constraintStart_toStartOf="@id/detail_view_price_icon"
-                app:layout_constraintTop_toBottomOf="@id/detail_view_price"/>
+                app:layout_constraintTop_toBottomOf="@id/detail_view_price"
+                android:contentDescription="@string/type_icon" />
             <TextView
                 android:id="@+id/detail_view_type_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 style="@style/SmallTitleREM"
-                android:text="type"
+                android:text="@string/type"
                 app:layout_constraintStart_toEndOf="@id/detail_view_type_icon"
                 app:layout_constraintTop_toTopOf="@id/detail_view_type_icon"
                 app:layout_constraintBottom_toBottomOf="@id/detail_view_type_icon"
@@ -237,7 +243,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 style="@style/SmallTextREM"
-                android:text="n_a"
+                android:text="@string/n_a"
                 app:layout_constraintStart_toStartOf="@id/detail_view_type_title"
                 app:layout_constraintEnd_toEndOf="@id/detail_view_type_title"
                 app:layout_constraintTop_toBottomOf="@id/detail_view_type_title"/>
@@ -247,7 +253,8 @@
                 style="@style/IconDetailREM"
                 android:src="@drawable/near_icon"
                 app:layout_constraintTop_toBottomOf="@id/detail_view_type"
-                app:layout_constraintStart_toStartOf="@id/detail_view_price_icon"/>
+                app:layout_constraintStart_toStartOf="@id/detail_view_price_icon"
+                android:contentDescription="@string/near_icon" />
             <TextView
                 android:id="@+id/detail_view_near_title"
                 android:layout_width="0dp"
@@ -263,39 +270,45 @@
                 android:layout_width="0dp"
                 style="@style/IconDetailREM"
                 app:layout_constraintStart_toStartOf="@id/detail_view_near_title"
-                app:layout_constraintTop_toBottomOf="@id/detail_view_near_title"/>
+                app:layout_constraintTop_toBottomOf="@id/detail_view_near_title"
+                android:contentDescription="@string/amenity_icon" />
             <ImageView
                 android:id="@+id/detail_view_amenity_two"
                 android:layout_width="0dp"
                 style="@style/IconDetailREM"
                 app:layout_constraintTop_toTopOf="@id/detail_view_amenity_one"
                 app:layout_constraintBottom_toBottomOf="@id/detail_view_amenity_one"
-                app:layout_constraintStart_toEndOf="@id/detail_view_amenity_one"/>
+                app:layout_constraintStart_toEndOf="@id/detail_view_amenity_one"
+                android:contentDescription="@string/amenity_icon"/>
             <ImageView
                 android:id="@+id/detail_view_amenity_three"
                 android:layout_width="0dp"
                 style="@style/IconDetailREM"
                 app:layout_constraintTop_toTopOf="@id/detail_view_amenity_one"
                 app:layout_constraintBottom_toBottomOf="@id/detail_view_amenity_one"
-                app:layout_constraintStart_toEndOf="@id/detail_view_amenity_two"/>
+                app:layout_constraintStart_toEndOf="@id/detail_view_amenity_two"
+                android:contentDescription="@string/amenity_icon"/>
             <ImageView
                 android:id="@+id/detail_view_amenity_four"
                 android:layout_width="0dp"
                 style="@style/IconDetailREM"
                 app:layout_constraintTop_toBottomOf="@id/detail_view_amenity_one"
-                app:layout_constraintStart_toStartOf="@id/detail_view_amenity_one"/>
+                app:layout_constraintStart_toStartOf="@id/detail_view_amenity_one"
+                android:contentDescription="@string/amenity_icon"/>
             <ImageView
                 android:id="@+id/detail_view_amenity_five"
                 android:layout_width="0dp"
                 style="@style/IconDetailREM"
                 app:layout_constraintTop_toBottomOf="@id/detail_view_amenity_two"
-                app:layout_constraintStart_toStartOf="@id/detail_view_amenity_two"/>
+                app:layout_constraintStart_toStartOf="@id/detail_view_amenity_two"
+                android:contentDescription="@string/amenity_icon"/>
             <ImageView
                 android:id="@+id/detail_view_amenity_six"
                 android:layout_width="0dp"
                 style="@style/IconDetailREM"
                 app:layout_constraintTop_toBottomOf="@id/detail_view_amenity_three"
-                app:layout_constraintStart_toStartOf="@id/detail_view_amenity_three"/>
+                app:layout_constraintStart_toStartOf="@id/detail_view_amenity_three"
+                android:contentDescription="@string/amenity_icon"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -315,11 +328,12 @@
                 android:src="@drawable/icon_location_sold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/colorPrimaryDark" />
+                app:tint="@color/colorPrimaryDark"
+                android:contentDescription="@string/location_icon"/>
 
             <TextView
                 android:id="@+id/details_view_location_title"
-                android:text="location"
+                android:text="@string/location"
                 style="@style/SmallTitleREM"
                 android:layout_height="wrap_content"
                 android:layout_width="0dp"
@@ -329,7 +343,7 @@
                 app:layout_constraintEnd_toEndOf="parent"/>
             <TextView
                 android:id="@+id/details_view_location_street"
-                android:text="n_a"
+                android:text="@string/n_a"
                 android:textSize="12sp"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
@@ -337,7 +351,7 @@
                 app:layout_constraintTop_toBottomOf="@id/details_view_location_title"/>
             <TextView
                 android:id="@+id/details_view_location_city"
-                android:text="n_a"
+                android:text="@string/n_a"
                 android:textSize="12sp"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
@@ -345,7 +359,7 @@
                 app:layout_constraintTop_toBottomOf="@id/details_view_location_street"/>
             <TextView
                 android:id="@+id/details_view_location_zip"
-                android:text="n_a"
+                android:text="@string/n_a"
                 android:textSize="12sp"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
@@ -353,7 +367,7 @@
                 app:layout_constraintTop_toBottomOf="@id/details_view_location_city"/>
             <TextView
                 android:id="@+id/details_view_location_country"
-                android:text="n_a"
+                android:text="@string/n_a"
                 android:textSize="12sp"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
@@ -368,7 +382,8 @@
             app:layout_constraintTop_toTopOf="@id/details_view_location_group"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="@dimen/margin_small"
-            android:layout_marginBottom="@dimen/margin_small"/>
+            android:layout_marginBottom="@dimen/margin_small"
+            android:contentDescription="@string/view_map" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

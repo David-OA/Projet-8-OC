@@ -2,14 +2,14 @@
     <string name="app_name">Real Estate Manager</string>
 
     <!-- Strings used for fragments for navigation -->
-    <string name="list_fragment_label">Maisons</string>
-    <string name="info_fragment_label">Maisons Info</string>
+    <string name="list_fragment_label">Houses</string>
+    <string name="info_fragment_label">Houses Info</string>
 
     <string name="architecte">Architecte</string>
-    <string name="rooms">Pieces</string>
-    <string name="price">Prix</string>
+    <string name="rooms">Rooms</string>
+    <string name="price">Price</string>
     <string name="surface">Surface</string>
-    <string name="bath">Bain</string>
+    <string name="bath">Bath</string>
 
 
     <!-- Add property-->
@@ -34,12 +34,14 @@
     <string name="add_a_property_or_agent">Add a property or agent</string>
     <string name="edit">Edit</string>
     <string name="search">Search</string>
+
+    <!-- For Search-->
     <string name="type">Type</string>
     <string name="select_all">Select all</string>
     <string name="flat">Flat</string>
     <string name="penthouse">Penthouse</string>
-    <string name="townhouse">Maison de ville</string>
-    <string name="house">Villa</string>
+    <string name="townhouse">Town house</string>
+    <string name="house">House</string>
     <string name="duplex">Duplex</string>
     <string name="min_price">min price</string>
     <string name="max_price">max price</string>
@@ -81,6 +83,50 @@
     <string name="loan_term_20">20</string>
     <string name="loan_term_25">25</string>
     <string name="loan_term_30">30</string>
+
+    <!-- For Add Agent -->
+    <string name="agent_picture">Agent_picture</string>
+    <string name="click_button_for_add_picture">Click_button_for_add_picture</string>
+    <string name="first_name">first_name</string>
+    <string name="last_name">last_name</string>
+    <string name="email">email</string>
+    <string name="phone_number">phone_number</string>
+
+    <!-- Amenities -->
+    <string name="school">school</string>
+    <string name="playground">playground</string>
+    <string name="shop">shop</string>
+    <string name="buses">buses</string>
+    <string name="subway">subway</string>
+    <string name="park">park</string>
+
+    <!-- Property info -->
+    <string name="media">Media</string>
+    <string name="n_a">n_a</string>
+    <string name="icon_surface">Icon_surface</string>
+    <string name="number_room_icon">number_room_icon</string>
+    <string name="number_of_rooms">number_of_rooms</string>
+    <string name="number_bathroom_icon">number_bathroom_icon</string>
+    <string name="number_of_bathrooms">number_of_bathrooms</string>
+    <string name="bed_icon">bed_icon</string>
+    <string name="number_of_bedrooms">number_of_bedrooms</string>
+    <string name="price_icon">price_icon</string>
+    <string name="type_icon">type_icon</string>
+    <string name="near_icon">near_icon</string>
+    <string name="amenity_icon">amenity_icon</string>
+    <string name="location_icon">location_icon</string>
+    <string name="location">location</string>
+    <string name="view_map">view_map</string>
+
+    <!-- For list agent dialog -->
+    <string name="rv_picture_icon">rv_picture_icon</string>
+    <string name="rv_foreground">rv_foreground</string>
+    <string name="rv_delete_button">rv_delete_button</string>
+
+    <!-- For property list item -->
+    <string name="house_type_placeholder">house_type_placeholder</string>
+    <string name="house_neighborhood">house_neighborhood</string>
+    <string name="sports_info_placeholder">sports_info_placeholder</string>
 
 
 </resources>

@@ -32,7 +32,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/agent_picture_default"/>
+                android:src="@drawable/agent_picture_default"
+                android:contentDescription="@string/agent_picture" />
 
             <ImageView
                 android:id="@+id/add_agent_view_add_photo"
@@ -45,7 +46,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.528"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/click_button_for_add_picture" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/add_agent_view_firstname_layout"
@@ -55,7 +57,7 @@
                 app:layout_constraintTop_toBottomOf="@id/add_agent_view_picture_agent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="first_name">
+                android:hint="@string/first_name">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/add_agent_view_firstname"
                     android:layout_width="match_parent"
@@ -72,7 +74,7 @@
                 app:layout_constraintTop_toBottomOf="@id/add_agent_view_firstname_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="last_name">
+                android:hint="@string/last_name">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/add_agent_view_lastname"
                     android:layout_width="match_parent"
@@ -89,7 +91,7 @@
                 app:layout_constraintTop_toBottomOf="@id/add_agent_view_lastname_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="email">
+                android:hint="@string/email">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/add_agent_view_email"
                     android:layout_width="match_parent"
@@ -106,7 +108,7 @@
                 app:layout_constraintTop_toBottomOf="@id/add_agent_view_email_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="phone_number">
+                android:hint="@string/phone_number">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/add_agent_view_phonenb"

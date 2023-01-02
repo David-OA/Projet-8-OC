@@ -17,7 +17,8 @@
             android:src="@drawable/agent_picture_default"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:contentDescription="@string/rv_picture_icon" />
 
         <TextView
             android:id="@+id/list_agent_search_rv_name"
