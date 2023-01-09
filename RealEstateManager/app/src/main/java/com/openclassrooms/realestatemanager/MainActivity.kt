@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity(){
             R.id.edit -> openEditPropertyActivity()
             R.id.search -> openSearchPropertyActivity()
             R.id.money -> changeCurrency()
-            R.id.menu_loan -> openLoanFragment()
+            R.id.menu_loan -> openLoanActivity()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -121,7 +121,7 @@ class MainActivity : AppCompatActivity(){
         startActivity(clickForSearchPropertyActivity)
     }
 
-    private fun openLoanFragment() {
+    private fun openLoanActivity() {
         val  clickForLoanActivity = Intent(this, LoanActivity::class.java)
         startActivity(clickForLoanActivity)
     }

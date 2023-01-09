@@ -22,7 +22,6 @@ class LoanActivity : AppCompatActivity() {
         setOnClickListener()
     }
 
-
     private fun setOnClickListener(){
         binding.loanTermYears.setOnClickListener{displayPopupMenu()}
         binding.calculateLoanButton.setOnClickListener { calculate() }
@@ -34,9 +33,7 @@ class LoanActivity : AppCompatActivity() {
         popupMenu.setOnMenuItemClickListener { item -> binding.loanTermYears.setText(item.title); true}
         popupMenu.show()
     }
-
-
-
+    
     private fun calculate(){
         var canCalculate = false
         val amount = binding.loanAmount.text.toString().toDoubleOrNull() ?: 0.0
