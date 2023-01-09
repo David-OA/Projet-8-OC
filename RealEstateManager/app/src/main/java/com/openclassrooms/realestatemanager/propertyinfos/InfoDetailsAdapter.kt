@@ -52,12 +52,13 @@ class InfoDetailsAdapter(
             val propertyId = listPictures.houseId
             val pictureId = listPictures.picturesId
 
-            Picasso.get()
+            /*Picasso.get()
                 .load(File("/data/data/com.openclassrooms.realestatemanager/files/","$propertyId.$pictureId.jpg"))
                 .placeholder(R.drawable.home_icon)
-                .into(binding.myimage)
+                .into(binding.myimage)*/
 
-            binding.descriptionPicture.text = listPictures.description
+            //binding.descriptionPicture.text = listPictures.description
+            binding.customViewWithLabel.setCustomViewProperties(listPictures, propertyId, pictureId, true)
         }
     }
 
