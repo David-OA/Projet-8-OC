@@ -118,5 +118,11 @@ dependencies {
     def compose_version = "1.0.0"
     implementation("androidx.compose.runtime:runtime:$compose_version")
 
+    // GMS
+    implementation "com.google.android.gms:play-services-maps:17.0.0"
+
+    //ROBOLECTRIC
+    testImplementation "org.robolectric:robolectric:$rootProject.robolectricVersion"
+
 }
 
