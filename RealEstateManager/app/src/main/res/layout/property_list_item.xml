@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
+        <!--ImageView
             android:id="@+id/houseImage"
             android:layout_width="@dimen/size_list_item"
             android:layout_height="@dimen/size_list_item"
@@ -19,6 +19,14 @@
             android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/home_icon"/-->
+        <com.openclassrooms.realestatemanager.propertyinfos.ImageViewWithLabel
+            android:id="@+id/custom_view_with_label"
+            android:layout_height="@dimen/size_list_item"
+            android:layout_width="@dimen/size_list_item"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@null"
             android:src="@drawable/home_icon"/>
 
         <TextView
@@ -32,7 +40,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/houseImage"
+            app:layout_constraintStart_toEndOf="@+id/custom_view_with_label"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -44,7 +52,7 @@
             android:text="@string/house_neighborhood"
             android:textSize="@dimen/text_subtitle"
             android:textColor="?android:textColorSecondary"
-            app:layout_constraintStart_toEndOf="@+id/houseImage"
+            app:layout_constraintStart_toEndOf="@+id/custom_view_with_label"
             app:layout_constraintTop_toBottomOf="@+id/house_type" />
 
         <TextView
@@ -61,7 +69,7 @@
             android:textColor="@color/colorAccent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/houseImage"
+            app:layout_constraintStart_toEndOf="@+id/custom_view_with_label"
             app:layout_constraintTop_toBottomOf="@+id/house_neighborhood" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
