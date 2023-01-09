@@ -36,7 +36,7 @@ class ListAgentsDialogView(private val agents: List<Agent>): DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity()).get(AddAgentViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity())[AddAgentViewModel::class.java]
     }
 
     private fun configureRecyclerView(){
