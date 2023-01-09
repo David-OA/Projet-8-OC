@@ -34,6 +34,7 @@
         <activity android:name=".searchProperty.SearchPropertyActivity" />
         <activity android:name=".searchProperty.SearchResultActivity" />
         <activity android:name=".loan.LoanActivity" />
+        <activity android:name=".utils.MapFragment" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
