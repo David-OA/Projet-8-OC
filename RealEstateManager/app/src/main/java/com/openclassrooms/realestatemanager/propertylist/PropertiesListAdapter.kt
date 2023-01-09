@@ -33,13 +33,12 @@ import com.openclassrooms.realestatemanager.model.House
 import com.openclassrooms.realestatemanager.utils.Utils
 import kotlinx.coroutines.*
 import java.util.*
-import kotlin.coroutines.CoroutineContext
 
 class PropertiesListAdapter : ListAdapter<House, PropertiesListAdapter.PropertyViewHolder>(DiffCallback) {
 
     private lateinit var context: Context
 
-    var itemSelectedPosition = 0//-1
+    var itemSelectedPosition = 0
 
     /////////////////////////////////////////////////////////////////////////////////////////////////
     //                                     Adapter parts
@@ -80,16 +79,16 @@ class PropertiesListAdapter : ListAdapter<House, PropertiesListAdapter.PropertyV
     //                              ViewHolder Parts
     /////////////////////////////////////////////////////////////////////////////////////////////////
     class PropertyViewHolder(private var binding: PropertyListItemBinding) :
-        RecyclerView.ViewHolder(binding.root), CoroutineScope {
+        RecyclerView.ViewHolder(binding.root) /*CoroutineScope */{
 
         private lateinit var houseIdList: String
 
         private lateinit var context: Context
 
-        private var job: Job = Job()
+        //private var job: Job = Job()
 
-        override val coroutineContext: CoroutineContext
-            get() = Dispatchers.Main + job
+        /*override val coroutineContext: CoroutineContext
+            get() = Dispatchers.Main + job*/
 
         @SuppressLint("SetTextI18n")
         fun bind(house: House, context: Context, position: Int, itemSelectedPosition: Int) {
@@ -111,13 +110,23 @@ class PropertiesListAdapter : ListAdapter<House, PropertiesListAdapter.PropertyV
 
             houseIdList = house.houseId
 
-            launch {
+            /*launch {
                 val photo = loadPhotosFromInternalStorage()
                 if (photo.isNotEmpty()) {
                     binding.houseImage.setImageBitmap(photo.first().bmp)
                 } else {
                     binding.houseImage.setImageResource(R.drawable.home_icon)
                 }
+            }*/
+
+            if (house.descriptionPictures.isNotEmpty()) {
+                val listPictures = house.descriptionPictures[0]
+                val picturesId = listPictures.picturesId
+
+                binding.customViewWithLabel.setCustomViewProperties(listPictures,house.houseId,picturesId, false)
+
+            } else {
+                binding.customViewWithLabel.setPlaceHolderCustomViewProperties()
             }
 
             // For background color selected
