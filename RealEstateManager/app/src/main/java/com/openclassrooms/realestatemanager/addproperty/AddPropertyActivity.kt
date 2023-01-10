@@ -66,7 +66,7 @@ class AddPropertyActivity: AppCompatActivity() {
     private var textBathTextView: String = ""
     private var textBedTextView: String = ""
     private var textDescriptionTextView: String = ""
-    private var textAdressTextView: String = ""
+    private var textAddressTextView: String = ""
     private var textNeighbourhoodTextView: String = ""
     private var textOnMarketSince: String = ""
 
@@ -231,13 +231,16 @@ class AddPropertyActivity: AppCompatActivity() {
     // For add a property
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private fun checkNoErrorBeforeAddHouse() {
-        if (textPriceTextView.isEmpty() || textSurfaceTextView.isEmpty() || textRoomTextView.isEmpty() || textBathTextView.isEmpty() ||
-        textBedTextView.isEmpty() || textDescriptionTextView.isEmpty() || textAdressTextView.isEmpty() || textNeighbourhoodTextView.isEmpty() ||
-        textOnMarketSince.isEmpty()) {
+        if (binding.addPropertyViewPrice.text.toString().isEmpty() || binding.addPropertyViewSurface.text.toString().isEmpty()
+            || binding.addPropertyViewRoom.text.toString().isEmpty() || binding.addPropertyViewBathroom.text.toString().isEmpty()
+            || binding.addPropertyViewBedroom.text.toString().isEmpty() || binding.addPropertyViewDescription.text.toString().isEmpty()
+            || binding.addPropertyViewAddress.text.toString().isEmpty() || binding.addPropertyViewNeighbourhood.text.toString().isEmpty()
+            || binding.addPropertyViewSince.text.toString().isEmpty()) {
             Toast.makeText(this,"You forgot to fill in a field",Toast.LENGTH_LONG).show()
         } else {
             addHouseInRoomDatabase()
         }
+
     }
 
     @SuppressLint("UseSwitchCompatOrMaterialCode")
@@ -268,7 +271,7 @@ class AddPropertyActivity: AppCompatActivity() {
 
         //Address
         val editAdressTextView = binding.addPropertyViewAddress
-        textAdressTextView = editAdressTextView.text.toString()
+        textAddressTextView = editAdressTextView.text.toString()
 
         //Neighbourhood
         val editNeighbourhoodTextView = binding.addPropertyViewNeighbourhood
@@ -335,7 +338,7 @@ class AddPropertyActivity: AppCompatActivity() {
             subwayCheck,
             parkCheck,
             textDescriptionTextView,
-            textAdressTextView,
+            textAddressTextView,
             textNeighbourhoodTextView,
             textOnMarketSince,
             switchSoldCheck,
