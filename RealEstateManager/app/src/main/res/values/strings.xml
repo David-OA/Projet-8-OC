@@ -11,7 +11,6 @@
     <string name="surface">Surface</string>
     <string name="bath">Bath</string>
 
-
     <!-- Add property-->
     <string name="type_dropdown_menu">Type dropdown menu</string>
     <string name="price_dollar">Price dollar</string>
@@ -87,10 +86,10 @@
     <!-- For Add Agent -->
     <string name="agent_picture">Agent_picture</string>
     <string name="click_button_for_add_picture">Click_button_for_add_picture</string>
-    <string name="first_name">first_name</string>
-    <string name="last_name">last_name</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
     <string name="email">email</string>
-    <string name="phone_number">phone_number</string>
+    <string name="phone_number">Phone number</string>
 
     <!-- Amenities -->
     <string name="school">school</string>
@@ -104,12 +103,12 @@
     <string name="media">Media</string>
     <string name="n_a">n_a</string>
     <string name="icon_surface">Icon_surface</string>
-    <string name="number_room_icon">number_room_icon</string>
-    <string name="number_of_rooms">number_of_rooms</string>
-    <string name="number_bathroom_icon">number_bathroom_icon</string>
-    <string name="number_of_bathrooms">number_of_bathrooms</string>
-    <string name="bed_icon">bed_icon</string>
-    <string name="number_of_bedrooms">number_of_bedrooms</string>
+    <string name="number_room_icon">Number room icon</string>
+    <string name="number_of_rooms">Number of rooms</string>
+    <string name="number_bathroom_icon">Number bathroom icon</string>
+    <string name="number_of_bathrooms">Number of bathrooms</string>
+    <string name="bed_icon">bed icon</string>
+    <string name="number_of_bedrooms">Number of bedrooms</string>
     <string name="price_icon">price_icon</string>
     <string name="type_icon">type_icon</string>
     <string name="near_icon">near_icon</string>
@@ -127,6 +126,5 @@
     <string name="house_type_placeholder">house_type_placeholder</string>
     <string name="house_neighborhood">house_neighborhood</string>
     <string name="sports_info_placeholder">sports_info_placeholder</string>
-
 
 </resources>
