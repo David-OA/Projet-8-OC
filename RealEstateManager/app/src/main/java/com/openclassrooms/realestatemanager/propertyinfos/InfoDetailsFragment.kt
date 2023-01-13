@@ -116,13 +116,13 @@ class InfoDetailsFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
+    // For map View
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap ?: return
         if (houseIdEdit!=null){
             addMarkers()
             moveCamera()
         }
-
     }
 
     private fun addMarkers() {

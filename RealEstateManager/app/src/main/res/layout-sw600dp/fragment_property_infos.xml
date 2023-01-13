@@ -358,22 +358,22 @@
                 android:layout_width="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/details_view_location_title"
                 app:layout_constraintTop_toBottomOf="@id/details_view_location_street"/>
-            <TextView
+            <!--TextView
                 android:id="@+id/details_view_location_zip"
                 android:text="@string/n_a"
                 android:textSize="12sp"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/details_view_location_title"
-                app:layout_constraintTop_toBottomOf="@id/details_view_location_city"/>
-            <TextView
+                app:layout_constraintTop_toBottomOf="@id/details_view_location_city"/-->
+            <!--TextView
                 android:id="@+id/details_view_location_country"
                 android:text="@string/n_a"
                 android:textSize="12sp"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/details_view_location_title"
-                app:layout_constraintTop_toBottomOf="@id/details_view_location_zip"/>
+                app:layout_constraintTop_toBottomOf="@id/details_view_location_zip"/-->
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.fragment.app.FragmentContainerView
@@ -383,7 +383,7 @@
             android:layout_height="200dip"
             app:layout_constraintTop_toTopOf="@id/details_view_location_group"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="@dimen/margin_small"
+            android:layout_marginEnd="100dp"
             android:layout_marginBottom="@dimen/margin_small"
             android:contentDescription="@string/view_map"
             map:liteMode="true"/>
