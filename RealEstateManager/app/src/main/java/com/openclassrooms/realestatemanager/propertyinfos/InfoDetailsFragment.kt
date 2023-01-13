@@ -10,6 +10,13 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.GoogleMapOptions
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.FragmentPropertyInfosBinding
 import com.openclassrooms.realestatemanager.editproperty.EditPropertyActivity
@@ -17,7 +24,9 @@ import com.openclassrooms.realestatemanager.model.DescriptionPictures
 import com.openclassrooms.realestatemanager.model.House
 import com.openclassrooms.realestatemanager.utils.Utils
 
-class InfoDetailsFragment : Fragment() {
+class InfoDetailsFragment : Fragment(), OnMapReadyCallback {
+
+    private lateinit var map: GoogleMap
 
     private lateinit var internalStorageInfoDetailsAdapter: InfoDetailsAdapter
 
@@ -49,6 +58,10 @@ class InfoDetailsFragment : Fragment() {
             isReadPermissionGranted = permissions[android.Manifest.permission.READ_EXTERNAL_STORAGE] ?: isReadPermissionGranted
             isWritePermissionGranted = permissions[android.Manifest.permission.WRITE_EXTERNAL_STORAGE] ?: isWritePermissionGranted
         }
+
+        // Get the map and register for the ready callback
+        val mapFragment = childFragmentManager.findFragmentById(R.id.details_view_map) as SupportMapFragment
+        mapFragment.getMapAsync(this)
 
         val args = this.arguments
         if (args != null) {
@@ -103,6 +116,25 @@ class InfoDetailsFragment : Fragment() {
         }
     }
 
+    override fun onMapReady(googleMap: GoogleMap) {
+        map = googleMap ?: return
+        if (houseIdEdit!=null){
+            addMarkers()
+            moveCamera()
+        }
+
+    }
+
+    private fun addMarkers() {
+        map.addMarker(
+            MarkerOptions().position(LatLng(houseIdEdit!!.detailLatitude,houseIdEdit!!.detailLongitude))
+        )
+    }
+
+    private fun moveCamera() {
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(houseIdEdit!!.detailLatitude,houseIdEdit!!.detailLongitude),13f))
+    }
+
     // Menu Toolbar
     @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -126,6 +158,7 @@ class InfoDetailsFragment : Fragment() {
     }
 
     // For recyclerview
+    @SuppressLint("NotifyDataSetChanged")
     private fun setupInternalStoragePicturesRecyclerView() = binding.detailViewCardPictures.apply {
         internalStorageInfoDetailsAdapter = InfoDetailsAdapter(listDescriptionPicture)
         adapter = internalStorageInfoDetailsAdapter

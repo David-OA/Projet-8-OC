@@ -50,6 +50,8 @@ data class House(
     @ColumnInfo(name = "details_sold") var detailSold: Boolean,
     @ColumnInfo(name = "details_sold_on") var detailSoldOn: String,
     @ColumnInfo(name = "details_manage_by") var detailManageBy: String,
+    @ColumnInfo(name = "details_latitude") var detailLatitude: Double,
+    @ColumnInfo(name = "details_longitude") var detailLongitude: Double,
     @ColumnInfo(name = "description_pictures") var descriptionPictures: List<DescriptionPictures>
 ):Parcelable
 

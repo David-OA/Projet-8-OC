@@ -13,7 +13,7 @@
 
     <!-- Add property-->
     <string name="type_dropdown_menu">Type dropdown menu</string>
-    <string name="price_dollar">Price dollar</string>
+    <string name="price_dollar">Price </string>
     <string name="surface_m2">Surface m2</string>
     <string name="bedrooms">Bedrooms</string>
     <string name="bathrooms">Bathrooms</string>
