@@ -85,7 +85,7 @@
 
     <!-- For Add Agent -->
     <string name="agent_picture">Agent_picture</string>
-    <string name="click_button_for_add_picture">Click_button_for_add_picture</string>
+    <string name="click_button_for_add_picture">Click button for add picture</string>
     <string name="first_name">First name</string>
     <string name="last_name">Last name</string>
     <string name="email">email</string>
@@ -125,6 +125,6 @@
     <!-- For property list item -->
     <string name="house_type_placeholder">house_type_placeholder</string>
     <string name="house_neighborhood">house_neighborhood</string>
-    <string name="sports_info_placeholder">sports_info_placeholder</string>
+    <string name="price_house">price house</string>
 
 </resources>

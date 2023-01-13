@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Real Estate Manager</string>
+
+    <!-- Strings used for fragments for navigation -->
+
+    <string name="architecte">Architecte</string>
+    <string name="price">Prix</string>
+    <string name="surface">Surface</string>
+    <string name="bath">Salle de bain</string>
+
+    <!-- Add property-->
+    <string name="type_dropdown_menu">Type dropdown menu</string>
+    <string name="price_dollar">Prix</string>
+    <string name="surface_m2">Surface m2</string>
+    <string name="bedrooms">Chambre</string>
+    <string name="description">Description</string>
+    <string name="address">Adresse</string>
+    <string name="neighbourhood">Ville</string>
+    <string name="on_market_since">En vente depuis</string>
+    <string name="sold_on">Vendu</string>
+    <string name="manage_by">Gerer par</string>
+    <string name="add_pictures">Ajouter une photo</string>
+
+    <!-- For menu -->
+    <string name="add_property">Ajouter une propriete</string>
+    <string name="add_agent">Ajouter un agent</string>
+    <string name="add_a_property_or_agent">Ajouter une propriete ou un agent</string>
+    <string name="edit">Editer</string>
+    <string name="search">Rechercher</string>
+
+    <!-- For Search-->
+    <string name="type">Type</string>
+    <string name="select_all">Tout selectionner</string>
+    <string name="flat">Appartement</string>
+    <string name="penthouse">Penthouse</string>
+    <string name="townhouse">Maison de ville</string>
+    <string name="house">Maison</string>
+    <string name="duplex">Duplex</string>
+    <string name="min_price">min prix</string>
+    <string name="max_price">max prix</string>
+    <string name="min_surface">min surface</string>
+    <string name="max_surface">max surface</string>
+    <string name="min_rooms">min pieces</string>
+    <string name="min_bedrooms">min chambres</string>
+    <string name="min_bathrooms">min salle de bain</string>
+    <string name="neighborhood_name">Nom de la ville</string>
+    <string name="extras">Suppléments</string>
+    <string name="has_pictures">A des photos</string>
+    <string name="posted_after">posté après</string>
+
+    <!-- Loan -->
+    <string name="amount">Montant du prêt</string>
+    <string name="interest_total_cost">Coût total des intérêts</string>
+    <string name="monthly_pay">Salaire mensuel</string>
+    <string name="loan_term_years">Durée du prêt (années)</string>
+    <string name="calculate">Calculer</string>
+
+    <string name="loan_error">Ce champ ne peut pas être vide</string>
+    <string name="loan_error_interest_value">Le taux d\'intérêt doit être compris entre 0 et 100</string>
+    <string name="loan_error_down_payment">L\'acompte ne peut être supérieur ou égal au montant du prêt</string>
+
+    <!-- LOAN TERM VALUES -->
+    <string-array name="loan_term_values">
+        <item>@string/loan_term_10</item>
+        <item>@string/loan_term_15</item>
+        <item>@string/loan_term_20</item>
+        <item>@string/loan_term_25</item>
+        <item>@string/loan_term_30</item>
+    </string-array>
+
+    <string name="loan_term_10">10</string>
+    <string name="loan_term_15">15</string>
+    <string name="loan_term_20">20</string>
+    <string name="loan_term_25">25</string>
+    <string name="loan_term_30">30</string>
+
+    <!-- For Add Agent -->
+    <string name="agent_picture">Photo de l\'agent</string>
+    <string name="click_button_for_add_picture">Cliquez sur le bouton pour ajouter une image</string>
+    <string name="first_name">Prénom</string>
+    <string name="last_name">Nom</string>
+    <string name="email">email</string>
+    <string name="phone_number">Numéros de téléphone</string>
+
+    <!-- Amenities -->
+    <string name="school">ecole</string>
+    <string name="shop">magasin</string>
+    <string name="buses">bus</string>
+    <string name="subway">métro</string>
+    <string name="park">parc</string>
+
+    <!-- Property info -->
+    <string name="media">Media</string>
+    <string name="n_a">n_a</string>
+    <string name="icon_surface">Icon_surface</string>
+    <string name="number_room_icon">Nombre de pieces icon</string>
+    <string name="number_of_rooms">Nombre de pieces</string>
+    <string name="number_bathroom_icon">Nombre de salle de bain icon</string>
+    <string name="number_of_bathrooms">Nombre de salle de bain</string>
+    <string name="bed_icon">chambre icon</string>
+    <string name="number_of_bedrooms">Nombre de chambres</string>
+    <string name="price_icon">prix_icon</string>
+    <string name="type_icon">type_icon</string>
+    <string name="near_icon">proche_icon</string>
+    <string name="amenity_icon">amenity_icon</string>
+    <string name="location_icon">localisation_icon</string>
+    <string name="location">localisation</string>
+    <string name="view_map">Carte</string>
+
+    <!-- For list agent dialog -->
+    <string name="rv_picture_icon">rv_photo_icon</string>
+    <string name="rv_foreground">rv_premier_plan</string>
+    <string name="rv_delete_button">rv_bouton_supprimer</string>
+
+    <!-- For property list item -->
+    <string name="house_type_placeholder">espace réservé au type de maison</string>
+    <string name="house_neighborhood">adresse de la maison</string>
+    <string name="list_fragment_label">Propriete</string>
+    <string name="info_fragment_label">Info propriete</string>
+    <string name="rooms">Pieces</string>
+    <string name="bathrooms">Salle de bain</string>
+    <string name="near_by">Proche de</string>
+    <string name="sold">Vendu</string>
+    <string name="is_available">Est disponible</string>
+    <string name="paiement">Acompte</string>
+    <string name="interest_rate">Taux d\'intérêt (%)</string>
+    <string name="playground">terrain de jeux</string>
+    <string name="price_house">prix du bien</string>
+</resources>

@@ -64,7 +64,7 @@
             android:ellipsize="end"
             android:padding="8dp"
             android:singleLine="true"
-            android:text="@string/sports_info_placeholder"
+            android:text="@string/price_house"
             android:textSize="@dimen/text_price"
             android:textColor="@color/colorAccent"
             app:layout_constraintEnd_toEndOf="parent"
