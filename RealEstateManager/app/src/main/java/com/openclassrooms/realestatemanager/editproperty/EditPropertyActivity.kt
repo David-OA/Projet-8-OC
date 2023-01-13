@@ -43,6 +43,7 @@ import com.openclassrooms.realestatemanager.model.DescriptionPictures
 import com.openclassrooms.realestatemanager.model.House
 import com.openclassrooms.realestatemanager.utils.ItemClickSupport
 import com.openclassrooms.realestatemanager.utils.TypeProperty
+import com.openclassrooms.realestatemanager.utils.Utils
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -425,7 +426,7 @@ class EditPropertyActivity: AppCompatActivity() {
                 textOnMarketSince,
                 switchSoldCheck,
                 textSoldOn,
-                textAgentAddHouse,getTheListOfDescriptionsPictures())
+                textAgentAddHouse,getLatDataForHouse(),getLongDataForHouse(),getTheListOfDescriptionsPictures())
 
             addHouseViewModel.update(house)
 
@@ -435,6 +436,14 @@ class EditPropertyActivity: AppCompatActivity() {
 
     private fun getTheListOfDescriptionsPictures(): List<DescriptionPictures> {
         return descriptionPictureList
+    }
+
+    private fun getLatDataForHouse(): Double {
+        return Utils.positionLatData().random()
+    }
+
+    private fun getLongDataForHouse(): Double {
+        return Utils.positionLongData().random()
     }
 
     private fun  returnToMainActivity() {

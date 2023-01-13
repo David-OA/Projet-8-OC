@@ -40,6 +40,7 @@ import com.openclassrooms.realestatemanager.model.DescriptionPictures
 import com.openclassrooms.realestatemanager.model.House
 import com.openclassrooms.realestatemanager.utils.ItemClickSupport
 import com.openclassrooms.realestatemanager.utils.TypeProperty
+import com.openclassrooms.realestatemanager.utils.Utils
 import com.openclassrooms.realestatemanager.utils.idGeneratedProperty
 import kotlinx.coroutines.launch
 import java.io.IOException
@@ -343,7 +344,7 @@ class AddPropertyActivity: AppCompatActivity() {
             textOnMarketSince,
             switchSoldCheck,
             textSoldOn,
-            textAgentAddHouse,getTheListOfDescriptionPictures())
+            textAgentAddHouse,getLatDataForHouse(),getLongDataForHouse(),getTheListOfDescriptionPictures())
 
         addHouseViewModel.insert(house)
 
@@ -397,6 +398,18 @@ class AddPropertyActivity: AppCompatActivity() {
 
     private fun showToastForAddHouse() {
         Toast.makeText(this, "La propiété à bien été ajouté", Toast.LENGTH_LONG).show()
+    }
+
+    private fun getLatDataForHouse(): Double {
+        val random = Random()
+        val positionLat = random.nextInt(Utils.positionLatData().size)
+        return Utils.positionLatData()[positionLat]
+    }
+
+    private fun getLongDataForHouse(): Double {
+        val random = Random()
+        val positionLng = random.nextInt(Utils.positionLongData().size)
+        return Utils.positionLatData()[positionLng]
     }
 
     // For managed request permissions
