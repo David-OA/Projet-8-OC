@@ -90,6 +90,7 @@
     <string name="last_name">Last name</string>
     <string name="email">email</string>
     <string name="phone_number">Phone number</string>
+    <string name="add_agent_error">This field can\'t be empty</string>
 
     <!-- Amenities -->
     <string name="school">school</string>
@@ -126,5 +127,7 @@
     <string name="house_type_placeholder">house_type_placeholder</string>
     <string name="house_neighborhood">house_neighborhood</string>
     <string name="price_house">price house</string>
+
+
 
 </resources>

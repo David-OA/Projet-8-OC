@@ -127,4 +127,5 @@
     <string name="interest_rate">Taux d\'intérêt (%)</string>
     <string name="playground">terrain de jeux</string>
     <string name="price_house">prix du bien</string>
+    <string name="add_agent_error">Ce champ ne peut pas être vide</string>
 </resources>
