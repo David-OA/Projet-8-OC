@@ -15,10 +15,7 @@ import android.text.InputType
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.PopupMenu
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.launch
@@ -35,10 +32,12 @@ import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.addagent.AddAgentViewModel
 import com.openclassrooms.realestatemanager.addproperty.AddHouseViewModel
 import com.openclassrooms.realestatemanager.addproperty.InternalStoragePhoto
+import com.openclassrooms.realestatemanager.addproperty.ListAgentSpinnerAdapter
 import com.openclassrooms.realestatemanager.addproperty.ListAgentsDialogView
 import com.openclassrooms.realestatemanager.databinding.ActivityAddPropertyBinding
 import com.openclassrooms.realestatemanager.injection.Injection
 import com.openclassrooms.realestatemanager.injection.ViewModelFactory
+import com.openclassrooms.realestatemanager.model.Agent
 import com.openclassrooms.realestatemanager.model.DescriptionPictures
 import com.openclassrooms.realestatemanager.model.House
 import com.openclassrooms.realestatemanager.utils.ItemClickSupport
@@ -114,6 +113,7 @@ class EditPropertyActivity: AppCompatActivity() {
         // For edit change
         getHouseType()
         getAgentInTheList()
+        getClickOnTheListAgent()
 
         setUpRecyclerviewPictures()
         clickOnTextViewForAddOrChangeDescription()
@@ -287,7 +287,7 @@ class EditPropertyActivity: AppCompatActivity() {
         binding.addPropertyViewSoldOn.setText(houseIdEdit.detailSoldOn)
 
         // Agent add property
-        binding.addPropertyViewDropdownAgent.setText(houseIdEdit.detailManageBy)
+        //binding.addPropertyViewDropdownAgent.setText(houseIdEdit.detailManageBy)
 
         //List of description
         lisDescriptionPicture = houseIdEdit.descriptionPictures
@@ -308,24 +308,31 @@ class EditPropertyActivity: AppCompatActivity() {
         }
     }
 
-    private fun getAgentInTheList() {
-        val clickForChoiceAgentInList = binding.addPropertyViewDropdownAgent
-        addAgentViewModel.getAllAgent.observe(this) {
-            clickForChoiceAgentInList.setOnClickListener{
-                val listAgent = addAgentViewModel.getAllAgent.value
-                val dialog = ListAgentsDialogView(listAgent!!)
-                dialog.show(supportFragmentManager, "tag test")
+    private val dropdownAddAgent by lazy { binding.addPropertyViewDropdownAgent }
+
+    // For get Agent
+    private fun  getAgentInTheList() {
+        addAgentViewModel.getAllAgent.observe(this){
+            val agent: List<Agent> = addAgentViewModel.getAllAgent.value!!
+
+            val customDropDownAdapter = ListAgentSpinnerAdapter(this,agent)
+            dropdownAddAgent.adapter = customDropDownAdapter
+        }
+    }
+
+    private fun getClickOnTheListAgent() {
+        dropdownAddAgent.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val agent = dropdownAddAgent.selectedItem as Agent
+                addAgentViewModel.getNameClicked(agent)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("Not yet implemented")
             }
         }
-        showAgentListSelected()
     }
-
-    private fun showAgentListSelected() {
-        val dropdownAgentAddHouse = binding.addPropertyViewDropdownAgent
-        val agentSelected = addAgentViewModel.getAgentClick.value.toString()
-        dropdownAgentAddHouse.setText(agentSelected)
-    }
-
 
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private fun addHouseInRoomDatabaseAfterChange() {

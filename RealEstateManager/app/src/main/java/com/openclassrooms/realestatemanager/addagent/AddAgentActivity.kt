@@ -100,15 +100,21 @@ class AddAgentActivity: AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
-            R.id.menu_add_agent -> checkNoErrorBeforeAddHouse()
+            R.id.menu_add_agent -> checkNoErrorBeforeAddAgent()
         }
         return super.onOptionsItemSelected(item)
     }
 
     // For check if all is not empty
-    private fun checkNoErrorBeforeAddHouse() {
-        if (textFirstNameTextView.isEmpty() || textLastNameTextView.isEmpty() || textEmailTextView.isEmpty() || textPhoneNumberTextView.isEmpty()) {
-            Toast.makeText(this,"You forgot to fill in a field",Toast.LENGTH_LONG).show()
+    private fun checkNoErrorBeforeAddAgent() {
+        if (binding.addAgentViewFirstname.text.isNullOrEmpty()) {
+            binding.addAgentViewFirstnameLayout.error = resources.getString(R.string.add_agent_error)
+        } else if (binding.addAgentViewLastname.text.isNullOrEmpty()) {
+            binding.addAgentViewLastnameLayout.error = resources.getString(R.string.add_agent_error)
+        } else if (binding.addAgentViewEmail.text.isNullOrEmpty()) {
+            binding.addAgentViewEmailLayout.error = resources.getString(R.string.add_agent_error)
+        } else if (binding.addAgentViewPhonenb.text.isNullOrEmpty()) {
+            binding.addAgentViewPhonenbLayout.error = resources.getString(R.string.add_agent_error)
         } else {
             addAgentInRoomDatabase()
         }
