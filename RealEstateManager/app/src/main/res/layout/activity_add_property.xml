@@ -169,7 +169,6 @@
                 android:layout_marginEnd="@dimen/margin_small"
                 app:layout_constraintTop_toBottomOf="@id/add_property_view_general_separator">
 
-
                 <TextView
                     android:id="@+id/add_property_view_nearby_textview"
                     android:layout_width="match_parent"
@@ -190,7 +189,6 @@
                     android:layout_marginBottom="@dimen/margin_small"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
-
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/add_property_view_description_inputlayout"
@@ -219,7 +217,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"/>
-
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/add_property_view_address_group"
@@ -303,6 +300,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_margin="@dimen/margin_small"
                     tools:ignore="UseSwitchCompatOrMaterialXml" />
+
                 <TextView
                     android:id="@+id/add_property_view_sold_text"
                     android:layout_width="wrap_content"
@@ -313,6 +311,7 @@
                     app:layout_constraintStart_toEndOf="@id/add_property_view_sold_switch"
                     android:layout_marginStart="@dimen/margin_small"
                     android:layout_marginEnd="@dimen/margin_big"/>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/add_property_view_soldon_inputlayout"
                     app:layout_constraintTop_toBottomOf="@id/add_property_view_since_inputlayout"
@@ -343,32 +342,20 @@
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"/>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/add_property_view_dropdown_agent_inputlayout"
-                app:layout_constraintTop_toBottomOf="@id/add_property_view_date_separator"
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/add_property_view_dropdown_agent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/manage_by"
-                android:layout_marginBottom="@dimen/margin_small"
+                android:layout_height="60dp"
                 android:layout_marginTop="@dimen/margin_small"
-                android:focusable="false"
-                android:layout_marginEnd="@dimen/margin_small"
-                android:layout_marginStart="@dimen/margin_small">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/add_property_view_dropdown_agent"
-                    style="@style/Widget.AppCompat.Spinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:focusable="false"
-                    android:inputType="none"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
+                android:hint="@string/manage_by"
+                android:spinnerMode="dialog"
+                app:layout_constraintTop_toBottomOf="@id/add_property_view_date_separator"
+                tools:ignore="LabelFor" />
 
             <include
                 layout="@layout/separator"
                 android:id="@+id/add_property_view_manage_separator"
-                app:layout_constraintTop_toBottomOf="@id/add_property_view_dropdown_agent_inputlayout"
+                app:layout_constraintTop_toBottomOf="@id/add_property_view_dropdown_agent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_height="wrap_content"
