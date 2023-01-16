@@ -4,8 +4,8 @@
 
     <item
         android:id="@+id/menu_start_search"
-        android:icon="@drawable/bed_icon"
+        android:icon="@drawable/check_icon"
         app:showAsAction="always"
-        android:title="Start Search result"/>
+        android:title="@string/start_search_result"/>
 
 </menu>

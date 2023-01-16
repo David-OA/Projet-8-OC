@@ -3,10 +3,10 @@
 
     <item
         android:id="@+id/add_by_camera"
-        android:title="Use camera"/>
+        android:title="@string/use_camera"/>
 
     <item
         android:id="@+id/add_by_mediastore"
-        android:title="Use Galerie"/>
+        android:title="@string/use_galerie"/>
 
 </menu>

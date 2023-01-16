@@ -26,6 +26,7 @@
     <string name="sold_on">Sold on</string>
     <string name="manage_by">Manage by</string>
     <string name="add_pictures">Add pictures</string>
+    <string name="add_proprety_error">This field can\'t be empty</string>
 
     <!-- For menu -->
     <string name="add_property">Add Property</string>
@@ -33,6 +34,13 @@
     <string name="add_a_property_or_agent">Add a property or agent</string>
     <string name="edit">Edit</string>
     <string name="search">Search</string>
+    <string name="start_search_result">Start Search result</string>
+    <string name="currency">currency</string>
+    <string name="validate_menu">validate_menu</string>
+    <string name="use_camera">Use camera</string>
+    <string name="use_galerie">Use Galerie</string>
+    <string name="money">money</string>
+    <string name="loan">Loan</string>
 
     <!-- For Search-->
     <string name="type">Type</string>
@@ -127,7 +135,5 @@
     <string name="house_type_placeholder">house_type_placeholder</string>
     <string name="house_neighborhood">house_neighborhood</string>
     <string name="price_house">price house</string>
-
-
 
 </resources>

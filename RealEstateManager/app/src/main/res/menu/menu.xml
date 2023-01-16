@@ -27,7 +27,7 @@
         android:id="@+id/money"
         android:icon="@drawable/dollar_icon"
         app:showAsAction="always"
-        android:title="money"/>
+        android:title="@string/money"/>
 
     <item
         android:id="@+id/edit"
@@ -45,24 +45,24 @@
         android:id="@+id/menu_add_property"
         android:icon="@drawable/check_icon"
         app:showAsAction="always"
-        android:title="Add property"/>
+        android:title="@string/add_property"/>
 
     <item
         android:id="@+id/menu_start_search"
         android:icon="@drawable/check_icon"
         app:showAsAction="always"
-        android:title="Start Search result"/>
+        android:title="@string/start_search_result"/>
 
     <item
         android:id="@+id/menu_add_agent"
         android:icon="@drawable/check_icon"
         app:showAsAction="always"
-        android:title="Add Agent"/>
+        android:title="@string/add_agent"/>
 
     <item
         android:id="@+id/menu_loan"
         android:icon="@drawable/icon_loan"
         app:showAsAction="always"
-        android:title="Loan"/>
+        android:title="@string/loan"/>
 
 </menu>

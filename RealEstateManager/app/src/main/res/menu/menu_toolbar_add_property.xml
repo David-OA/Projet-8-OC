@@ -6,6 +6,6 @@
         android:id="@+id/menu_add_property"
         android:icon="@drawable/check_icon"
         app:showAsAction="always"
-        android:title="Add property"/>
+        android:title="@string/add_property"/>
 
 </menu>

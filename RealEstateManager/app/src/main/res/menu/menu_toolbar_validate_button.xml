@@ -6,10 +6,10 @@
         android:id="@+id/menu_toolbar_currency"
         android:icon="@drawable/euro_icon"
         app:showAsAction="ifRoom"
-        android:title="currency"/>
+        android:title="@string/currency"/>
     <item
         android:id="@+id/menu_validate_activity_check"
         android:icon="@drawable/check_icon"
         app:showAsAction="always"
-        android:title="validate_menu"/>
+        android:title="@string/validate_menu"/>
 </menu>

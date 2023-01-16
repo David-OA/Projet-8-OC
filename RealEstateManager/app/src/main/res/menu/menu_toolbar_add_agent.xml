@@ -6,6 +6,6 @@
         android:id="@+id/menu_add_agent"
         android:icon="@drawable/check_icon"
         app:showAsAction="always"
-        android:title="Add agent"/>
+        android:title="@string/add_agent"/>
 
 </menu>
