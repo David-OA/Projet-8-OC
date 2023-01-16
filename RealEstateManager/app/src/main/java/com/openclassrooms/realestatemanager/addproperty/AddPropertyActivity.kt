@@ -90,6 +90,8 @@ class AddPropertyActivity: AppCompatActivity() {
 
     private val dropdownTypeHouse by lazy { binding.addPropertyViewDropdownType }
 
+    private val dropdownAddAgent by lazy { binding.addPropertyViewDropdownAgent }
+
     // RecyclerView
     private lateinit var listPictureDescriptionAdapter: ListPictureDescriptionAdapter
     private val photoList : MutableList<InternalStoragePhoto> = mutableListOf()
@@ -119,7 +121,6 @@ class AddPropertyActivity: AppCompatActivity() {
         getClickOnTheListAgent()
         configureToolbar()
         choiceHowTakeAPicture()
-        //onClickForAddAgent()
 
         clickOnTextViewForAddOrChangeDescription()
     }
@@ -208,8 +209,8 @@ class AddPropertyActivity: AppCompatActivity() {
 
     // ------ Toolbar ------
     private fun configureToolbar() {
-        val addPropertyActivitytoolbar: Toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(addPropertyActivitytoolbar)
+        val addPropertyActivityToolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(addPropertyActivityToolbar)
         title = "Add a Property"
     }
 
@@ -232,16 +233,27 @@ class AddPropertyActivity: AppCompatActivity() {
     // For add a property
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private fun checkNoErrorBeforeAddHouse() {
-        if (binding.addPropertyViewPrice.text.toString().isEmpty() || binding.addPropertyViewSurface.text.toString().isEmpty()
-            || binding.addPropertyViewRoom.text.toString().isEmpty() || binding.addPropertyViewBathroom.text.toString().isEmpty()
-            || binding.addPropertyViewBedroom.text.toString().isEmpty() || binding.addPropertyViewDescription.text.toString().isEmpty()
-            || binding.addPropertyViewAddress.text.toString().isEmpty() || binding.addPropertyViewNeighbourhood.text.toString().isEmpty()
-            || binding.addPropertyViewSince.text.toString().isEmpty()) {
-            Toast.makeText(this,"You forgot to fill in a field",Toast.LENGTH_LONG).show()
+        if (binding.addPropertyViewPrice.text.isNullOrEmpty()) {
+            binding.addPropertyViewPriceLayout.error = resources.getString(R.string.add_proprety_error)
+        } else if (binding.addPropertyViewSurface.text.isNullOrEmpty()) {
+            binding.addPropertyViewSurfaceLayout.error = resources.getString(R.string.add_proprety_error)
+        } else if (binding.addPropertyViewRoom.text.isNullOrEmpty()) {
+            binding.addPropertyViewRoomLayout.error = resources.getString(R.string.add_proprety_error)
+        } else if (binding.addPropertyViewBathroom.text.isNullOrEmpty()) {
+            binding.addPropertyViewBathroomLayout.error = resources.getString(R.string.add_proprety_error)
+        } else if (binding.addPropertyViewBedroom.text.isNullOrEmpty()) {
+            binding.addPropertyViewBedroomLayout.error = resources.getString(R.string.add_proprety_error)
+        } else if (binding.addPropertyViewDescription.text.isNullOrEmpty()) {
+            binding.addPropertyViewDescriptionInputlayout.error = resources.getString(R.string.add_proprety_error)
+        } else if (binding.addPropertyViewAddress.text.isNullOrEmpty()) {
+            binding.addPropertyViewAddressInputlayout.error = resources.getString(R.string.add_proprety_error)
+        } else if (binding.addPropertyViewNeighbourhood.text.isNullOrEmpty()) {
+            binding.addPropertyViewNeighbourhoodInputlayout.error = resources.getString(R.string.add_proprety_error)
+        } else if (binding.addPropertyViewSince.text.isNullOrEmpty()) {
+            binding.addPropertyViewSinceInputlayout.error = resources.getString(R.string.add_proprety_error)
         } else {
             addHouseInRoomDatabase()
         }
-
     }
 
     @SuppressLint("UseSwitchCompatOrMaterialCode")
@@ -365,15 +377,21 @@ class AddPropertyActivity: AppCompatActivity() {
         }
     }
 
-    private val dropdownAddAgent by lazy { binding.addPropertyViewDropdownAgent }
-
     // For get Agent
     private fun  getAgentInTheList() {
         addAgentViewModel.getAllAgent.observe(this){
             val agent: List<Agent> = addAgentViewModel.getAllAgent.value!!
 
-            val customDropDownAdapter = ListAgentSpinnerAdapter(this,agent)
+            // It's set default value for spinner
+            val agentStart =  Agent("","Select","a agent","","","")
+
+            val newListAgent = mutableListOf<Agent>()
+            newListAgent.add(0,agentStart)
+            newListAgent.addAll(agent)
+
+            val customDropDownAdapter = ListAgentSpinnerAdapter(this,newListAgent)
             dropdownAddAgent.adapter = customDropDownAdapter
+
         }
     }
 
@@ -413,7 +431,7 @@ class AddPropertyActivity: AppCompatActivity() {
     private fun getLongDataForHouse(): Double {
         val random = Random()
         val positionLng = random.nextInt(Utils.positionLongData().size)
-        return Utils.positionLatData()[positionLng]
+        return Utils.positionLongData()[positionLng]
     }
 
     // For managed request permissions

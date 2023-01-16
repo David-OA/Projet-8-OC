@@ -33,7 +33,6 @@ import com.openclassrooms.realestatemanager.addagent.AddAgentViewModel
 import com.openclassrooms.realestatemanager.addproperty.AddHouseViewModel
 import com.openclassrooms.realestatemanager.addproperty.InternalStoragePhoto
 import com.openclassrooms.realestatemanager.addproperty.ListAgentSpinnerAdapter
-import com.openclassrooms.realestatemanager.addproperty.ListAgentsDialogView
 import com.openclassrooms.realestatemanager.databinding.ActivityAddPropertyBinding
 import com.openclassrooms.realestatemanager.injection.Injection
 import com.openclassrooms.realestatemanager.injection.ViewModelFactory
@@ -87,6 +86,8 @@ class EditPropertyActivity: AppCompatActivity() {
     }
 
     private val dropdownTypeHouse by lazy { binding.addPropertyViewDropdownType }
+
+    private val dropdownAddAgent by lazy { binding.addPropertyViewDropdownAgent }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -287,12 +288,14 @@ class EditPropertyActivity: AppCompatActivity() {
         binding.addPropertyViewSoldOn.setText(houseIdEdit.detailSoldOn)
 
         // Agent add property
-        //binding.addPropertyViewDropdownAgent.setText(houseIdEdit.detailManageBy)
+        compareValue = houseIdEdit.detailManageBy
 
         //List of description
         lisDescriptionPicture = houseIdEdit.descriptionPictures
 
     }
+
+    private var compareValue: String = ""
 
     // For Save the data after change
     private fun getHouseType() {
@@ -308,15 +311,18 @@ class EditPropertyActivity: AppCompatActivity() {
         }
     }
 
-    private val dropdownAddAgent by lazy { binding.addPropertyViewDropdownAgent }
-
     // For get Agent
     private fun  getAgentInTheList() {
         addAgentViewModel.getAllAgent.observe(this){
             val agent: List<Agent> = addAgentViewModel.getAllAgent.value!!
 
             val customDropDownAdapter = ListAgentSpinnerAdapter(this,agent)
+
             dropdownAddAgent.adapter = customDropDownAdapter
+
+            val spinnerPosition: Int =  customDropDownAdapter.getPosition(compareValue)
+
+            dropdownAddAgent.setSelection(spinnerPosition)
         }
     }
 
@@ -329,7 +335,7 @@ class EditPropertyActivity: AppCompatActivity() {
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                TODO("Not yet implemented")
+
             }
         }
     }
