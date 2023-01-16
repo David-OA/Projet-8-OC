@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
+import androidx.appcompat.widget.Toolbar
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.ActivityLoanBinding
 import kotlin.math.pow
@@ -19,7 +20,16 @@ class LoanActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        configureToolbar()
+
         setOnClickListener()
+    }
+
+    // ------ Toolbar ------
+    private fun configureToolbar() {
+        val mainActivityToolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(mainActivityToolbar)
+        title = "Simulate your loan"
     }
 
     private fun setOnClickListener(){
