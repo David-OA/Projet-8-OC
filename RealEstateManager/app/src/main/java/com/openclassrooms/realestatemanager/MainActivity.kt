@@ -46,8 +46,8 @@ class MainActivity : AppCompatActivity(){
 
     // ------ Toolbar ------
     private fun configureToolbar() {
-        val mainActivitytoolbar: Toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(mainActivitytoolbar)
+        val mainActivityToolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(mainActivityToolbar)
     }
 
     // Menu Toolbar
