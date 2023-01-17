@@ -24,14 +24,12 @@ class MainActivity : AppCompatActivity(){
     private var textViewMain: TextView? = null
     private var textViewQuantity: TextView? = null
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         // Toolbar
         configureToolbar()
-
 
         //textViewMain = findViewById(R.id.activity_main_activity_text_view_main)
         //textViewQuantity = findViewById(R.id.activity_main_activity_text_view_quantity)
@@ -91,11 +89,12 @@ class MainActivity : AppCompatActivity(){
                 apply()
             }
         }
-        // For refresh the screen with new data
+        //For refresh the screen with new data
         finish()
-        overridePendingTransition(0, 0);
+        overridePendingTransition(0, 0)
         startActivity(intent)
-        overridePendingTransition(0, 0);
+        overridePendingTransition(0, 0)
+
     }
 
     // For add options
