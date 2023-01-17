@@ -2,19 +2,13 @@ package com.openclassrooms.realestatemanager.propertyinfos
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.icu.number.NumberFormatter.with
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.addproperty.InternalStoragePhoto
-import com.openclassrooms.realestatemanager.databinding.PictureRecyclerviewItemBinding
+import com.openclassrooms.realestatemanager.databinding.ListPictureInfoItemBinding
 import com.openclassrooms.realestatemanager.model.DescriptionPictures
-import com.squareup.picasso.Picasso
-import java.io.File
 
 class InfoDetailsAdapter(
     private val picturesList: List<DescriptionPictures>
@@ -35,7 +29,7 @@ class InfoDetailsAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PictureViewHolder {
         context = parent.context
-        return PictureViewHolder(PictureRecyclerviewItemBinding.inflate(LayoutInflater.from(parent.context), parent,false))
+        return PictureViewHolder(ListPictureInfoItemBinding.inflate(LayoutInflater.from(parent.context), parent,false))
     }
 
     override fun onBindViewHolder(holder: PictureViewHolder, position: Int) {
@@ -43,7 +37,7 @@ class InfoDetailsAdapter(
         holder.bind()
     }
 
-    inner class PictureViewHolder(val binding: PictureRecyclerviewItemBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class PictureViewHolder(val binding: ListPictureInfoItemBinding): RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SdCardPath")
         fun bind() {
