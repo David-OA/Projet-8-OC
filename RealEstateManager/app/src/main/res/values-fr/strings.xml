@@ -130,12 +130,11 @@
     <string name="add_agent_error">Ce champ ne peut pas être vide</string>
     <string name="add_proprety_error">Ce champ ne peut pas être vide</string>
     <string name="start_search_result">Démarrer une recherche</string>
-    <string name="start_search_result">D</string>
     <string name="currency">Devise</string>
-    <string name="currency">D</string>
     <string name="validate_menu">Valider</string>
     <string name="use_camera">tiliser l\'appareil photo</string>
     <string name="use_galerie">Utiliser le stockage de l\'appareil</string>
     <string name="money">argent</string>
     <string name="loan">emprunt</string>
+    <string name="sold_picture">photo_vente</string>
 </resources>

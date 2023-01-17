@@ -135,5 +135,6 @@
     <string name="house_type_placeholder">house_type_placeholder</string>
     <string name="house_neighborhood">house_neighborhood</string>
     <string name="price_house">price house</string>
+    <string name="sold_picture">sold_picture</string>
 
 </resources>

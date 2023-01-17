@@ -2,6 +2,7 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/list_property_item_background"
@@ -10,16 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <!--ImageView
-            android:id="@+id/houseImage"
-            android:layout_width="@dimen/size_list_item"
-            android:layout_height="@dimen/size_list_item"
-            android:contentDescription="@null"
-            android:scaleType="centerCrop"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/home_icon"/-->
+        
         <com.openclassrooms.realestatemanager.propertyinfos.ImageViewWithLabel
             android:id="@+id/custom_view_with_label"
             android:layout_height="@dimen/size_list_item"
@@ -71,6 +63,15 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/custom_view_with_label"
             app:layout_constraintTop_toBottomOf="@+id/house_neighborhood" />
+
+        <ImageView
+            android:id="@+id/house_sold"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/house_type"
+            app:layout_constraintTop_toBottomOf="@+id/house_type"
+            android:contentDescription="@string/sold_picture" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

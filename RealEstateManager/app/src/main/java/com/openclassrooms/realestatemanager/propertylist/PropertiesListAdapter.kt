@@ -31,6 +31,7 @@ import com.openclassrooms.realestatemanager.addproperty.InternalStoragePhoto
 import com.openclassrooms.realestatemanager.databinding.PropertyListItemBinding
 import com.openclassrooms.realestatemanager.model.House
 import com.openclassrooms.realestatemanager.utils.Utils
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.*
 import java.util.*
 
@@ -127,6 +128,13 @@ class PropertiesListAdapter : ListAdapter<House, PropertiesListAdapter.PropertyV
 
             } else {
                 binding.customViewWithLabel.setPlaceHolderCustomViewProperties()
+            }
+
+            // For sold property
+            if (house.detailSold) {
+                Picasso.get()
+                    .load(R.drawable.sold)
+                    .into(binding.houseSold)
             }
 
             // For background color selected
