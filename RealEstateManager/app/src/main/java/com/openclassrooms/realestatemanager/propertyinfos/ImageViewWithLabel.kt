@@ -20,7 +20,6 @@ class ImageViewWithLabel (
     private var descriptionView: TextView
     private var imageView: ImageView
 
-
     init {
         val customView = LayoutInflater
             .from(context).inflate(R.layout.image_view_with_label, this, false)
