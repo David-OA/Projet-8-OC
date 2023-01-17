@@ -93,6 +93,7 @@
                 style="@style/SmallTextREM"
                 android:layout_height="wrap_content"
                 android:layout_width="0dp"
+                android:text="@string/n_a"
                 app:layout_constraintStart_toStartOf="@id/details_view_surface_title"
                 app:layout_constraintEnd_toEndOf="@id/details_view_surface_title"
                 app:layout_constraintTop_toBottomOf="@id/details_view_surface_title"/>
@@ -102,6 +103,7 @@
                 android:layout_width="0dp"
                 style="@style/IconDetailREM"
                 android:src="@drawable/home_icon"
+                android:layout_marginTop="5dp"
                 app:layout_constraintTop_toBottomOf="@id/details_view_surface"
                 app:layout_constraintStart_toStartOf="@id/details_view_surface_icon"
                 android:contentDescription="@string/number_room_icon" />
@@ -131,6 +133,7 @@
                 android:layout_width="0dp"
                 style="@style/IconDetailREM"
                 android:src="@drawable/bathroom_icon"
+                android:layout_marginTop="5dp"
                 app:layout_constraintTop_toBottomOf="@id/details_view_rooms"
                 app:layout_constraintStart_toStartOf="@id/details_view_surface_icon"
                 android:contentDescription="@string/number_bathroom_icon" />
@@ -160,6 +163,7 @@
                 android:layout_width="0dp"
                 style="@style/IconDetailREM"
                 android:src="@drawable/bed_icon"
+                android:layout_marginTop="5dp"
                 app:layout_constraintTop_toBottomOf="@id/details_view_bath"
                 app:layout_constraintStart_toStartOf="@id/details_view_surface_icon"
                 android:contentDescription="@string/bed_icon" />
@@ -174,6 +178,7 @@
                 app:layout_constraintTop_toTopOf="@id/details_view_bed_icon"
                 app:layout_constraintBottom_toBottomOf="@id/details_view_bed_icon"
                 app:layout_constraintEnd_toEndOf="parent"/>
+
             <TextView
                 android:id="@+id/details_view_bed"
                 android:text="@string/n_a"
@@ -226,6 +231,7 @@
                 android:layout_width="0dp"
                 style="@style/IconDetailREM"
                 android:src="@drawable/type_icon"
+                android:layout_marginTop="5dp"
                 app:layout_constraintStart_toStartOf="@id/detail_view_price_icon"
                 app:layout_constraintTop_toBottomOf="@id/detail_view_price"
                 android:contentDescription="@string/type_icon" />
@@ -248,14 +254,17 @@
                 app:layout_constraintStart_toStartOf="@id/detail_view_type_title"
                 app:layout_constraintEnd_toEndOf="@id/detail_view_type_title"
                 app:layout_constraintTop_toBottomOf="@id/detail_view_type_title"/>
+
             <ImageView
                 android:id="@+id/detail_view_near_icon"
                 android:layout_width="0dp"
                 style="@style/IconDetailREM"
                 android:src="@drawable/near_icon"
+                android:layout_marginTop="5dp"
                 app:layout_constraintTop_toBottomOf="@id/detail_view_type"
                 app:layout_constraintStart_toStartOf="@id/detail_view_price_icon"
                 android:contentDescription="@string/near_icon" />
+
             <TextView
                 android:id="@+id/detail_view_near_title"
                 android:layout_width="0dp"
