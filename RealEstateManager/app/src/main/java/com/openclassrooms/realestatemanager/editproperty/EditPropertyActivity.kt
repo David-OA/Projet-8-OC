@@ -63,6 +63,11 @@ class EditPropertyActivity: AppCompatActivity() {
 
     private lateinit var houseIdUpdate: String
 
+    private var compareValue: String = ""
+
+    private var houseLat: Double = 0.0
+    private var houseLng: Double = 0.0
+
     private var isReadPermissionGranted = false
     private var isWritePermissionGranted = false
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
@@ -72,10 +77,10 @@ class EditPropertyActivity: AppCompatActivity() {
     // RecyclerView
     private lateinit var listPictureDescriptionEditAdapter: ListPictureDescriptionEditAdapter
     private val photoList : MutableList<InternalStoragePhoto> = mutableListOf()
-    private val descriptionPictureList: MutableList<DescriptionPictures> = mutableListOf()
+    private var descriptionPictureList: MutableList<DescriptionPictures> = mutableListOf()
 
     // For show description in recyclerView
-    private var lisDescriptionPicture: List<DescriptionPictures> = listOf()
+    //private lateinit var lisDescriptionPicture: List<DescriptionPictures>
 
     private val addHouseViewModel: AddHouseViewModel by viewModels {
         ViewModelFactory(Injection.providesHouseRepository(this), Injection.providesAgentRepository(this))
@@ -125,6 +130,9 @@ class EditPropertyActivity: AppCompatActivity() {
 
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // For Add a picture
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private fun choiceHowTakeAPicture() {
         binding.addPropertyViewAddPictureButton.setOnClickListener {
             showPopup(binding.addPropertyViewAddPictureButton)
@@ -183,6 +191,8 @@ class EditPropertyActivity: AppCompatActivity() {
         }
     }
 
+
+
     private fun showPopup(view: View) {
         val popup = PopupMenu(this, view)
         popup.inflate(R.menu.menu_popup_choice_add_picture)
@@ -222,6 +232,10 @@ class EditPropertyActivity: AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // For Data
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private fun getDataPropertySelectedToEdit() {
         val houseIdEdit = intent.extras?.getParcelable<House>("PropertyInFragment")
@@ -291,11 +305,13 @@ class EditPropertyActivity: AppCompatActivity() {
         compareValue = houseIdEdit.detailManageBy
 
         //List of description
-        lisDescriptionPicture = houseIdEdit.descriptionPictures
+        descriptionPictureList = houseIdEdit.descriptionPictures as MutableList<DescriptionPictures>
+
+        // For lat and lng
+        houseLat = houseIdEdit.detailLatitude
+        houseLng = houseIdEdit.detailLongitude
 
     }
-
-    private var compareValue: String = ""
 
     // For Save the data after change
     private fun getHouseType() {
@@ -439,7 +455,7 @@ class EditPropertyActivity: AppCompatActivity() {
                 textOnMarketSince,
                 switchSoldCheck,
                 textSoldOn,
-                textAgentAddHouse,getLatDataForHouse(),getLongDataForHouse(),getTheListOfDescriptionsPictures())
+                textAgentAddHouse,houseLat,houseLng,getTheListOfDescriptionsPictures())
 
             addHouseViewModel.update(house)
 
@@ -449,14 +465,6 @@ class EditPropertyActivity: AppCompatActivity() {
 
     private fun getTheListOfDescriptionsPictures(): List<DescriptionPictures> {
         return descriptionPictureList
-    }
-
-    private fun getLatDataForHouse(): Double {
-        return Utils.positionLatData().random()
-    }
-
-    private fun getLongDataForHouse(): Double {
-        return Utils.positionLongData().random()
     }
 
     private fun  returnToMainActivity() {
@@ -532,6 +540,8 @@ class EditPropertyActivity: AppCompatActivity() {
             files?.filter { it.canRead() && it.isFile && it.name.endsWith(".jpg") && it.name.startsWith(houseIdUpdate) }?.map {
                 val bytes = it.readBytes()
                 val bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                //val descriptionFromList = lisDescriptionPicture.get(0).description
+
                 InternalStoragePhoto(it.name,bmp,"")
             } ?: listOf()
         }
@@ -558,13 +568,14 @@ class EditPropertyActivity: AppCompatActivity() {
 
     @SuppressLint("NotifyDataSetChanged")
     fun addPicturesDescription(position: Int, description:String, houseId: String, picturesId: String) {
-        if (descriptionPictureList.getOrNull(position) == null) {
-            descriptionPictureList.add(DescriptionPictures(description,houseId, picturesId))
+        if(descriptionPictureList.getOrNull(position) == null) {
+            descriptionPictureList.add(DescriptionPictures(description, houseId, picturesId))
         } else {
-            descriptionPictureList[position] = DescriptionPictures(description,houseId, picturesId)
+            descriptionPictureList[position] = DescriptionPictures(description, houseId, picturesId)
         }
     }
 
+    // For add or change description
     private fun showDialogForAddDescription(position: Int) {
         val builder: AlertDialog.Builder = AlertDialog.Builder(context)
         builder.setTitle("Description")
@@ -578,7 +589,8 @@ class EditPropertyActivity: AppCompatActivity() {
             val descriptionAlertDialog = input.text.toString()
             val elementClick = photoList.getOrNull(position)
             if (elementClick != null) {
-                photoList[position] = elementClick.copy(description = descriptionAlertDialog)
+                //photoList[position] = elementClick.copy(description = descriptionAlertDialog)
+                elementClick.description = descriptionAlertDialog
             }
             setUpRecyclerviewPictures()
             val id = elementClick?.name?.substringAfter(".",".jpg")
