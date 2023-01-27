@@ -1,7 +1,7 @@
 package com.openclassrooms.realestatemanager.injection
 
 import android.content.Context
-import com.openclassrooms.realestatemanager.data.HouseRoomDatabase
+import com.openclassrooms.realestatemanager.data.database.HouseRoomDatabase
 import com.openclassrooms.realestatemanager.data.repository.AgentRepository
 import com.openclassrooms.realestatemanager.data.repository.HouseRepository
 

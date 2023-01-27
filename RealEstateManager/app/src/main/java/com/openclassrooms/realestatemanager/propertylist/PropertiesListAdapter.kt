@@ -18,7 +18,6 @@ package com.openclassrooms.realestatemanager.propertylist
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -27,7 +26,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.realestatemanager.R
-import com.openclassrooms.realestatemanager.addproperty.InternalStoragePhoto
 import com.openclassrooms.realestatemanager.databinding.PropertyListItemBinding
 import com.openclassrooms.realestatemanager.model.House
 import com.openclassrooms.realestatemanager.utils.Utils
@@ -80,16 +78,9 @@ class PropertiesListAdapter : ListAdapter<House, PropertiesListAdapter.PropertyV
     //                              ViewHolder Parts
     /////////////////////////////////////////////////////////////////////////////////////////////////
     class PropertyViewHolder(private var binding: PropertyListItemBinding) :
-        RecyclerView.ViewHolder(binding.root) /*CoroutineScope */{
-
-        private lateinit var houseIdList: String
+        RecyclerView.ViewHolder(binding.root) {
 
         private lateinit var context: Context
-
-        //private var job: Job = Job()
-
-        /*override val coroutineContext: CoroutineContext
-            get() = Dispatchers.Main + job*/
 
         @SuppressLint("SetTextI18n")
         fun bind(house: House, context: Context, position: Int, itemSelectedPosition: Int) {
@@ -101,24 +92,13 @@ class PropertiesListAdapter : ListAdapter<House, PropertiesListAdapter.PropertyV
 
             // For price and check if euros or dollars selected
             val sharedPref = context.getSharedPreferences("CHANGE_CURRENCY", Context.MODE_PRIVATE)
-            val currencyValue = sharedPref.getString("CHANGE_CURRENCY","")
+            val currencyValue = sharedPref.getString("CHANGE_CURRENCY","currencyEuros")
 
             if (currencyValue == "currencyDollars"){
                 binding.housePrice.text = "$ " + Utils.numberFormat(Utils.convertEuroToDollar(house.detailViewPrice.toInt()))
             } else if (currencyValue == "currencyEuros") {
                 binding.housePrice.text = Utils.numberFormat(house.detailViewPrice.toInt()) + " €"
             }
-
-            houseIdList = house.houseId
-
-            /*launch {
-                val photo = loadPhotosFromInternalStorage()
-                if (photo.isNotEmpty()) {
-                    binding.houseImage.setImageBitmap(photo.first().bmp)
-                } else {
-                    binding.houseImage.setImageResource(R.drawable.home_icon)
-                }
-            }*/
 
             if (house.descriptionPictures.isNotEmpty()) {
                 val listPictures = house.descriptionPictures[0]
@@ -143,7 +123,7 @@ class PropertiesListAdapter : ListAdapter<House, PropertiesListAdapter.PropertyV
             } else {
                 configureCardToNormalState()
             }
-        }
+    }
 
         private fun configureCardToNormalState() {
             binding.root.setBackgroundColor(Color.WHITE)
@@ -153,19 +133,6 @@ class PropertiesListAdapter : ListAdapter<House, PropertiesListAdapter.PropertyV
         private fun configureCardToSelectedState() {
             binding.root.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent))
             binding.housePrice.setTextColor(ContextCompat.getColor(context, R.color.colorTextAccent))
-        }
-
-        // For load pictures
-        private suspend fun loadPhotosFromInternalStorage(): List<InternalStoragePhoto> {
-            return withContext(Dispatchers.IO) {
-                val files = context.filesDir?.listFiles()
-
-                files?.filter { it.canRead() && it.isFile && it.name.endsWith(".jpg") && it.name.startsWith(houseIdList) }?.map {
-                    val bytes = it.readBytes()
-                    val bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-                    InternalStoragePhoto(it.name,bmp,"")
-                } ?: listOf()
-            }
         }
 
     }

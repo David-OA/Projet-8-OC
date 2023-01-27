@@ -24,6 +24,8 @@ class MainActivity : AppCompatActivity(){
     private var textViewMain: TextView? = null
     private var textViewQuantity: TextView? = null
 
+    private lateinit var sharedPref: SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -71,8 +73,6 @@ class MainActivity : AppCompatActivity(){
         }
         return super.onOptionsItemSelected(item)
     }
-
-    private lateinit var sharedPref: SharedPreferences
 
     private fun changeCurrency() {
         val currencyValue = sharedPref.getString("CHANGE_CURRENCY","currencyEuros")

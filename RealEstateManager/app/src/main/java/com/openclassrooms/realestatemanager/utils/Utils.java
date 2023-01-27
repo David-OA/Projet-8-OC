@@ -60,7 +60,6 @@ public class Utils {
      */
     public static Boolean isInternetAvailable(Context context){
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        //return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();

@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.GoogleMapOptions
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
@@ -26,7 +25,7 @@ import com.openclassrooms.realestatemanager.utils.Utils
 
 class InfoDetailsFragment : Fragment(), OnMapReadyCallback {
 
-    private lateinit var map: GoogleMap
+    private var map: GoogleMap? = null
 
     private lateinit var internalStorageInfoDetailsAdapter: InfoDetailsAdapter
 
@@ -59,10 +58,7 @@ class InfoDetailsFragment : Fragment(), OnMapReadyCallback {
             isWritePermissionGranted = permissions[android.Manifest.permission.WRITE_EXTERNAL_STORAGE] ?: isWritePermissionGranted
         }
 
-        // Get the map and register for the ready callback
-        val mapFragment = childFragmentManager.findFragmentById(R.id.details_view_map) as SupportMapFragment
-        mapFragment.getMapAsync(this)
-
+        // Get data from click on item recyclerview list properties
         val args = this.arguments
         if (args != null) {
             val houseId = args.getParcelable<House>("houseClicked") as House
@@ -109,31 +105,22 @@ class InfoDetailsFragment : Fragment(), OnMapReadyCallback {
             binding.detailsViewLocationCity.text = houseId.detailViewNearTitle
             binding.detailsViewLocationStreet.text = houseId.detailsAddress
 
+            setUpMarker()
+
         }
 
+        configureMap()
+
+        // For the recyclerview
         if (houseIdEdit != null) {
             setupInternalStoragePicturesRecyclerView()
         }
+
     }
 
-    // For map View
-    override fun onMapReady(googleMap: GoogleMap) {
-        map = googleMap ?: return
-        if (houseIdEdit!=null){
-            addMarkers()
-            moveCamera()
-        }
-    }
-
-    private fun addMarkers() {
-        map.addMarker(
-            MarkerOptions().position(LatLng(houseIdEdit!!.detailLatitude,houseIdEdit!!.detailLongitude))
-        )
-    }
-
-    private fun moveCamera() {
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(houseIdEdit!!.detailLatitude,houseIdEdit!!.detailLongitude),13f))
-    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // For Toolbar
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Menu Toolbar
     @Deprecated("Deprecated in Java")
@@ -156,6 +143,47 @@ class InfoDetailsFragment : Fragment(), OnMapReadyCallback {
         clickForEditPropertyActivity.putExtra("PropertyInFragment", houseIdEdit as Parcelable)
         startActivity(clickForEditPropertyActivity)
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // For map view
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // For Map View
+    private fun configureMap() {
+        // Get the map and register for the ready callback
+        val mapFragment = childFragmentManager.findFragmentById(R.id.details_view_map) as SupportMapFragment
+        mapFragment.getMapAsync(this)
+    }
+
+    override fun onMapReady(googleMap: GoogleMap) {
+        map = googleMap
+        setUpMarker()
+    }
+
+    // For map view when click
+    private fun addMarkers() {
+        map?.addMarker(
+            MarkerOptions().position(LatLng(houseIdEdit!!.detailLatitude,houseIdEdit!!.detailLongitude))
+        )
+    }
+
+    private fun moveCamera() {
+        map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(houseIdEdit!!.detailLatitude,houseIdEdit!!.detailLongitude),13f))
+    }
+
+    private fun setUpMarker() {
+        if (map == null ) {
+          return
+        }
+        if (houseIdEdit != null){
+            addMarkers()
+            moveCamera()
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // For recyclerview
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // For recyclerview
     @SuppressLint("NotifyDataSetChanged")

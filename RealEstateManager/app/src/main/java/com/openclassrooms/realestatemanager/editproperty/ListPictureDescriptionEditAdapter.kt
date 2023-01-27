@@ -1,19 +1,19 @@
 package com.openclassrooms.realestatemanager.editproperty
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.addproperty.InternalStoragePhoto
 import com.openclassrooms.realestatemanager.databinding.ListPicturesAddedItemBinding
 import com.openclassrooms.realestatemanager.model.DescriptionPictures
+import com.squareup.picasso.Picasso
+import java.io.File
 
-class ListPictureDescriptionEditAdapter (
-     private val picturesListEdit: MutableList<InternalStoragePhoto>
+class ListPictureDescriptionEditAdapter(
+     private val picturesListEdit: List<InternalStoragePhoto>
 ) : RecyclerView.Adapter<ListPictureDescriptionEditAdapter.PhotoViewHolder>(){
-
-    private var descriptionPictureList: MutableList<DescriptionPictures> = mutableListOf()
 
     companion object : DiffUtil.ItemCallback<InternalStoragePhoto>() {
         override fun areItemsTheSame(oldItem: InternalStoragePhoto, newItem: InternalStoragePhoto): Boolean {
@@ -30,7 +30,6 @@ class ListPictureDescriptionEditAdapter (
     }
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
-
         holder.bind()
     }
 
@@ -42,6 +41,18 @@ class ListPictureDescriptionEditAdapter (
             binding.picturesAddedTextview.text = descriptionPictureFromAlertDialog.description
 
             binding.picturesAddedRvPicture.setImageBitmap(descriptionPictureFromAlertDialog.bmp)
+
+            /*val listDescription = picturesListEdit[adapterPosition]
+
+            binding.picturesAddedTextview.text = listDescription.description
+
+            val propertyId = listDescription.houseId
+            val pictureId = listDescription.picturesId
+
+            Picasso.get()
+                .load(File("/data/data/com.openclassrooms.realestatemanager/files/","$propertyId.$pictureId.jpg"))
+                .placeholder(R.drawable.home_icon)
+                .into(binding.picturesAddedRvPicture)*/
 
         }
     }

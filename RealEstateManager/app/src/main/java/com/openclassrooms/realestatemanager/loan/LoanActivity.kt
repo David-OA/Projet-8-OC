@@ -25,12 +25,27 @@ class LoanActivity : AppCompatActivity() {
         setOnClickListener()
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // For ToolBar
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     // ------ Toolbar ------
     private fun configureToolbar() {
         val mainActivityToolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(mainActivityToolbar)
         title = "Simulate your loan"
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // For calculate the loan
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private fun setOnClickListener(){
         binding.loanTermYears.setOnClickListener{displayPopupMenu()}
@@ -82,12 +97,12 @@ class LoanActivity : AppCompatActivity() {
             val result: Double
             val totalPrice: Double
             if(interest == 0.0){
-                result = (if (downPayment != null) ( amount!!-(downPayment)) else amount)!! / (term!! * 12)
+                result = (if (downPayment != null) ( amount-(downPayment)) else amount) / (term!! * 12)
                 totalPrice = 0.0
             }else{
-                result = (if (downPayment != null) (amount!! -(downPayment)) else amount)!! * ((interest!! / (100)) / (12)) / (1 - (1 + ((interest / 100) / 12)).pow(-term!! * 12
+                result = (if (downPayment != null) (amount -(downPayment)) else amount) * ((interest!! / (100)) / (12)) / (1 - (1 + ((interest / 100) / 12)).pow(-term!! * 12
                 ))
-                totalPrice = 12 * term * result - (if (downPayment != null ) amount?.minus(downPayment)!! else amount!!)
+                totalPrice = 12 * term * result - (amount.minus(downPayment))
             }
             binding.monthlyPay.setText(String.format("%.2f",result), TextView.BufferType.EDITABLE)
             binding.interestTotalCost.setText(String.format("%.2f",totalPrice), TextView.BufferType.EDITABLE)

@@ -105,6 +105,27 @@ class AddAgentActivity: AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    // For return in main activity after add agent
+    private fun  returnToMainActivity() {
+        val mainActivity = Intent(this, MainActivity::class.java)
+        startActivity(mainActivity)
+    }
+
+    private fun showToastForAddAgent() {
+        Toast.makeText(this, "L'agent' à bien été ajouté", Toast.LENGTH_LONG).show()
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // For data
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // For add data
+    private fun addAgentPicture() {
+        binding.addAgentViewAddPhoto.setOnClickListener {
+            takePhoto.launch()
+        }
+    }
+
     // For check if all is not empty
     private fun checkNoErrorBeforeAddAgent() {
         if (binding.addAgentViewFirstname.text.isNullOrEmpty()) {
@@ -138,9 +159,6 @@ class AddAgentActivity: AppCompatActivity() {
             val editPhoneNumberTextView = binding.addAgentViewPhonenb
             textPhoneNumberTextView = editPhoneNumberTextView.text.toString()
 
-            // Creation date
-            val editCreationDateTextView = binding
-
             val agent = Agent(agentId,
                 textFirstNameTextView,
                 textLastNameTextView,
@@ -154,23 +172,8 @@ class AddAgentActivity: AppCompatActivity() {
             showToastForAddAgent()
     }
 
-    private fun  returnToMainActivity() {
-        val mainActivity = Intent(this, MainActivity::class.java)
-        startActivity(mainActivity)
-    }
-
-    private fun showToastForAddAgent() {
-        Toast.makeText(this, "L'agent' à bien été ajouté", Toast.LENGTH_LONG).show()
-    }
-
-    private fun addAgentPicture() {
-        binding.addAgentViewAddPhoto.setOnClickListener {
-            takephoto.launch()
-        }
-    }
-
     // For start camera and take a photo
-    private val takephoto = registerForActivityResult(ActivityResultContracts.TakePicturePreview()) {
+    private val takePhoto = registerForActivityResult(ActivityResultContracts.TakePicturePreview()) {
         lifecycleScope.launch {
             if (isWritePermissionGranted) {
                 if (savePhotoToInternalStorage("$agentId", it!!)) {

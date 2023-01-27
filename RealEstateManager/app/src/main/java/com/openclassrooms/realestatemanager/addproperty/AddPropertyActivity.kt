@@ -126,6 +126,32 @@ class AddPropertyActivity: AppCompatActivity() {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // For Toolbar
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // ------ Toolbar ------
+    private fun configureToolbar() {
+        val addPropertyActivityToolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(addPropertyActivityToolbar)
+        title = "Add a Property"
+    }
+
+    // Menu Toolbar
+    @SuppressLint("RestrictedApi")
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        if (menu is MenuBuilder) menu.setOptionalIconsVisible(true)
+        menuInflater.inflate(R.menu.menu_toolbar_add_property,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.menu_add_property -> checkNoErrorBeforeAddHouse()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // For Add a picture
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private fun choiceHowTakeAPicture() {
@@ -135,7 +161,7 @@ class AddPropertyActivity: AppCompatActivity() {
     }
 
     // For start camera and take a photo
-    private val takephoto = registerForActivityResult(ActivityResultContracts.TakePicturePreview()) {
+    private val takePhoto = registerForActivityResult(ActivityResultContracts.TakePicturePreview()) {
         lifecycleScope.launch {
             if (isWritePermissionGranted) {
                 val picturesId: String = UUID.randomUUID().toString()
@@ -192,7 +218,7 @@ class AddPropertyActivity: AppCompatActivity() {
         popup.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item: MenuItem? ->
             when (item!!.itemId) {
                 R.id.add_by_camera -> {
-                    takephoto.launch()
+                    takePhoto.launch()
                 }
                 R.id.add_by_mediastore -> {
                     selectPictureInMedia()
@@ -201,32 +227,6 @@ class AddPropertyActivity: AppCompatActivity() {
             true
         })
         popup.show()
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // For Toolbar
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    // ------ Toolbar ------
-    private fun configureToolbar() {
-        val addPropertyActivityToolbar: Toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(addPropertyActivityToolbar)
-        title = "Add a Property"
-    }
-
-    // Menu Toolbar
-    @SuppressLint("RestrictedApi")
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        if (menu is MenuBuilder) menu.setOptionalIconsVisible(true)
-        menuInflater.inflate(R.menu.menu_toolbar_add_property,menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
-           R.id.menu_add_property -> checkNoErrorBeforeAddHouse()
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -466,7 +466,7 @@ class AddPropertyActivity: AppCompatActivity() {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // For save pictures pictures
+    // For save pictures
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private fun savePhotoToInternalStorage(filename: String, bmp: Bitmap) : Boolean {

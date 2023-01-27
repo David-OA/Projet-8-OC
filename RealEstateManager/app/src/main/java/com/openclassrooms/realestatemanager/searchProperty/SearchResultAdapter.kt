@@ -47,9 +47,6 @@ class SearchResultAdapter(
                 val propertyId = resultSearchListProperties.descriptionPictures[0].houseId
                 val pictureId = resultSearchListProperties.descriptionPictures[0].picturesId
 
-                /*Picasso.get()
-                    .load(File("/data/data/com.openclassrooms.realestatemanager/files/","$propertyId.$pictureId.jpg"))
-                    .into(binding.houseImage)*/
                 binding.customViewWithLabel.setCustomViewProperties(resultSearchListProperties.descriptionPictures[0],propertyId,pictureId, false)
             }
         }

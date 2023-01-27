@@ -12,6 +12,7 @@ class ViewModelFactory(
     private val houseRepository: HouseRepository,
     private val agentRepository: AgentRepository
 ) : ViewModelProvider.Factory{
+
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
             modelClass.isAssignableFrom(AddHouseViewModel::class.java) -> AddHouseViewModel(houseRepository) as T

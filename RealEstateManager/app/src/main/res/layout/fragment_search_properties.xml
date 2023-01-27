@@ -469,46 +469,6 @@
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"/>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/search_view_agent_group"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/search_view_extra_group"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginStart="@dimen/margin_small"
-                android:layout_marginEnd="@dimen/margin_small">
-
-                <TextView
-                    android:id="@+id/search_view_agent_title"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/manage_by"
-                    style="@style/TitleREM"
-                    android:layout_marginTop="@dimen/margin_small"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
-
-                <com.google.android.material.checkbox.MaterialCheckBox
-                    android:id="@+id/search_select_all_agents"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/select_all"
-                    android:checked="true"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/search_view_agent_title"/>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/search_view_rv_agents"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/search_select_all_agents"
-                    tools:listitem="@layout/list_agent_search_view_item"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>

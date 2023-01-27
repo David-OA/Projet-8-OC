@@ -51,16 +51,16 @@ class ListAgentSpinnerAdapter(val context: Context, var agents: List<Agent>) : B
         return view
     }
 
-    override fun getItem(position: Int): Any? {
-        return agents[position];
+    override fun getItem(position: Int): Any {
+        return agents[position]
     }
 
     override fun getCount(): Int {
-        return agents.size;
+        return agents.size
     }
 
     override fun getItemId(position: Int): Long {
-        return position.toLong();
+        return position.toLong()
     }
 
     fun getPosition(item: String): Int {
@@ -73,7 +73,7 @@ class ListAgentSpinnerAdapter(val context: Context, var agents: List<Agent>) : B
 
         init {
             this.listAgentRvName = row?.findViewById(R.id.list_agent_rv_name) as TextView
-            this.listAgentRvPicture = row?.findViewById(R.id.list_agent_rv_picture) as ImageView
+            this.listAgentRvPicture = row.findViewById(R.id.list_agent_rv_picture) as ImageView
         }
     }
 }

@@ -12,7 +12,6 @@ class HouseRepository (
 
         var allHouses: Flow<List<House>> = houseDao.getAllHouse()
 
-
         suspend fun getPropertiesQuery(
                 minPrice:String, maxPrice:String, minNbBathrooms: String, minSurface:String, maxSurface:String,
                 minNbRoom:String, minNbBedroom:String,

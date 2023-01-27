@@ -29,7 +29,7 @@ interface HouseDao {
             " AND house.details_nearby_subway = :nearbySubway")
     suspend fun getPropertiesQuery(
         minPrice:String, maxPrice:String, minNbBathrooms: String, minSurface:String, maxSurface:String, minNbRoom:String,
-        minNbBedroom:String,
-        nearbySchool:Boolean, nearbyBuses: Boolean, nearbyPark: Boolean, nearbyPlayground: Boolean, nearbyShop: Boolean, nearbySubway: Boolean): List<House>
+        minNbBedroom:String, nearbySchool:Boolean, nearbyBuses: Boolean, nearbyPark: Boolean, nearbyPlayground: Boolean,
+        nearbyShop: Boolean, nearbySubway: Boolean): List<House>
 
 }

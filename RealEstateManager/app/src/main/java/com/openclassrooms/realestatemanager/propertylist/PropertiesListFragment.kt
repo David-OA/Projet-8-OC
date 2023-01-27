@@ -19,6 +19,7 @@ import com.openclassrooms.realestatemanager.databinding.FragmentPropertyListBind
 import com.openclassrooms.realestatemanager.propertyinfos.InfoDetailsFragment
 import com.openclassrooms.realestatemanager.injection.Injection
 import com.openclassrooms.realestatemanager.injection.ViewModelFactory
+import com.openclassrooms.realestatemanager.model.House
 
 class PropertiesListFragment : Fragment() {
 
@@ -49,17 +50,23 @@ class PropertiesListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // For permission Internal storage
+        /* For permission Internal storage
         permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
             isReadPermissionGranted = permissions[android.Manifest.permission.READ_EXTERNAL_STORAGE] ?: isReadPermissionGranted
             isWritePermissionGranted = permissions[android.Manifest.permission.WRITE_EXTERNAL_STORAGE] ?: isWritePermissionGranted
-        }
+        }*/
 
-        requestPermission()
+        //requestPermission()
 
         recyclerViewListHouse()
 
+        tabletSize = resources.getBoolean(R.bool.isTablet)
+
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // For manage permissions
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // For managed request permissions
     private fun requestPermission() {
@@ -93,6 +100,10 @@ class PropertiesListFragment : Fragment() {
 
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // For manage the recyclerview
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     private fun recyclerViewListHouse() {
         // Initialize the adapter and set it to the RecyclerView.
         adapter = PropertiesListAdapter ()
@@ -105,7 +116,18 @@ class PropertiesListFragment : Fragment() {
 
         // Pass the data to our Adapter
         addHouseViewModel.allHouses.observe(viewLifecycleOwner) {
-            houses -> houses?.let { adapter?.submitList(it) }
+            houses -> houses?.let {
+                adapter?.submitList(it)
+            if (it.isNotEmpty()) {
+                val propertyClick = addHouseViewModel.allHouses.value?.get(0)
+
+                if (tabletSize && propertyClick != null) {
+
+                    displayProperty(propertyClick)
+                }
+            }
+
+            }
         }
 
         clickOnHouseOfTheList()
@@ -116,27 +138,32 @@ class PropertiesListFragment : Fragment() {
 
             adapter!!.updateSelection(position)
 
-            // Get id property click in recyclerview
             val propertyClick = addHouseViewModel.allHouses.value?.get(position)
 
-            // Get Data House clicked for pass to the fragment
-            val bundle = Bundle()
-            if (propertyClick != null) {
-                bundle.putParcelable("houseClicked", propertyClick)
-            }
+            displayProperty(propertyClick)
 
-            val fragment = InfoDetailsFragment()
-            fragment.arguments = bundle
+        }
+    }
 
-            // For show if tablet or phone
-            tabletSize = resources.getBoolean(R.bool.isTablet)
-            if (tabletSize) {
-                fragmentManager?.beginTransaction()?.replace(R.id.detail_view, fragment)
-                    ?.commitAllowingStateLoss()
-            } else {
-                fragmentManager?.beginTransaction()?.replace(R.id.recycler_view_list_house, fragment)
-                    ?.commitAllowingStateLoss()
-            }
+    private fun displayProperty(property: House?) {
+
+        // Get Data House clicked for pass to the fragment
+        val bundle = Bundle()
+        if (property != null) {
+            bundle.putParcelable("houseClicked", property)
+        }
+
+        val fragment = InfoDetailsFragment()
+        fragment.arguments = bundle
+
+        // For show if tablet or phone
+        tabletSize = resources.getBoolean(R.bool.isTablet)
+        if (tabletSize) {
+            fragmentManager?.beginTransaction()?.replace(R.id.detail_view, fragment)
+                ?.commitAllowingStateLoss()
+        } else {
+            fragmentManager?.beginTransaction()?.replace(R.id.recycler_view_list_house, fragment)
+                ?.commitAllowingStateLoss()
         }
     }
 }

@@ -17,16 +17,8 @@ import com.openclassrooms.realestatemanager.injection.ViewModelFactory
 
 class SearchPropertyActivity : AppCompatActivity() {
 
-    //private lateinit var binding: ActivitySearchPropertyBinding
-
-    private val searchPropertyViewModel: SearchPropertyViewModel by viewModels {
-        ViewModelFactory(Injection.providesHouseRepository(this), Injection.providesAgentRepository(this))
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //binding = ActivitySearchPropertyBinding.inflate(layoutInflater)
-        //val view = binding.root
         setContentView(R.layout.activity_search_property)
 
         // Toolbar
@@ -34,10 +26,22 @@ class SearchPropertyActivity : AppCompatActivity() {
 
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // For Toolbar
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     // ------ Toolbar ------
     private fun configureToolbar() {
-        val mainActivitytoolbar: Toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(mainActivitytoolbar)
+        val mainActivityToolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(mainActivityToolbar)
+        title = "Perform a search"
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
     }
 
     // Menu Toolbar

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.model.DescriptionPictures
@@ -39,13 +40,18 @@ class ImageViewWithLabel (
 
         Picasso.get()
             .load(File("/data/data/com.openclassrooms.realestatemanager/files/","$propertyId.$pictureId.jpg"))
+
             .placeholder(R.drawable.home_icon)
             .into(imageView)
 
     }
 
     fun setPlaceHolderCustomViewProperties() {
-        Picasso.get().load(R.drawable.home_icon)
+        descriptionView.isGone = true
+
+        Picasso.get()
+            .load(R.drawable.home_icon)
+            .placeholder(R.drawable.home_icon)
             .into(imageView)
     }
 

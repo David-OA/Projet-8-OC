@@ -22,7 +22,6 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import kotlinx.parcelize.Parcelize
-import java.io.Serializable
 
 /**
  * Data model for each row of the RecyclerView
@@ -61,7 +60,7 @@ data class DescriptionPictures(var description: String, val houseId: String, val
 class DescriptionPicturesTypeConverter {
 
     @TypeConverter
-    fun listToJson(value: List<DescriptionPictures>?) = Gson().toJson(value)
+    fun listToJson(value: List<DescriptionPictures>?): String = Gson().toJson(value)
 
     @TypeConverter
     fun jsonToList(value: String) = Gson().fromJson(value, Array<DescriptionPictures>::class.java).toList()

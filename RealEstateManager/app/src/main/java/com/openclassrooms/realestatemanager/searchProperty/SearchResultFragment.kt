@@ -35,13 +35,9 @@ class SearchResultFragment : Fragment() {
         recyclerViewSearchResult()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
-            //R.id.menu_add_property -> startTheSearch()
-
-        }
-        return super.onOptionsItemSelected(item)
-    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // For manage the recyclerview
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private fun recyclerViewSearchResult() = binding.recyclerViewResultSearch .apply {
 
