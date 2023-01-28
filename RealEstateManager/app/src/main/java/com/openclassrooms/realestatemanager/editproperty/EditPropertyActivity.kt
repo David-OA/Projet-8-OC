@@ -27,6 +27,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import butterknife.OnClick
 import com.openclassrooms.realestatemanager.MainActivity
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.addagent.AddAgentViewModel
@@ -41,7 +42,6 @@ import com.openclassrooms.realestatemanager.model.DescriptionPictures
 import com.openclassrooms.realestatemanager.model.House
 import com.openclassrooms.realestatemanager.utils.ItemClickSupport
 import com.openclassrooms.realestatemanager.utils.TypeProperty
-import com.openclassrooms.realestatemanager.utils.Utils
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -540,7 +540,6 @@ class EditPropertyActivity: AppCompatActivity() {
             files?.filter { it.canRead() && it.isFile && it.name.endsWith(".jpg") && it.name.startsWith(houseIdUpdate) }?.map {
                 val bytes = it.readBytes()
                 val bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-                //val descriptionFromList = lisDescriptionPicture.get(0).description
 
                 InternalStoragePhoto(it.name,bmp,"")
             } ?: listOf()
@@ -563,6 +562,7 @@ class EditPropertyActivity: AppCompatActivity() {
     private fun clickOnTextViewForAddOrChangeDescription() {
         ItemClickSupport.addTo(binding.addPropertyViewPictureRv, R.layout.list_pictures_added_item).setOnItemClickListener { recyclerView, position, v ->
             showDialogForAddDescription(position)
+            showDialogForDeletePicture(position)
         }
     }
 
@@ -594,9 +594,12 @@ class EditPropertyActivity: AppCompatActivity() {
             }
             setUpRecyclerviewPictures()
             val id = elementClick?.name?.substringAfter(".",".jpg")
+            val idClean = removeLastJpg(id)
             val propertyIdClick = elementClick?.name?.subSequence(0,36).toString()
             if (id != null) {
-                addPicturesDescription(position,descriptionAlertDialog, propertyIdClick,id)
+                if (idClean != null) {
+                    addPicturesDescription(position,descriptionAlertDialog, propertyIdClick,idClean)
+                }
             }
         })
 
@@ -605,5 +608,26 @@ class EditPropertyActivity: AppCompatActivity() {
         }
 
         builder.show()
+    }
+
+    private fun removeLastJpg(str: String?): String? {
+        return str?.replaceFirst(".jpg".toRegex(),"")
+    }
+
+    private fun showDialogForDeletePicture(position: Int) {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+        builder.setTitle("Delete")
+
+        builder.setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
+
+            Toast.makeText(this,"test", Toast.LENGTH_LONG).show()
+        })
+
+        builder.setNegativeButton("Cancel") { dialog, _ ->
+            dialog.cancel()
+        }
+
+        builder.show()
+
     }
 }

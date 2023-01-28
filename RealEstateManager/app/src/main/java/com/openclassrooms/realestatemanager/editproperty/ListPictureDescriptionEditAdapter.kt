@@ -4,15 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.addproperty.InternalStoragePhoto
 import com.openclassrooms.realestatemanager.databinding.ListPicturesAddedItemBinding
-import com.openclassrooms.realestatemanager.model.DescriptionPictures
-import com.squareup.picasso.Picasso
-import java.io.File
 
 class ListPictureDescriptionEditAdapter(
-     private val picturesListEdit: List<InternalStoragePhoto>
+     private val picturesListEdit: MutableList<InternalStoragePhoto>
 ) : RecyclerView.Adapter<ListPictureDescriptionEditAdapter.PhotoViewHolder>(){
 
     companion object : DiffUtil.ItemCallback<InternalStoragePhoto>() {

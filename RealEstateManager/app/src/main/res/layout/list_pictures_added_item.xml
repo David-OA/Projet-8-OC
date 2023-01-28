@@ -36,14 +36,14 @@
         </TextView>
 
         <ImageButton
+            android:id="@+id/pictures_added_rv_delete_button"
             android:layout_margin="@dimen/margin_small"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:id="@+id/pictures_added_rv_delete_button"
             android:layout_width="25dip"
             android:layout_height="25dip"
-            android:background="@color/colorAccent"
+            android:background="@drawable/delete_icon"
             android:layout_gravity="end"
             android:contentDescription="@string/rv_delete_button" />
 
