@@ -79,9 +79,6 @@ class EditPropertyActivity: AppCompatActivity() {
     private val photoList : MutableList<InternalStoragePhoto> = mutableListOf()
     private var descriptionPictureList: MutableList<DescriptionPictures> = mutableListOf()
 
-    // For show description in recyclerView
-    //private lateinit var lisDescriptionPicture: List<DescriptionPictures>
-
     private val addHouseViewModel: AddHouseViewModel by viewModels {
         ViewModelFactory(Injection.providesHouseRepository(this), Injection.providesAgentRepository(this))
     }
@@ -533,6 +530,14 @@ class EditPropertyActivity: AppCompatActivity() {
         }
     }
 
+    private var list = mutableListOf<DescriptionPictures>()
+
+    private fun createOrderNumberDescription() {
+        descriptionPictureList.forEachIndexed { index, descriptionPictures ->
+           // descriptionPictures.orderNumber = index
+        }
+    }
+
     private suspend fun loadPhotosFromInternalStorage(): List<InternalStoragePhoto> {
         return withContext(IO) {
             val files = context.filesDir?.listFiles()
@@ -540,6 +545,9 @@ class EditPropertyActivity: AppCompatActivity() {
             files?.filter { it.canRead() && it.isFile && it.name.endsWith(".jpg") && it.name.startsWith(houseIdUpdate) }?.map {
                 val bytes = it.readBytes()
                 val bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+
+                //val dscpt = descriptionPictureList[createOrderNumberDescription()].description
+
 
                 InternalStoragePhoto(it.name,bmp,"")
             } ?: listOf()
@@ -585,23 +593,22 @@ class EditPropertyActivity: AppCompatActivity() {
         input.inputType = InputType.TYPE_CLASS_TEXT
         builder.setView(input)
 
-        builder.setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
+        builder.setPositiveButton("OK") { _, _ ->
             val descriptionAlertDialog = input.text.toString()
             val elementClick = photoList.getOrNull(position)
             if (elementClick != null) {
-                //photoList[position] = elementClick.copy(description = descriptionAlertDialog)
                 elementClick.description = descriptionAlertDialog
             }
             setUpRecyclerviewPictures()
-            val id = elementClick?.name?.substringAfter(".",".jpg")
-            val idClean = removeLastJpg(id)
-            val propertyIdClick = elementClick?.name?.subSequence(0,36).toString()
-            if (id != null) {
-                if (idClean != null) {
-                    addPicturesDescription(position,descriptionAlertDialog, propertyIdClick,idClean)
+            val idClick = elementClick?.name?.substringAfter(".", ".jpg")
+            val id = removeLastJpg(idClick)
+            val propertyIdClick = elementClick?.name?.subSequence(0, 36).toString()
+            if (idClick != null) {
+                if (id != null) {
+                    addPicturesDescription(position, descriptionAlertDialog, propertyIdClick,id)
                 }
             }
-        })
+        }
 
         builder.setNegativeButton("Cancel") { dialog, _ ->
             dialog.cancel()
