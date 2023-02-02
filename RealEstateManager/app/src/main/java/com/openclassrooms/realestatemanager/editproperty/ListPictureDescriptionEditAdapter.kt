@@ -26,13 +26,13 @@ class ListPictureDescriptionEditAdapter(
     }
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
-        holder.bind()
+        holder.bind(position)
     }
 
     inner class PhotoViewHolder(private val binding: ListPicturesAddedItemBinding): RecyclerView.ViewHolder(binding.root) {
 
-        fun bind() {
-            val descriptionPictureFromAlertDialog = picturesListEdit[adapterPosition]
+        fun bind(position: Int) {
+            val descriptionPictureFromAlertDialog = picturesListEdit[position]
 
             binding.picturesAddedTextview.text = descriptionPictureFromAlertDialog.description
 
