@@ -50,13 +50,13 @@ class PropertiesListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        /* For permission Internal storage
+        //For permission Internal storage
         permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
             isReadPermissionGranted = permissions[android.Manifest.permission.READ_EXTERNAL_STORAGE] ?: isReadPermissionGranted
             isWritePermissionGranted = permissions[android.Manifest.permission.WRITE_EXTERNAL_STORAGE] ?: isWritePermissionGranted
-        }*/
+        }
 
-        //requestPermission()
+        requestPermission()
 
         recyclerViewListHouse()
 
@@ -118,14 +118,14 @@ class PropertiesListFragment : Fragment() {
         addHouseViewModel.allHouses.observe(viewLifecycleOwner) {
             houses -> houses?.let {
                 adapter?.submitList(it)
-            if (it.isNotEmpty()) {
-                val propertyClick = addHouseViewModel.allHouses.value?.get(0)
+                if (it.isNotEmpty()) {
+                    val propertyClick = addHouseViewModel.allHouses.value?.get(0)
 
-                if (tabletSize && propertyClick != null) {
+                    if (tabletSize && propertyClick != null) {
 
-                    displayProperty(propertyClick)
+                        displayProperty(propertyClick)
+                    }
                 }
-            }
 
             }
         }
