@@ -55,7 +55,7 @@ data class House(
 ):Parcelable
 
 @Parcelize
-data class DescriptionPictures(var description: String, val houseId: String, val picturesId: String): Parcelable
+data class DescriptionPictures(var description: String, val houseId: String, val picturesId: String, var orderNumber: Int): Parcelable
 
 class DescriptionPicturesTypeConverter {
 

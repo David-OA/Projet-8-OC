@@ -1,19 +1,12 @@
 package com.openclassrooms.realestatemanager.searchProperty
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuItem
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.menu.MenuBuilder
 import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.FragmentManager
 import com.openclassrooms.realestatemanager.R
-import com.openclassrooms.realestatemanager.databinding.ActivitySearchPropertyBinding
-import com.openclassrooms.realestatemanager.injection.Injection
-import com.openclassrooms.realestatemanager.injection.ViewModelFactory
 
 class SearchPropertyActivity : AppCompatActivity() {
 

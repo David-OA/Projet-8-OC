@@ -3,7 +3,6 @@ package com.openclassrooms.realestatemanager.addproperty
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -36,6 +35,7 @@ import com.openclassrooms.realestatemanager.injection.ViewModelFactory
 import com.openclassrooms.realestatemanager.model.Agent
 import com.openclassrooms.realestatemanager.model.DescriptionPictures
 import com.openclassrooms.realestatemanager.model.House
+import com.openclassrooms.realestatemanager.model.InternalStoragePhoto
 import com.openclassrooms.realestatemanager.utils.ItemClickSupport
 import com.openclassrooms.realestatemanager.utils.TypeProperty
 import com.openclassrooms.realestatemanager.utils.Utils
@@ -215,7 +215,7 @@ class AddPropertyActivity: AppCompatActivity() {
         val popup = PopupMenu(this, view)
         popup.inflate(R.menu.menu_popup_choice_add_picture)
 
-        popup.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item: MenuItem? ->
+        popup.setOnMenuItemClickListener { item: MenuItem? ->
             when (item!!.itemId) {
                 R.id.add_by_camera -> {
                     takePhoto.launch()
@@ -225,7 +225,7 @@ class AddPropertyActivity: AppCompatActivity() {
                 }
             }
             true
-        })
+        }
         popup.show()
     }
 
@@ -505,18 +505,23 @@ class AddPropertyActivity: AppCompatActivity() {
     }
 
     private fun clickOnTextViewForAddOrChangeDescription() {
-        ItemClickSupport.addTo(binding.addPropertyViewPictureRv, R.layout.list_pictures_added_item).setOnItemClickListener { _, position, _ ->
-            showDialogForAddDescription(position)
+        ItemClickSupport.addTo(binding.addPropertyViewPictureRv, R.layout.list_pictures_added_item).setOnItemClickListener { _, position, v ->
+            v.findViewById<TextView>(R.id.pictures_added_textview).setOnClickListener {
+                showDialogForAddDescription(position)
+            }
+            v.findViewById<ImageButton>(R.id.pictures_added_rv_delete_button).setOnClickListener {
+                showDialogForDeletePicture(position)
+            }
         }
     }
 
     @SuppressLint("NotifyDataSetChanged")
     fun addPicturesDescription(position: Int, description:String, houseId: String, picturesId: String) {
         if (descriptionPictureList.getOrNull(position) == null) {
-            descriptionPictureList.add(DescriptionPictures(description,houseId, picturesId))
+            descriptionPictureList.add(DescriptionPictures(description,houseId, picturesId, descriptionPictureList.size-1))
 
         } else {
-            descriptionPictureList[position] = DescriptionPictures(description,houseId, picturesId)
+            descriptionPictureList[position] = DescriptionPictures(description,houseId, picturesId, position-1)
         }
     }
 
@@ -529,7 +534,7 @@ class AddPropertyActivity: AppCompatActivity() {
         input.inputType = InputType.TYPE_CLASS_TEXT
         builder.setView(input)
 
-        builder.setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
+        builder.setPositiveButton("OK") { _, _ ->
             val descriptionAlertDialog = input.text.toString()
             val elementClick = photoList.getOrNull(position)
             if (elementClick != null) {
@@ -538,17 +543,54 @@ class AddPropertyActivity: AppCompatActivity() {
 
             setUpRecyclerviewPictures()
 
-            val id = elementClick?.name?.substringAfter(".",".jpg")
-            val propertyIdClick = elementClick?.name?.subSequence(0,36).toString()
+            val id = elementClick?.name?.substringAfter(".", ".jpg")
+            val propertyIdClick = elementClick?.name?.subSequence(0, 36).toString()
             if (id != null) {
-                addPicturesDescription(position,descriptionAlertDialog, propertyIdClick,id)
+                addPicturesDescription(position, descriptionAlertDialog, propertyIdClick, id)
             }
-        })
+        }
 
         builder.setNegativeButton("Cancel") { dialog, _ ->
             dialog.cancel()
         }
 
         builder.show()
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // For Delete picture
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // For delete picture
+    private fun showDialogForDeletePicture(position: Int) {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+        builder.setTitle("Delete")
+
+        builder.setPositiveButton("OK") { _, _ ->
+
+            val elementClick = photoList.getOrNull(position)
+            photoList.removeAt(position)
+            if (elementClick != null) {
+                deletePhotoInInternalStorage(elementClick.name)
+            }
+            setupInternalStorageRecyclerView()
+            descriptionPictureList.removeAt(position)
+        }
+
+        builder.setNegativeButton("Cancel") { dialog, _ ->
+            dialog.cancel()
+        }
+
+        builder.show()
+    }
+
+    // For delete picture in internal storage
+    private fun deletePhotoInInternalStorage(filename: String) : Boolean {
+        return try {
+            deleteFile(filename)
+        } catch (e: IOException) {
+            e.printStackTrace()
+            false
+        }
     }
 }

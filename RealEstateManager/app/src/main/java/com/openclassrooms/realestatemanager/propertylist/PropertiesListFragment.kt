@@ -134,7 +134,7 @@ class PropertiesListFragment : Fragment() {
     }
 
     private fun clickOnHouseOfTheList() {
-        ItemClickSupport.addTo(binding.recyclerView, R.layout.property_list_item).setOnItemClickListener { recyclerView, position, v ->
+        ItemClickSupport.addTo(binding.recyclerView, R.layout.property_list_item).setOnItemClickListener { _, position, _ ->
 
             adapter!!.updateSelection(position)
 

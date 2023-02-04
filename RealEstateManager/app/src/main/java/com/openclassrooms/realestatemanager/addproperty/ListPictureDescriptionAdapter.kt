@@ -1,15 +1,12 @@
 package com.openclassrooms.realestatemanager.addproperty
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.realestatemanager.databinding.ListPicturesAddedItemBinding
-import com.openclassrooms.realestatemanager.model.DescriptionPictures
-import com.squareup.picasso.Picasso
-import java.io.File
+import com.openclassrooms.realestatemanager.model.InternalStoragePhoto
 
 class ListPictureDescriptionAdapter (
     private val picturesList: MutableList<InternalStoragePhoto>
@@ -30,14 +27,14 @@ class ListPictureDescriptionAdapter (
     }
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
-        holder.bind()
+        holder.bind(position)
     }
 
     inner class PhotoViewHolder(val binding: ListPicturesAddedItemBinding): RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n", "SdCardPath")
-        fun bind() {
-            val descriptionPictureFromAlertDialog = picturesList[adapterPosition]
+        fun bind(position: Int) {
+            val descriptionPictureFromAlertDialog = picturesList[position]
 
             binding.picturesAddedTextview.text =  descriptionPictureFromAlertDialog.description
 

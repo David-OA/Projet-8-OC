@@ -176,7 +176,7 @@ class AddAgentActivity: AppCompatActivity() {
     private val takePhoto = registerForActivityResult(ActivityResultContracts.TakePicturePreview()) {
         lifecycleScope.launch {
             if (isWritePermissionGranted) {
-                if (savePhotoToInternalStorage("$agentId", it!!)) {
+                if (savePhotoToInternalStorage(agentId, it!!)) {
                     Toast.makeText(this@AddAgentActivity, "Photo Saved Successfully", Toast.LENGTH_LONG).show()
 
                     Picasso.get()

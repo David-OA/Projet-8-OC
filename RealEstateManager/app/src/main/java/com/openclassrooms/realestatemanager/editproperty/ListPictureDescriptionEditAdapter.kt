@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.openclassrooms.realestatemanager.addproperty.InternalStoragePhoto
+import com.openclassrooms.realestatemanager.model.InternalStoragePhoto
 import com.openclassrooms.realestatemanager.databinding.ListPicturesAddedItemBinding
 
 class ListPictureDescriptionEditAdapter(
@@ -37,18 +37,6 @@ class ListPictureDescriptionEditAdapter(
             binding.picturesAddedTextview.text = descriptionPictureFromAlertDialog.description
 
             binding.picturesAddedRvPicture.setImageBitmap(descriptionPictureFromAlertDialog.bmp)
-
-            /*val listDescription = picturesListEdit[adapterPosition]
-
-            binding.picturesAddedTextview.text = listDescription.description
-
-            val propertyId = listDescription.houseId
-            val pictureId = listDescription.picturesId
-
-            Picasso.get()
-                .load(File("/data/data/com.openclassrooms.realestatemanager/files/","$propertyId.$pictureId.jpg"))
-                .placeholder(R.drawable.home_icon)
-                .into(binding.picturesAddedRvPicture)*/
 
         }
     }

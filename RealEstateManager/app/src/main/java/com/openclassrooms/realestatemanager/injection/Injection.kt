@@ -17,11 +17,4 @@ object Injection {
             return AgentRepository.getAgentRepository(database.agentDao())
         }
 
-        fun providesViewModelFactory(context: Context): ViewModelFactory {
-            val  houseRepository = providesHouseRepository(context)
-            val agentRepository = providesAgentRepository(context)
-
-            return ViewModelFactory(houseRepository, agentRepository)
-        }
-
 }

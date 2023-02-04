@@ -2,7 +2,6 @@ package com.openclassrooms.realestatemanager.editproperty
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -27,12 +26,11 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import butterknife.OnClick
 import com.openclassrooms.realestatemanager.MainActivity
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.addagent.AddAgentViewModel
 import com.openclassrooms.realestatemanager.addproperty.AddHouseViewModel
-import com.openclassrooms.realestatemanager.addproperty.InternalStoragePhoto
+import com.openclassrooms.realestatemanager.model.InternalStoragePhoto
 import com.openclassrooms.realestatemanager.addproperty.ListAgentSpinnerAdapter
 import com.openclassrooms.realestatemanager.databinding.ActivityAddPropertyBinding
 import com.openclassrooms.realestatemanager.injection.Injection
@@ -188,13 +186,12 @@ class EditPropertyActivity: AppCompatActivity() {
         }
     }
 
-
-
+    // For choice menu
     private fun showPopup(view: View) {
         val popup = PopupMenu(this, view)
         popup.inflate(R.menu.menu_popup_choice_add_picture)
 
-        popup.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item: MenuItem? ->
+        popup.setOnMenuItemClickListener { item: MenuItem? ->
             when (item!!.itemId) {
                 R.id.add_by_camera -> {
                     takephoto.launch()
@@ -204,7 +201,7 @@ class EditPropertyActivity: AppCompatActivity() {
                 }
             }
             true
-        })
+        }
         popup.show()
     }
 
@@ -504,6 +501,11 @@ class EditPropertyActivity: AppCompatActivity() {
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // For Save and load picture in internal storage
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // For save picture in internal storage
     private fun savePhotoToInternalStorage(filename: String, bmp: Bitmap) : Boolean {
         return try {
             context.openFileOutput("$filename.jpg", Context.MODE_PRIVATE).use { stream ->
@@ -524,20 +526,19 @@ class EditPropertyActivity: AppCompatActivity() {
             // For recyclerview
             val photos = loadPhotosFromInternalStorage()
 
+            var i = 0
+            for (descriptionPicture in descriptionPictureList) {
+                photos[i].description = descriptionPicture.description
+                i++
+            }
+
             photoList.addAll(photos)
             
             setupInternalStorageRecyclerView()
         }
     }
 
-    private var list = mutableListOf<DescriptionPictures>()
-
-    private fun createOrderNumberDescription() {
-        descriptionPictureList.forEachIndexed { index, descriptionPictures ->
-           // descriptionPictures.orderNumber = index
-        }
-    }
-
+    // For load pictures
     private suspend fun loadPhotosFromInternalStorage(): List<InternalStoragePhoto> {
         return withContext(IO) {
             val files = context.filesDir?.listFiles()
@@ -546,13 +547,14 @@ class EditPropertyActivity: AppCompatActivity() {
                 val bytes = it.readBytes()
                 val bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
 
-                //val dscpt = descriptionPictureList[createOrderNumberDescription()].description
-
-
                 InternalStoragePhoto(it.name,bmp,"")
             } ?: listOf()
         }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // For Recyclerview
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // For the list of pictures and description
     private fun setUpRecyclerviewPictures() {
@@ -567,19 +569,26 @@ class EditPropertyActivity: AppCompatActivity() {
         listPictureDescriptionEditAdapter.notifyDataSetChanged()
     }
 
+
+    // For manage clicks
     private fun clickOnTextViewForAddOrChangeDescription() {
         ItemClickSupport.addTo(binding.addPropertyViewPictureRv, R.layout.list_pictures_added_item).setOnItemClickListener { recyclerView, position, v ->
-            showDialogForAddDescription(position)
-            showDialogForDeletePicture(position)
+            v.findViewById<TextView>(R.id.pictures_added_textview).setOnClickListener {
+                showDialogForAddDescription(position)
+            }
+            v.findViewById<ImageButton>(R.id.pictures_added_rv_delete_button).setOnClickListener {
+                showDialogForDeletePicture(position)
+            }
         }
     }
 
+    // For add descriptions
     @SuppressLint("NotifyDataSetChanged")
     fun addPicturesDescription(position: Int, description:String, houseId: String, picturesId: String) {
         if(descriptionPictureList.getOrNull(position) == null) {
-            descriptionPictureList.add(DescriptionPictures(description, houseId, picturesId))
+            descriptionPictureList.add(DescriptionPictures(description, houseId, picturesId,descriptionPictureList.size -1))
         } else {
-            descriptionPictureList[position] = DescriptionPictures(description, houseId, picturesId)
+            descriptionPictureList[position] = DescriptionPictures(description, houseId, picturesId, position)
         }
     }
 
@@ -621,20 +630,40 @@ class EditPropertyActivity: AppCompatActivity() {
         return str?.replaceFirst(".jpg".toRegex(),"")
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // For Delete picture
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // For delete picture
     private fun showDialogForDeletePicture(position: Int) {
         val builder: AlertDialog.Builder = AlertDialog.Builder(context)
         builder.setTitle("Delete")
 
-        builder.setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
+        builder.setPositiveButton("OK") { _, _ ->
 
-            Toast.makeText(this,"test", Toast.LENGTH_LONG).show()
-        })
+            val elementClick = photoList.getOrNull(position)
+            photoList.removeAt(position)
+            if (elementClick != null) {
+                deletePhotoInInternalStorage(elementClick.name)
+            }
+            setupInternalStorageRecyclerView()
+            descriptionPictureList.removeAt(position)
+        }
 
         builder.setNegativeButton("Cancel") { dialog, _ ->
             dialog.cancel()
         }
 
         builder.show()
+    }
 
+    // For delete picture in internal storage
+    private fun deletePhotoInInternalStorage(filename: String) : Boolean {
+        return try {
+            deleteFile(filename)
+        } catch (e: IOException) {
+            e.printStackTrace()
+            false
+        }
     }
 }

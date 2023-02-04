@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.openclassrooms.realestatemanager.addproperty.InternalStoragePhoto
+import com.openclassrooms.realestatemanager.model.InternalStoragePhoto
 import com.openclassrooms.realestatemanager.databinding.ListPictureInfoItemBinding
 import com.openclassrooms.realestatemanager.model.DescriptionPictures
 
@@ -34,14 +34,14 @@ class InfoDetailsAdapter(
 
     override fun onBindViewHolder(holder: PictureViewHolder, position: Int) {
 
-        holder.bind()
+        holder.bind(position)
     }
 
     inner class PictureViewHolder(val binding: ListPictureInfoItemBinding): RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SdCardPath")
-        fun bind() {
-            val listPictures = picturesList[adapterPosition]
+        fun bind(position: Int) {
+            val listPictures = picturesList[position]
 
             val propertyId = listPictures.houseId
             val pictureId = listPictures.picturesId

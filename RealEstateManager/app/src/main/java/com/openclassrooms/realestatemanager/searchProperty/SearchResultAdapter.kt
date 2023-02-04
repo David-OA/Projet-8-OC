@@ -4,12 +4,9 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.realestatemanager.databinding.PropertyListItemBinding
 import com.openclassrooms.realestatemanager.model.House
-import com.squareup.picasso.Picasso
-import java.io.File
 
 class SearchResultAdapter(
     private val listSearchProperties: List<House>
@@ -26,7 +23,7 @@ class SearchResultAdapter(
     }
 
     override fun onBindViewHolder(holder: SearchResultViewHolder, position: Int) {
-        holder.bind()
+        holder.bind(position)
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -34,8 +31,8 @@ class SearchResultAdapter(
     /////////////////////////////////////////////////////////////////////////////////////////////////
     inner class SearchResultViewHolder(val binding: PropertyListItemBinding) : RecyclerView.ViewHolder(binding.root){
         @SuppressLint("SdCardPath")
-        fun bind() {
-            val resultSearchListProperties = listSearchProperties[adapterPosition]
+        fun bind(position: Int) {
+            val resultSearchListProperties = listSearchProperties[position]
 
             binding.housePrice.text = resultSearchListProperties.detailViewPrice
 

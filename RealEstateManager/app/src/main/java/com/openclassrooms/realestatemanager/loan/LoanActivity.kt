@@ -60,14 +60,14 @@ class LoanActivity : AppCompatActivity() {
     }
     
     private fun calculate(){
-        var canCalculate = false
+        val canCalculate: Boolean
         val amount = binding.loanAmount.text.toString().toDoubleOrNull() ?: 0.0
         val downPayment = binding.loanDownPayment.text.toString().toDoubleOrNull() ?: 0.0
         val term = binding.loanTermYears.text.toString().toDoubleOrNull()
         val interest = binding.loanInterestRate.text.toString().toDoubleOrNull()
 
         when{
-            binding.loanAmount.text.isNullOrEmpty() || binding.loanTermYears.text.isNullOrEmpty() || binding.loanInterestRate.text.isNullOrEmpty() || downPayment >= amount!! -> {
+            binding.loanAmount.text.isNullOrEmpty() || binding.loanTermYears.text.isNullOrEmpty() || binding.loanInterestRate.text.isNullOrEmpty() || downPayment >= amount -> {
                 canCalculate = false
                 if (binding.loanAmount.text.isNullOrEmpty()){
                     binding.loanAmountInputlayout.error = resources.getString(R.string.loan_error)
@@ -80,7 +80,7 @@ class LoanActivity : AppCompatActivity() {
                 }else if (interest!! < 0 || interest > 100){
                     binding.loanInterestRateInputlayout.error = resources.getString(R.string.loan_error_interest_value)
                 }
-                if (downPayment != null && downPayment >= amount!!){
+                if (downPayment >= amount){
                     binding.loanDownPaymentInputlayout.error = resources.getString(R.string.loan_error_down_payment)
                 }
             }
@@ -97,10 +97,10 @@ class LoanActivity : AppCompatActivity() {
             val result: Double
             val totalPrice: Double
             if(interest == 0.0){
-                result = (if (downPayment != null) ( amount-(downPayment)) else amount) / (term!! * 12)
+                result = (amount-(downPayment)) / (term!! * 12)
                 totalPrice = 0.0
             }else{
-                result = (if (downPayment != null) (amount -(downPayment)) else amount) * ((interest!! / (100)) / (12)) / (1 - (1 + ((interest / 100) / 12)).pow(-term!! * 12
+                result = (amount -(downPayment)) * ((interest!! / (100)) / (12)) / (1 - (1 + ((interest / 100) / 12)).pow(-term!! * 12
                 ))
                 totalPrice = 12 * term * result - (amount.minus(downPayment))
             }

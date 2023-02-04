@@ -9,7 +9,6 @@ import kotlin.Suppress
 class HouseRepository (
         private val houseDao: HouseDao
 ){
-
         var allHouses: Flow<List<House>> = houseDao.getAllHouse()
 
         suspend fun getPropertiesQuery(

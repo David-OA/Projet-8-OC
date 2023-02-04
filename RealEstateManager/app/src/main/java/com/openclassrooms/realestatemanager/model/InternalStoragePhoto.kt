@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager.addproperty
+package com.openclassrooms.realestatemanager.model
 
 import android.graphics.Bitmap
 
