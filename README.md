@@ -16,23 +16,23 @@ Add Property :
 
 Edit Property :
 
-<img src="./app/src/main/res/drawable/edit.png?Raw=true" width="30%" height="30%">
+<img src="RealEstateManager/app/src/main/res/drawable/edit.png?Raw=true" width="30%" height="30%">
 
 Search Property :
 
-<img src="./app/src/main/res/drawable/search.png?Raw=true" width="30%" height="30%">
+<img src="RealEstateManager/app/src/main/res/drawable/search.png?Raw=true" width="30%" height="30%">
 
 Change currency :
 
-<img src="./app/src/main/res/drawable/dollars.png?Raw=true" width="30%" height="30%">
+<img src="RealEstateManager/app/src/main/res/drawable/dollars.png?Raw=true" width="30%" height="30%">
 
 Add Agent :
 
-<img src="./app/src/main/res/drawable/addagent.png?Raw=true" width="30%" height="30%">
+<img src="RealEstateManager/app/src/main/res/drawable/addagent.png?Raw=true" width="30%" height="30%">
 
 Calculate loan :
 
-<img src="./app/src/main/res/drawable/loan.png?Raw=true" width="30%" height="30%">
+<img src="RealEstateManager/app/src/main/res/drawable/loan.png?Raw=true" width="30%" height="30%">
 
 ### Library
 - Android Support Library
