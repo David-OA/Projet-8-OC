@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/search_view_started">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -398,72 +396,6 @@
                 layout="@layout/separator"
                 android:id="@+id/search_view_nearby_separator"
                 app:layout_constraintTop_toBottomOf="@id/search_view_nearby_group"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"/>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/search_view_extra_group"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/search_view_nearby_separator"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginStart="@dimen/margin_small"
-                android:layout_marginEnd="@dimen/margin_small">
-
-                <TextView
-                    android:id="@+id/search_view_extra_title"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/extras"
-                    style="@style/TitleREM"
-                    android:layout_marginTop="@dimen/margin_small"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
-
-                <com.google.android.material.checkbox.MaterialCheckBox
-                    android:id="@+id/search_view_is_available"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/is_available"
-                    app:layout_constraintTop_toBottomOf="@id/search_view_extra_title"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/search_view_photo"/>
-
-                <com.google.android.material.checkbox.MaterialCheckBox
-                    android:id="@+id/search_view_photo"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/has_pictures"
-                    app:layout_constraintStart_toEndOf="@id/search_view_is_available"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/search_view_is_available"
-                    app:layout_constraintBottom_toBottomOf="@id/search_view_is_available"/>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/search_view_on_market_after_inputlayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/posted_after"
-                    app:layout_constraintTop_toBottomOf="@id/search_view_photo"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/search_view_on_market_after"
-                        style="@style/Widget.AppCompat.Spinner"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:inputType="date"/>
-                </com.google.android.material.textfield.TextInputLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <include
-                layout="@layout/separator"
-                android:id="@+id/search_view_extra_separator"
-                app:layout_constraintTop_toBottomOf="@id/search_view_extra_group"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_height="wrap_content"
