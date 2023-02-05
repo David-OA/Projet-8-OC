@@ -12,7 +12,7 @@ An Android app that allows you to list properties for sale. All the properties a
 
 Add Property :
 
-<img src="./app/src/main/res/drawable/addproperty.png?Raw=true" width="30%" height="30%">
+<img src="RealEstateManager/app/src/main/res/drawable/addproperty.png?Raw=true" width="30%" height="30%">
 
 Edit Property :
 
