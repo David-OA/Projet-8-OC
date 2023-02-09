@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager.data.dao
 
+import android.database.Cursor
 import androidx.room.*
 import com.openclassrooms.realestatemanager.model.House
 import kotlinx.coroutines.flow.Flow
@@ -31,5 +32,12 @@ interface HouseDao {
         minPrice:String, maxPrice:String, minNbBathrooms: String, minSurface:String, maxSurface:String, minNbRoom:String,
         minNbBedroom:String, nearbySchool:Boolean, nearbyBuses: Boolean, nearbyPark: Boolean, nearbyPlayground: Boolean,
         nearbyShop: Boolean, nearbySubway: Boolean): List<House>
+
+
+    @Query("SELECT * FROM house ORDER BY house.details_market_since")
+    fun getAllPropertiesWithCursor(): Cursor
+
+    @Query("SELECT * FROM house WHERE house.house_id = :houseId")
+    fun getPropertyWithCursor(houseId: String): Cursor
 
 }

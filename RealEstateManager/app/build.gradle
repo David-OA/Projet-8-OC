@@ -77,6 +77,9 @@ dependencies {
     testImplementation "androidx.test.ext:junit:$rootProject.testJUnitVersion"
     testImplementation "androidx.test:runner:$rootProject.testRunnerVersion"
     androidTestImplementation "androidx.test:rules:$rootProject.ruleVersion"
+    androidTestImplementation('androidx.test.espresso:espresso-contrib:3.4.0') {
+        exclude module: "protobuf-lite"
+    }
 
     // Gson
     implementation 'com.google.code.gson:gson:2.8.6'
