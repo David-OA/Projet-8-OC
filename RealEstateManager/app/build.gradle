@@ -1,28 +1,145 @@
-apply plugin: 'com.android.application'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs.kotlin'
+    id("kotlin-parcelize")
+
+}
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 32
     defaultConfig {
+        configurations.all {
+            resolutionStrategy {
+                force 'androidx.core:core-ktx:1.6.0'
+            }
+        }
         applicationId "com.openclassrooms.realestatemanager"
-        minSdkVersion 19
-        targetSdkVersion 26
+        minSdkVersion 21
+        targetSdkVersion 32
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+
+        //Read the API key
+        def secureProps = new Properties()
+        if (file("../secure.properties").exists()) {
+            file("../secure.properties")?.withInputStream {secureProps.load(it)}
+        }
+        resValue "string", "maps_api_key", (secureProps.getProperty("MAPS_API_KEY") ?: "")
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    buildFeatures {
+        viewBinding true
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion "1.1.1"
+    }
+
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+repositories {
+    mavenCentral()
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    //noinspection GradleCompatible
+    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.fragment:fragment-ktx:1.5.1'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.1'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.1'
+
+    // Test
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    testImplementation "androidx.test:core:$rootProject.testCoreVersion"
+    testImplementation "androidx.test.ext:junit:$rootProject.testJUnitVersion"
+    testImplementation "androidx.test:runner:$rootProject.testRunnerVersion"
+    androidTestImplementation "androidx.test:rules:$rootProject.ruleVersion"
+
+    // Gson
+    implementation 'com.google.code.gson:gson:2.8.6'
+
+    //DESIGN
+    implementation 'com.google.android.material:material:1.1.0-alpha09'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.gridlayout:gridlayout:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    //BUTTERKNIFE
+    implementation 'com.jakewharton:butterknife:10.1.0'
+    kapt 'com.jakewharton:butterknife-compiler:10.1.0'
+
+    //RAPIDE FAB
+    implementation "com.github.wangjiegulu:rfab:$rootProject.rfabVersion"
+
+    //EASY PERMISSIONS
+    implementation "pub.devrel:easypermissions:$rootProject.easyPermVersion"
+
+    //IMAGE SLIDER
+    implementation "com.github.smarteist:autoimageslider:$rootProject.imageSliderVersion"
+
+    // COIL
+    implementation "io.coil-kt:coil:1.1.1"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    //Picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'jp.wasabeef:picasso-transformations:2.4.0'
+
+    // Room components
+    //noinspection GradleDependency
+    implementation "androidx.room:room-ktx:$rootProject.roomVersion"
+    kapt "androidx.room:room-compiler:$rootProject.roomVersion"
+    //noinspection GradleDependency
+    androidTestImplementation "androidx.room:room-testing:$rootProject.roomVersion"
+
+    // Lifecycle components
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$rootProject.lifecycleVersion"
+
+    // Kotlin components
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutines"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutines"
+
+    def compose_version = "1.0.0"
+    implementation("androidx.compose.runtime:runtime:$compose_version")
+    implementation "androidx.core:core-ktx:+"
+
+    // GMS
+    implementation "com.google.android.gms:play-services-maps:18.1.0"
+    implementation "com.google.android.libraries.maps:maps:3.1.0-beta"
+    implementation "com.google.android.gms:play-services-basement:17.3.0"
+    implementation "com.google.android.gms:play-services-base:17.3.0"
+    implementation "com.google.android.gms:play-services-gcm:17.0.0"
+    implementation "com.google.android.gms:play-services-location:17.0.0"
+
+    //ROBOLECTRIC
+    testImplementation "org.robolectric:robolectric:$rootProject.robolectricVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
 }
+

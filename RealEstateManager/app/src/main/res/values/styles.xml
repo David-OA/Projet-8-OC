@@ -1,11 +1,99 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="REMTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryLight</item>
+        <item name="colorOnPrimary">@color/colorTextPrimary</item>
+        <item name="colorSecondary">@color/colorAccent</item>
+        <item name="colorSecondaryVariant">@color/colorAccentDark</item>
+        <item name="colorOnSecondary">@color/colorTextAccent</item>
+        <item name="colorError">@color/colorAccentDark</item>
+        <item name="colorOnError">@color/colorTextAccent</item>
+        <item name="fontFamily">@font/roboto</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.REM.LargeComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.REM.MediumComponent</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.REM.SmallComponent</item>
+        <item name="materialButtonStyle">@style/ButtonREM</item>
+        <item name="textInputStyle">@style/TextInputLayoutRem</item>
+
+
     </style>
+
+    <!-- TOOLBAR THEME -->
+    <style name="ToolBarTheme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textColorPrimary">@color/colorToolbarText</item>
+    </style>
+    <!-- TOOLBAR TITLE THEME -->
+    <style name="ToolBarTheme.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">@dimen/toolbar_text_size</item>
+    </style>
+
+    <!-- FAB THEME -->
+    <style name="FloatingButtonREM" parent="Widget.Design.FloatingActionButton">
+        <item name="maxImageSize">40dip</item>
+        <item name="android:layout_marginEnd">15dip</item>
+        <item name="android:layout_marginBottom">50dip</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="ShapeAppearance.REM.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">6dp</item>
+    </style>
+
+    <style name="ShapeAppearance.REM.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">4dp</item>
+    </style>
+
+    <style name="ShapeAppearance.REM.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20dp</item>
+    </style>
+
+    <style name="ButtonREM" parent="Widget.MaterialComponents.Button">
+        <item name="android:background">?attr/colorSecondary</item>
+        <item name="rippleColor">?attr/colorOnSecondary</item>
+    </style>
+
+    <style name="ButtonOutlineREM" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="strokeWidth">2dp</item>
+        <item name="strokeColor">?attr/colorSecondary</item>
+        <item name="android:textColor">?attr/colorSecondary</item>
+        <item name="iconTint">?attr/colorSecondary</item>
+        <item name="rippleColor">?attr/colorOnSecondary</item>
+    </style>
+
+    <style name="TextInputLayoutRem" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="boxBackgroundMode">filled</item>
+        <item name="boxBackgroundColor">@android:color/transparent</item>
+    </style>
+
+    <style name="TitleREM">
+        <item name="android:textSize">@dimen/text_title</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="SmallTextREM">
+        <item name="android:textSize">@dimen/small_text</item>
+    </style>
+
+    <style name="SmallTitleREM" parent="SmallTextREM">
+        <item name="android:textStyle">bold</item>
+
+    </style>
+
+    <style name="IconDetailREM">
+        <item name="android:layout_weight">@dimen/icon_details_size</item>
+        <item name="android:layout_height">@dimen/icon_details_size</item>
+        <item name="android:tint">@color/colorPrimaryDark</item>
+    </style>
+
 
 </resources>

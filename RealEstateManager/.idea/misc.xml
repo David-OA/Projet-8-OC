@@ -1,33 +1,132 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/drawable/add_agent.xml" value="0.319" />
+        <entry key="app/src/main/res/drawable/add_icon.xml" value="0.2845" />
+        <entry key="app/src/main/res/drawable/agent_picture_default.xml" value="0.215" />
+        <entry key="app/src/main/res/drawable/baseline_add_20.xml" value="0.2435" />
+        <entry key="app/src/main/res/drawable/bathroom_icon.xml" value="0.2705" />
+        <entry key="app/src/main/res/drawable/bed_icon.xml" value="0.2705" />
+        <entry key="app/src/main/res/drawable/bus_icon.xml" value="0.319" />
+        <entry key="app/src/main/res/drawable/check_icon.xml" value="0.319" />
+        <entry key="app/src/main/res/drawable/dollar_icon.xml" value="0.2705" />
+        <entry key="app/src/main/res/drawable/edit_icon.xml" value="0.2845" />
+        <entry key="app/src/main/res/drawable/euro_icon.xml" value="0.319" />
+        <entry key="app/src/main/res/drawable/home_icon.xml" value="0.2705" />
+        <entry key="app/src/main/res/drawable/icon_camera.xml" value="0.319" />
+        <entry key="app/src/main/res/drawable/icon_location_sold.xml" value="0.2705" />
+        <entry key="app/src/main/res/drawable/icon_photo.xml" value="0.319" />
+        <entry key="app/src/main/res/drawable/near_icon.xml" value="0.2705" />
+        <entry key="app/src/main/res/drawable/park_icon.xml" value="0.319" />
+        <entry key="app/src/main/res/drawable/playground_icon.xml" value="0.319" />
+        <entry key="app/src/main/res/drawable/school_icon.xml" value="0.319" />
+        <entry key="app/src/main/res/drawable/search_icon.xml" value="0.2845" />
+        <entry key="app/src/main/res/drawable/shopping_icon.xml" value="0.319" />
+        <entry key="app/src/main/res/drawable/state_item_click.xml" value="0.319" />
+        <entry key="app/src/main/res/drawable/subway_icon.xml" value="0.319" />
+        <entry key="app/src/main/res/drawable/surface_icon.xml" value="0.2705" />
+        <entry key="app/src/main/res/drawable/test.xml" value="0.1535" />
+        <entry key="app/src/main/res/drawable/type_icon.xml" value="0.2705" />
+        <entry key="app/src/main/res/font/roboto.xml" value="0.3854166666666667" />
+        <entry key="app/src/main/res/font/roboto_bold.xml" value="0.3854166666666667" />
+        <entry key="app/src/main/res/font/roboto_italic.xml" value="0.3854166666666667" />
+        <entry key="app/src/main/res/font/roboto_thin.xml" value="0.3854166666666667" />
+        <entry key="app/src/main/res/layout-land/activity_main.xml" value="0.30158730158730157" />
+        <entry key="app/src/main/res/layout-land/activity_main_seconde.xml" value="0.30158730158730157" />
+        <entry key="app/src/main/res/layout-sw600dp/activity_main.xml" value="0.25" />
+        <entry key="app/src/main/res/layout-sw600dp/activity_main_deux.xml" value="0.2671875" />
+        <entry key="app/src/main/res/layout/activity_add_agent.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_add_property.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/activity_detail.xml" value="0.18072916666666666" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_main_deux.xml" value="0.35625" />
+        <entry key="app/src/main/res/layout/activity_main_seconde.xml" value="0.333786231884058" />
+        <entry key="app/src/main/res/layout/activity_second.xml" value="0.18177083333333333" />
+        <entry key="app/src/main/res/layout/amenities_checkboxes.xml" value="0.2078125" />
+        <entry key="app/src/main/res/layout/custom_sub_menu.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/custom_sub_menu_2.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/dropdown_menu_popup_item.xml" value="0.35520833333333335" />
+        <entry key="app/src/main/res/layout/fragment_a.xml" value="0.18072916666666666" />
+        <entry key="app/src/main/res/layout/fragment_add_property.xml" value="0.333786231884058" />
+        <entry key="app/src/main/res/layout/fragment_b.xml" value="0.18072916666666666" />
+        <entry key="app/src/main/res/layout/fragment_deux_test.xml" value="0.333786231884058" />
+        <entry key="app/src/main/res/layout/fragment_list_agents_dialog_view.xml" value="0.35520833333333335" />
+        <entry key="app/src/main/res/layout/fragment_maisons_infos.xml" value="0.402073732718894" />
+        <entry key="app/src/main/res/layout/fragment_maisons_list.xml" value="0.18177083333333333" />
+        <entry key="app/src/main/res/layout/fragment_property_infos.xml" value="0.35625" />
+        <entry key="app/src/main/res/layout/fragment_un_test.xml" value="0.333786231884058" />
+        <entry key="app/src/main/res/layout/list_agent_dialog_itel.xml" value="0.35520833333333335" />
+        <entry key="app/src/main/res/layout/list_agent_item.xml" value="0.18072916666666666" />
+        <entry key="app/src/main/res/layout/list_agent_search_view_item.xml" value="0.2078125" />
+        <entry key="app/src/main/res/layout/list_item.xml" value="0.135546875" />
+        <entry key="app/src/main/res/layout/list_pictures_added_item.xml" value="0.7257072570725708" />
+        <entry key="app/src/main/res/layout/maisons_list_item.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/picture_recyclerview_item.xml" value="0.35625" />
+        <entry key="app/src/main/res/layout/search_icon.xml" value="0.2078125" />
+        <entry key="app/src/main/res/layout/search_property_view.xml" value="0.2078125" />
+        <entry key="app/src/main/res/layout/separator.xml" value="0.333786231884058" />
+        <entry key="app/src/main/res/layout/slider_itel.xml" value="0.333786231884058" />
+        <entry key="app/src/main/res/layout/slider_item.xml" value="0.35625" />
+        <entry key="app/src/main/res/layout/toolbar.xml" value="0.25" />
+        <entry key="app/src/main/res/menu/menu.xml" value="0.35520833333333335" />
+        <entry key="app/src/main/res/menu/menu_toolbar_detail_view_edit.xml" value="0.35520833333333335" />
+        <entry key="app/src/main/res/menu/menu_toolbar_validate_button.xml" value="0.35520833333333335" />
+        <entry key="app/src/main/res/xml/file_path.xml" value="0.5" />
+      </map>
+    </option>
+  </component>
   <component name="NullableNotNullManager">
     <option name="myDefaultNullable" value="android.support.annotation.Nullable" />
     <option name="myDefaultNotNull" value="android.support.annotation.NonNull" />
     <option name="myNullables">
       <value>
-        <list size="4">
+        <list size="12">
           <item index="0" class="java.lang.String" itemvalue="org.jetbrains.annotations.Nullable" />
           <item index="1" class="java.lang.String" itemvalue="javax.annotation.Nullable" />
           <item index="2" class="java.lang.String" itemvalue="edu.umd.cs.findbugs.annotations.Nullable" />
           <item index="3" class="java.lang.String" itemvalue="android.support.annotation.Nullable" />
+          <item index="4" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NullableDecl" />
+          <item index="5" class="java.lang.String" itemvalue="androidx.annotation.Nullable" />
+          <item index="6" class="java.lang.String" itemvalue="org.eclipse.jdt.annotation.Nullable" />
+          <item index="7" class="java.lang.String" itemvalue="com.android.annotations.Nullable" />
+          <item index="8" class="java.lang.String" itemvalue="androidx.annotation.RecentlyNullable" />
+          <item index="9" class="java.lang.String" itemvalue="javax.annotation.CheckForNull" />
+          <item index="10" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.qual.Nullable" />
+          <item index="11" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NullableType" />
         </list>
       </value>
     </option>
     <option name="myNotNulls">
       <value>
-        <list size="4">
+        <list size="11">
           <item index="0" class="java.lang.String" itemvalue="org.jetbrains.annotations.NotNull" />
           <item index="1" class="java.lang.String" itemvalue="javax.annotation.Nonnull" />
           <item index="2" class="java.lang.String" itemvalue="edu.umd.cs.findbugs.annotations.NonNull" />
           <item index="3" class="java.lang.String" itemvalue="android.support.annotation.NonNull" />
+          <item index="4" class="java.lang.String" itemvalue="androidx.annotation.RecentlyNonNull" />
+          <item index="5" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.qual.NonNull" />
+          <item index="6" class="java.lang.String" itemvalue="com.android.annotations.NonNull" />
+          <item index="7" class="java.lang.String" itemvalue="androidx.annotation.NonNull" />
+          <item index="8" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NonNullType" />
+          <item index="9" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NonNullDecl" />
+          <item index="10" class="java.lang.String" itemvalue="org.eclipse.jdt.annotation.NonNull" />
         </list>
       </value>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.33" />
+      </ProjectState>
+    </option>
   </component>
 </project>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="RtlSymmetry">
+
+    <ImageView
+        android:id="@+id/picture_info_rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/app_name"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/description_picture"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:textColor="#FFFFFF"
+        android:text="@string/description"
+        android:gravity="center"
+        android:layout_gravity="bottom"
+        android:background="#80000000" />
+</FrameLayout>

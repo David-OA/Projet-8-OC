@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/activity_add_property"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".loan.LoanActivity">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/loan_term_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="@dimen/margin_small"
+                android:layout_marginStart="@dimen/margin_small"
+                tools:ignore="MissingConstraints">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/loan_amount_inputlayout"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/amount"
+                    android:layout_marginBottom="@dimen/margin_small">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/loan_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/loan_down_payment_inputlayout"
+                    app:layout_constraintTop_toBottomOf="@id/loan_amount_inputlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/paiement"
+                    android:layout_marginBottom="@dimen/margin_small">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/loan_down_payment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <include
+                layout="@layout/separator"
+                android:id="@+id/loan_term_separator"
+                app:layout_constraintTop_toBottomOf="@id/loan_term_group"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/loan_option"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/loan_term_separator"
+                android:layout_marginEnd="@dimen/margin_small"
+                android:layout_marginStart="@dimen/margin_small">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/loan_option_term_inputlayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/loan_term_years"
+                    android:layout_marginEnd="@dimen/margin_small"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/loan_interest_rate_inputlayout"
+                    app:layout_constraintWidth_percent="0.5"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/loan_term_years"
+                        style="@style/Widget.AppCompat.Spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:ems="10"
+                        android:inputType="numberDecimal" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/loan_interest_rate_inputlayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/interest_rate"
+                    app:layout_constraintTop_toTopOf="@id/loan_option"
+                    app:layout_constraintStart_toEndOf="@id/loan_option_term_inputlayout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintWidth_percent="0.5">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/loan_interest_rate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="numberDecimal"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <include
+                layout="@layout/separator"
+                android:id="@+id/add_property_view__separator"
+                app:layout_constraintTop_toBottomOf="@id/loan_option"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/add_property_view_date_group"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/add_property_view__separator"
+                android:layout_marginEnd="@dimen/margin_small"
+                android:layout_marginStart="@dimen/margin_small">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/monthly_pay_inputlayout"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/monthly_pay"
+                    android:layout_marginBottom="@dimen/margin_small">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/monthly_pay"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/interest_total_cost_inputlayout"
+                    app:layout_constraintTop_toBottomOf="@id/monthly_pay_inputlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/interest_total_cost"
+                    android:layout_marginBottom="@dimen/margin_small"
+                    android:layout_marginTop="@dimen/margin_small">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/interest_total_cost"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <include
+                layout="@layout/separator"
+                android:id="@+id/loan_view_interest_separator"
+                app:layout_constraintTop_toBottomOf="@id/add_property_view_date_group"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/calculate_loan_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/loan_view_interest_separator"
+                android:layout_marginTop="@dimen/margin_small"
+                android:text="@string/calculate"
+                style="@style/ButtonOutlineREM" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

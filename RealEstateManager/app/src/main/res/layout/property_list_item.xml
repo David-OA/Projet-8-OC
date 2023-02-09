@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/list_property_item_background"
+    android:layout_margin="@dimen/cardview_small_margin">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        
+        <com.openclassrooms.realestatemanager.propertyinfos.ImageViewWithLabel
+            android:id="@+id/custom_view_with_label"
+            android:layout_height="@dimen/size_list_item"
+            android:layout_width="@dimen/size_list_item"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@null"
+            android:src="@drawable/home_icon"/>
+
+        <TextView
+            android:id="@+id/house_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:padding="8dp"
+            android:textSize="@dimen/text_title"
+            android:text="@string/house_type_placeholder"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/custom_view_with_label"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/house_neighborhood"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:padding="8dp"
+            android:text="@string/house_neighborhood"
+            android:textSize="@dimen/text_subtitle"
+            android:textColor="?android:textColorSecondary"
+            app:layout_constraintStart_toEndOf="@+id/custom_view_with_label"
+            app:layout_constraintTop_toBottomOf="@+id/house_type" />
+
+        <TextView
+            android:id="@+id/house_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:padding="8dp"
+            android:singleLine="true"
+            android:text="@string/price_house"
+            android:textSize="@dimen/text_price"
+            android:textColor="@color/colorAccent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/custom_view_with_label"
+            app:layout_constraintTop_toBottomOf="@+id/house_neighborhood" />
+
+        <ImageView
+            android:id="@+id/house_sold"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/house_type"
+            app:layout_constraintTop_toBottomOf="@+id/house_type"
+            android:contentDescription="@string/sold_picture" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

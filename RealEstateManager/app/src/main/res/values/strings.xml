@@ -1,3 +1,140 @@
 <resources>
     <string name="app_name">Real Estate Manager</string>
+
+    <!-- Strings used for fragments for navigation -->
+    <string name="list_fragment_label">Houses</string>
+    <string name="info_fragment_label">Houses Info</string>
+
+    <string name="architecte">Architecte</string>
+    <string name="rooms">Rooms</string>
+    <string name="price">Price</string>
+    <string name="surface">Surface</string>
+    <string name="bath">Bath</string>
+
+    <!-- Add property-->
+    <string name="type_dropdown_menu">Type dropdown menu</string>
+    <string name="price_dollar">Price </string>
+    <string name="surface_m2">Surface m2</string>
+    <string name="bedrooms">Bedrooms</string>
+    <string name="bathrooms">Bathrooms</string>
+    <string name="near_by">Near by</string>
+    <string name="description">Description</string>
+    <string name="address">Address</string>
+    <string name="neighbourhood">Neighbourhood</string>
+    <string name="on_market_since">On market since</string>
+    <string name="sold">Sold</string>
+    <string name="sold_on">Sold on</string>
+    <string name="manage_by">Manage by</string>
+    <string name="add_pictures">Add pictures</string>
+    <string name="add_proprety_error">This field can\'t be empty</string>
+
+    <!-- For menu -->
+    <string name="add_property">Add Property</string>
+    <string name="add_agent">Add Agent</string>
+    <string name="add_a_property_or_agent">Add a property or agent</string>
+    <string name="edit">Edit</string>
+    <string name="search">Search</string>
+    <string name="start_search_result">Start Search result</string>
+    <string name="currency">currency</string>
+    <string name="validate_menu">validate_menu</string>
+    <string name="use_camera">Use camera</string>
+    <string name="use_galerie">Use Galerie</string>
+    <string name="money">money</string>
+    <string name="loan">Loan</string>
+
+    <!-- For Search-->
+    <string name="type">Type</string>
+    <string name="select_all">Select all</string>
+    <string name="flat">Flat</string>
+    <string name="penthouse">Penthouse</string>
+    <string name="townhouse">Town house</string>
+    <string name="house">House</string>
+    <string name="duplex">Duplex</string>
+    <string name="min_price">min price</string>
+    <string name="max_price">max price</string>
+    <string name="min_surface">min surface</string>
+    <string name="max_surface">max surface</string>
+    <string name="min_rooms">min rooms</string>
+    <string name="min_bedrooms">min bedrooms</string>
+    <string name="min_bathrooms">min bathrooms</string>
+    <string name="neighborhood_name">Neighborhood name</string>
+    <string name="extras">extras</string>
+    <string name="is_available">is available</string>
+    <string name="has_pictures">has pictures</string>
+    <string name="posted_after">posted after</string>
+
+    <!-- Loan -->
+    <string name="paiement">Down payment</string>
+    <string name="amount">Loan amount</string>
+    <string name="interest_total_cost">Interest total cost</string>
+    <string name="monthly_pay">Monthly pay</string>
+    <string name="loan_term_years">Loan term (years)</string>
+    <string name="interest_rate">Interest rate (%)</string>
+    <string name="calculate">Calculate</string>
+
+    <string name="loan_error">This field can\'t be empty</string>
+    <string name="loan_error_interest_value">Interest rate must be between 0 and 100</string>
+    <string name="loan_error_down_payment">The down payment can\'t be higher or equal than loan amount</string>
+
+    <!-- LOAN TERM VALUES -->
+    <string-array name="loan_term_values">
+        <item>@string/loan_term_10</item>
+        <item>@string/loan_term_15</item>
+        <item>@string/loan_term_20</item>
+        <item>@string/loan_term_25</item>
+        <item>@string/loan_term_30</item>
+    </string-array>
+
+    <string name="loan_term_10">10</string>
+    <string name="loan_term_15">15</string>
+    <string name="loan_term_20">20</string>
+    <string name="loan_term_25">25</string>
+    <string name="loan_term_30">30</string>
+
+    <!-- For Add Agent -->
+    <string name="agent_picture">Agent_picture</string>
+    <string name="click_button_for_add_picture">Click button for add picture</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="email">email</string>
+    <string name="phone_number">Phone number</string>
+    <string name="add_agent_error">This field can\'t be empty</string>
+
+    <!-- Amenities -->
+    <string name="school">school</string>
+    <string name="playground">playground</string>
+    <string name="shop">shop</string>
+    <string name="buses">buses</string>
+    <string name="subway">subway</string>
+    <string name="park">park</string>
+
+    <!-- Property info -->
+    <string name="media">Media</string>
+    <string name="n_a">n_a</string>
+    <string name="icon_surface">Icon_surface</string>
+    <string name="number_room_icon">Number room icon</string>
+    <string name="number_of_rooms">Number of rooms</string>
+    <string name="number_bathroom_icon">Number bathroom icon</string>
+    <string name="number_of_bathrooms">Number of bathrooms</string>
+    <string name="bed_icon">bed icon</string>
+    <string name="number_of_bedrooms">Number of bedrooms</string>
+    <string name="price_icon">price_icon</string>
+    <string name="type_icon">type_icon</string>
+    <string name="near_icon">near_icon</string>
+    <string name="amenity_icon">amenity_icon</string>
+    <string name="location_icon">location_icon</string>
+    <string name="location">location</string>
+    <string name="view_map">view_map</string>
+
+    <!-- For list agent dialog -->
+    <string name="rv_picture_icon">rv_picture_icon</string>
+    <string name="rv_foreground">rv_foreground</string>
+    <string name="rv_delete_button">rv_delete_button</string>
+
+    <!-- For property list item -->
+    <string name="house_type_placeholder">house_type_placeholder</string>
+    <string name="house_neighborhood">house_neighborhood</string>
+    <string name="price_house">price house</string>
+    <string name="sold_picture">sold_picture</string>
+
 </resources>
